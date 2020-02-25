@@ -53,11 +53,9 @@
 						</h4>
 						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
               <div class="size-208 w-full-ssm stext-110 cl2 input-group-prepend">
-                  <input class="shopping" type="text" name="username" placeholder="Name...">
-                  <input class="shopping" type="email" name="email" placeholder="Email...">
-                  <input class="shopping" type="text" name="phone" placeholder=Phone...>
-                  <input class="shopping" type="text" name="address" placeholder="Address...">
-                  <input class="shopping" type="text" name="note" placeholder="Note...">
+                  <input class="shopping" type="text" name="phone" placeholder=Phone... required>
+                  <input class="shopping" type="text" name="address" placeholder="Address..." required>
+                  <input class="shopping" type="text" name="note" placeholder="Note..." required>
               </div>
 						</div>
 						<button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">

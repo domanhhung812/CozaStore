@@ -121,6 +121,8 @@ function(){
 		Route::get('/','AdminTransactionController@index')->name('transactions');
 		Route::get('/view/{id}','AdminTransactionController@viewOrder')->name('getViewOrder');
 		Route::get('/active/{id}','AdminTransactionController@activeTransaction')->name('getActiveTransaction');
+		Route::post('/active/{id}','AdminTransactionController@activeTransaction')->name('sendEmailBill');
+		Route::post('delete-transaction','AdminTransactionController@deleteTransaction')->name('deleteTransaction');
 	});
 	Route::group(['prefix' => 'blogs'], function(){
 		Route::get('/','AdminBlogController@index')->name('blogs');

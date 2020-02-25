@@ -45,11 +45,11 @@
             @if( $transaction->tr_status   == 1)
               <a href="#" class="label-success label">Đã xử lý</a>
             @else
-              <a href="{{route('admin.getActiveTransaction', $transaction->id)}}" class="label-default label">Chờ xử lý</a>
+              <a href="{{route('admin.sendEmailBill', $transaction->id)}}" class="label-default label">Chờ xử lý</a>
             @endif
             </td>
 						<td>
-							<a class="btn btn-light btnDelete" id="">Delete</a>
+							<a class="btn btn-light btnDelete" id="{{$transaction->id}}">Delete</a>
               <a href="{{route('admin.getViewOrder',$transaction->id)}}" class="btn btn-light js_order_item" id="" data-id="{{ $transaction->id }}"><i class="fas fa-eye"></i></a>
 						</td>
 					</tr>
@@ -57,7 +57,7 @@
         @endif
 			</tbody>
 		</table>
-		{{-- {{ $link->links() }} --}}
+	  {{ $transactions->links() }}
 		{{-- phan trang va tim kiem --}}
 		{{-- {{ $link->appends(request()->query())->links() }} --}}
 	</div>
@@ -101,6 +101,34 @@
           }
         });
       });
+      $('.btnDelete').click(function(event){
+      event.preventDefault();
+      let self = $(this);
+				let idTr = self.attr('id');
+				if($.isNumeric(idTr)){
+					$.ajax({
+						url: "{{ route('admin.deleteTransaction') }}",
+						type: "POST",
+						data: {id: idTr},
+						beforeSend: function(){
+							self.text('Loading ...');
+						},
+						success: function(result){
+							self.text('Delete');
+							result = $.trim(result);
+							if(result === 'OK'){
+								alert('Delete successful');
+								window.location.reload(true);
+								$('#row_'+idTr).hide();
+							} else {
+								alert('Delete fail');
+							}
+							return false;
+						}
+					});
+				}
     });
+    });
+    
 </script>
 @endpush
