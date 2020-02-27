@@ -3,6 +3,7 @@
 <head>
   <title>Coza Store - @yield('title')</title>
   <meta charset="UTF-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->  
   <link rel="icon" type="image/png" href="{{ asset('frontend/images/icons/favicon.png') }}"/>
@@ -165,7 +166,7 @@
         <li>
           <div class="left-top-bar">
             Free shipping for standard order over $100
-          </div>
+          </div>  
         </li>
 
         <li>

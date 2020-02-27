@@ -140,6 +140,9 @@ Coza Store Center 8th floor, 379 Hudson St, New York<br>
             </tr>
             <tr class="heading">
                 <td>
+                    #
+                </td>
+                <td>
                     Item
                 </td>
                 <td>
@@ -152,27 +155,29 @@ Coza Store Center 8th floor, 379 Hudson St, New York<br>
                     Subtotal
                 </td>
             </tr>
-            
+            @foreach($infoProduct as $key => $item)
             <tr class="item">
                 <td>
-                    {{$name_product}}
-                </td>
-                
-                <td>
-                    {{$price}}$
+                    {{$key + 1}}
                 </td>
                 <td>
-                    {{$qty_ordered}}
+                    {{$item->name_product}}
                 </td>
                 <td>
-                    {{$price * $qty_ordered}}$
+                    {{$item->price}}$
+                </td>
+                <td>
+                    {{$item->or_qty}}
+                </td>
+                <td>
+                    {{$item->price * $item->or_qty}}$
                 </td>
             </tr>
+            @endforeach
             <tr class="total">
                 <td></td>
-                
                 <td>
-                   <b>Total: {{$total}}$</b>
+                   <h2><b style="color:red;">Total: {{$total}}$</b></h2>
                 </td>
             </tr>
         </table>

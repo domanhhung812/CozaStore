@@ -69,37 +69,19 @@
 
               <ul>
                 <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    Default
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    Popularity
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    Average rating
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                  <a href="{{ route('fr.sortProductsByDate') }}" class="filter-link stext-106 trans-04 filter-link-active">
                     Newness
                   </a>
                 </li>
 
                 <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
+                  <a href="{{ route('fr.sortProductsByPriceAsc') }}" class="filter-link stext-106 trans-04">
                     Price: Low to High
                   </a>
                 </li>
 
                 <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
+                  <a href="{{ route('fr.sortProductsByPriceDesc') }}" class="filter-link stext-106 trans-04">
                     Price: High to Low
                   </a>
                 </li>
@@ -111,43 +93,24 @@
                 Price
               </div>
 
-              <ul>
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                    All
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    $0.00 - $50.00
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    $50.00 - $100.00
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    $100.00 - $150.00
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    $150.00 - $200.00
-                  </a>
-                </li>
-
-                <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
-                    $200.00+
-                  </a>
-                </li>
-              </ul>
+              <form action="{{ route('fr.sortProductsByRangePrice') }}">
+                <span>
+                  Min:<br />
+                  <input type="number" name="min_price" required style="border: 1px solid gray;
+                  border-radius:10px; padding-left:10px;"/>
+                  Max:<br />
+                  <input type="number" name="max_price" required style="border: 1px solid gray;
+                  border-radius:10px; padding-left:10px;"/>
+                  <button
+                    id="btnSort"
+                    type="submit"
+                    class="btn btn-primary"
+                    style="margin-top:10px;"
+                  >
+                    OK
+                  </button>
+                </span>
+              </form>
             </div>
 
             <div class="filter-col3 p-r-15 p-b-27">
@@ -159,7 +122,7 @@
               @foreach($colors as $data)
               <?php $cl_name = json_decode($data)->name_color ?>
                 <li class="p-b-6">
-                  <a href="#" class="filter-link stext-106 trans-04">
+                  <a href="{{ route('fr.sortProductsByColor', $data->id) }}" class="filter-link stext-106 trans-04">
                     {{ $cl_name }}
                   </a>
                 </li>
@@ -204,9 +167,9 @@
           <!-- Block2 -->
           <div class="block2">
             <div class="block2-pic hov-img0">
-              <img src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT">
+              <img src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT" style="height:333px;">
 
-              <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+              <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                 Quick View
               </a>
             </div>

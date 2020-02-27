@@ -30,10 +30,10 @@
 										<img width="60px" height="80px" src="{{ URL::to('/') }}/upload/images/{{ $product->options->images }}" alt="IMG">
 									</td>
 									<td class="column-2">{{ $product->name }}</td>
-									<td class="column-3">{{ $product->price }}</td>
+									<td class="column-3">{{ $product->price }}$</td>
 									<td class="column-4">{{ $product->qty }}
 									</td>
-									<td class="column-5">{{ $product->qty * $product->price }}</td>
+									<td class="column-5">{{ $product->qty * $product->price }}$</td>
 								</tr>
                 @endforeach
                 <tr class="table_row">

@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Input;
 
 class CartController extends BaseController
 {
@@ -29,10 +30,8 @@ class CartController extends BaseController
 
     public function addCart(Request $request, $id)
     {
-        $product = Products::select('name_product', 'id', 'price', 'qty', 'image_product')->find($id);
-
+        $product = Products::select('name_product', 'id', 'price','colors_id','sizes_id', 'qty', 'image_product')->find($id);
         if(!$product) return redirect('/');
-
         if($product->qty == 0){
             \Toastr::warning('Sản phẩm đã hết vui lòng chọn sản phẩm khác', 'Cảnh báo', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
@@ -41,10 +40,12 @@ class CartController extends BaseController
         Cart::add([
             			'id' => $id,
             			'name' => $product->name_product,
-            			'qty' => 1,
+            			'qty' => $request->num_product,
             			'price' => $product->price,
             			'options' => [
-            				'images' => json_decode($product->image_product,true)[0],
+                            'images' => json_decode($product->image_product,true)[0],
+                            'size' => $request->inlineRadioOptions,
+                            'color' => $request->inlineRadioOptionsColor
             			]
                     ]);
         \Toastr::success('Thêm vào giỏ hàng thành công', 'Thành công', ["positionClass" => "toast-top-right"]);

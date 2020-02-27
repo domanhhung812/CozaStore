@@ -84,4 +84,28 @@ class ProductController extends BaseController
 				return view('frontend.search.index',compact('items'));
 			}
 		}
+		public function sortProductsByRangePrice(Request $request){
+			$min = $request->min_price;
+			$max = $request->max_price;
+			$items = DB::table('products')->select('*')->whereBetween('price', [$min, $max])->get();
+			return view('frontend.search.index',compact('items'));
+		}
+		public function sortProductsByPriceAsc(){
+			$items = DB::table('products')->select('*')->orderBy('price','asc')->get();
+			return view('frontend.search.index',compact('items'));
+		}
+		public function sortProductsByPriceDesc(){
+			$items = DB::table('products')->select('*')->orderBy('price','desc')->get();
+			return view('frontend.search.index',compact('items'));
+		}
+		public function sortProductsByDate(){
+			$items = DB::table('products')
+							->latest()
+							->get();
+			return view('frontend.search.index',compact('items'));
+		}
+		public function sortProductsByColor($id){
+			$items = DB::table('products')->select('*')->whereJsonContains('colors_id',$id)->get();
+			return view('frontend.search.index',compact('items'));
+		}
 }

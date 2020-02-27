@@ -32,11 +32,11 @@
 			<img width="60px" height="80px" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="">
 		</td>
 		<td class="column-3 column">{{ $order->product->name_product }}</td>
-		<td class="column-4 column">{{ $order->or_price }}</td>
+		<td class="column-4 column">{{ $order->or_price }}$</td>
 		<td class="column-5 column">
 		{{ $order->or_qty }}
 		
-		<td class="column-6 column">{{ $order->or_price * $order->or_qty }}</td>
+		<td class="column-6 column">{{ $order->or_price * $order->or_qty }}$</td>
 	</tr>
 	@endforeach
 	<!-- <tr class="table_row">

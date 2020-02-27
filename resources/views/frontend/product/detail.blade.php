@@ -3,120 +3,114 @@
 @section('content')
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-lg-7 p-b-30">
-					<div class="p-l-25 p-r-30 p-lr-0-lg">
-						<div class="wrap-slick3 flex-sb flex-w">
-							<div class="wrap-slick3-dots"></div>
-							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-				
-								<img src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" alt="" style="width: 400px; heigth: 500px;">
-				
+			<form action="{{ route('fr.addCart', ['id' => $info['id'] ]) }}" method="post">
+						@csrf
+				<div class="row">
+					<div class="col-md-6 col-lg-7 p-b-30">
+						<div class="p-l-25 p-r-30 p-lr-0-lg">
+							<div class="wrap-slick3 flex-sb flex-w">
+								<div class="wrap-slick3-dots"></div>
+								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+					
+									<img src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" alt="" style="width: 400px; heigth: 500px;">
+					
+							</div>
 						</div>
 					</div>
-				</div>
-					
-				<div class="col-md-6 col-lg-5 p-b-30">
-					<div class="p-r-50 p-t-5 p-lr-0-lg">
-						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-						{{ $info['name_product'] }}
-						</h4>
-
-						<span class="mtext-106 cl2">
-						{{ number_format($info['price']) }}$
-						</span>
-
-						<p class="stext-102 cl3 p-t-23">
-						{!! $info['description'] !!}
-						</p>
 						
-						<!--  -->
-						<div class="p-t-33">
-							<div class="flex-w flex-r-m p-b-10">
-								<div class="size-203 flex-c-m respon6">
-									Size
-								</div>
+					<div class="col-md-6 col-lg-5 p-b-30">
+						<div class="p-r-50 p-t-5 p-lr-0-lg">
+							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+							{{ $info['name_product'] }}
+							</h4>
 
-								<div class="size-204 respon6-next">
-									<div class="">
-									@foreach($sizes as $key => $item)
-										<label class="form-check">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}">
-										<span class="form-check-label">{{ $item['letter_size'] }}</span>
-									</label>
-									@endforeach
+							<span class="mtext-106 cl2">
+							{{ number_format($info['price']) }}$
+							</span>
+
+							<p class="stext-102 cl3 p-t-23">
+							{!! $info['description'] !!}
+							</p>
+							
+							<!--  -->
+							<div class="p-t-33">
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">
+										Size
 									</div>
-								</div>
-							</div>
 
-							<div class="flex-w flex-r-m p-b-10">
-								<div class="size-203 flex-c-m respon6">
-									Color
-								</div>
-
-								<div class="size-204 respon6-next">
-									<div class="">
-									@foreach($colors as $key => $item)
-										<label class="form-check">
-											<input class="form-check-input px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}">
-											<p class="form-check-label" 
-											style="
-												padding-left: -10px !important;
-											"
-											>{{ $item['name_color'] }}</p>
+									<div class="size-204 respon6-next">
+										<div class="">
+										@foreach($sizes as $key => $item)
+											<label class="form-check">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}">
+											<span class="form-check-label">{{ $item['letter_size'] }}</span>
 										</label>
-									@endforeach
+										@endforeach
+										</div>
 									</div>
 								</div>
+
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">
+										Color
+									</div>
+
+									<div class="size-204 respon6-next">
+										<div class="">
+										@foreach($colors as $key => $item)
+											<label class="form-check">
+												<input class="form-check-input px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}">
+												<p class="form-check-label" 
+												style="
+													padding-left: -10px !important;
+												"
+												>{{ $item['name_color'] }}</p>
+											</label>
+										@endforeach
+										</div>
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-204 flex-w flex-m respon6-next">
+										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%">
+										</div>
+										<div class="my-10">
+											<p>(Số lượng còn trong kho: {{ $info['qty'] }}.)</p>
+										</div>
+										<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+											Add to cart
+										</button>
+									</div>
+								</div>	
 							</div>
 
-							<div class="flex-w flex-r-m p-b-10">
-								<div class="size-204 flex-w flex-m respon6-next">
-									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-minus"></i>
-										</div>
-
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-plus"></i>
-										</div>
-									</div>
-									<div class="my-10">
-										<p>(Số lượng còn trong kho: {{ $info['qty'] }}.)</p>
-									</div>
-									<a href="#" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										Add to cart
+							<!--  -->
+							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+								<div class="flex-m bor9 p-r-10 m-r-11">
+									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+										<i class="zmdi zmdi-favorite"></i>
 									</a>
 								</div>
-							</div>	
-						</div>
 
-						<!--  -->
-						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-									<i class="zmdi zmdi-favorite"></i>
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+									<i class="fa fa-facebook"></i>
+								</a>
+
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+									<i class="fa fa-twitter"></i>
+								</a>
+
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+									<i class="fa fa-google-plus"></i>
 								</a>
 							</div>
-
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-								<i class="fa fa-facebook"></i>
-							</a>
-
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-								<i class="fa fa-twitter"></i>
-							</a>
-
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-								<i class="fa fa-google-plus"></i>
-							</a>
 						</div>
 					</div>
 				</div>
-			</div>
-
+			</form>
 			<div class="bor10 m-t-50 p-t-43 p-b-40">
 				<!-- Tab01 -->
 				<div class="tab01">

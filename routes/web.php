@@ -152,9 +152,15 @@ Route::group([
 	Route::post('/detail-product/{id}','ProductController@postComments')
 	->name('postComments')
 	->where(['id' => '\d+']);
+	// Sort Products
 	Route::get('/products-list','ProductController@searchProducts')->name('searchProducts');
+	Route::get('/products-list-by-range-price','ProductController@sortProductsByRangePrice')->name('sortProductsByRangePrice');
+	Route::get('/products-list-by-price-asc','ProductController@sortProductsByPriceAsc')->name('sortProductsByPriceAsc');
+	Route::get('/products-list-by-price-desc','ProductController@sortProductsByPriceDesc')->name('sortProductsByPriceDesc');
+	Route::get('/product-list-by-date','ProductController@sortProductsByDate')->name('sortProductsByDate');
+	Route::get('/product-list-by-color/{id}','ProductController@sortProductsByColor')->name('sortProductsByColor');
 
-	Route::get('/add-cart/{id}','CartController@addCart')->name('addCart')->where(['id'=>'[0-9]+']);
+	Route::match(['get','post'],'/add-cart/{id}','CartController@addCart')->name('addCart')->where(['id'=>'[0-9]+']);
 	Route::get('/cart','CartController@showCart')->name('showCart');
 	Route::get('/cart-list','CartController@getListCart')->name('getListCart');
 	Route::get('/delete-cart/{rowId}','CartController@deleteCart')->name('deleteCart');

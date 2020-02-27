@@ -78,9 +78,7 @@ class AdminTransactionController extends Controller
             'email' => json_decode($checkUser)[0]->email,
             'phone' => $transactions->tr_phone,
             'address' => $transactions->tr_address,
-            'name_product' => json_decode($dataProduct)[0]->name_product,
-            'price' => json_decode($dataProduct)[0]->price,
-            'qty_ordered' => json_decode($dataProduct)[0]->or_qty,
+            'infoProduct' => json_decode($dataProduct),
             'total' => $transactions->tr_total
         ];
         $transactions->tr_status = Transaction::STATUS_DONE;
