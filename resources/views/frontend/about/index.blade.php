@@ -1,6 +1,19 @@
 @extends('frontend.base-layout')
 @section('title', 'About us')
 @section('content')
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{asset('frontend/images/bg-01.jpg')}}');margin-top: 100px;">
+		<h2 class="ltext-105 cl0 txt-center">
+			About
+		</h2>
+	</section>
 		<div class="container bg0 p-t-75 p-b-120">
 			<div class="row p-b-148">
 				<div class="col-md-7 col-lg-8">

@@ -1,7 +1,18 @@
 @extends('frontend.base-layout')
 @section('title','My product details')
 @section('content')
-<section class="sec-product-detail bg0 p-t-65 p-b-60">
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+.comments{
+	margin-left: 70px !important;
+}
+</style>
+<section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="margin-top: 100px;">
 		<div class="container">
 			<form action="{{ route('fr.addCart', ['id' => $info['id'] ]) }}" method="post">
 						@csrf
@@ -42,7 +53,7 @@
 									<div class="size-204 respon6-next">
 										<div class="">
 										@foreach($sizes as $key => $item)
-											<label class="form-check">
+											<label class="form-check" style="padding-top: 10px;">
 											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}">
 											<span class="form-check-label">{{ $item['letter_size'] }}</span>
 										</label>
@@ -59,7 +70,7 @@
 									<div class="size-204 respon6-next">
 										<div class="">
 										@foreach($colors as $key => $item)
-											<label class="form-check">
+											<label class="form-check" style="padding-top: 10px;">
 												<input class="form-check-input px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}">
 												<p class="form-check-label" 
 												style="
@@ -75,7 +86,7 @@
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%">
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
 										</div>
 										<div class="my-10">
 											<p>(Số lượng còn trong kho: {{ $info['qty'] }}.)</p>
@@ -125,7 +136,7 @@
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Comments</a>
 						</li>
 					</ul>
 
@@ -143,25 +154,28 @@
 						<div class="tab-pane fade" id="reviews" role="tabpanel">
 							<div class="row">
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div class="p-b-30 m-lr-15-sm">
+									<div class="p-b-30 m-lr-15-sm" style="position:relative; top: -9%; left: 14%;">
 										<!-- Review -->
 										@foreach($comments as $key=> $comment)
-										<div class="flex-w flex-t p-b-68">
-											<div class="size-207">
-												<div class="flex-w flex-sb-m p-b-17">
-													<span class="mtext-107 cl2 p-r-20" style="color:red; font-family: Arial;">
-														{{ ($key + 1).". ".$comment->co_name }}
-													</span>
-												</div>
+										<div class="flex-w flex-t p-b-68 py-0 comments">
+											<div class="size-207" style="">
+												<span>
+													<img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;">
+													<div class="flex-w flex-sb-m p-b-17">
+														<span class="mtext-107 cl2 p-r-20" style="color:#385898; font-family: Arial;">
+															{{ $comment->co_name }}
+														</span>
+													</div>
 
-												<p class="stext-102 cl6" style="color:blue; font-family: Arial;">
-													<i class="fa fa-arrow-right" aria-hidden="true"> {{ $comment->co_content }}</i>
-												</p>
+													<p class="stext-102 cl6" style="color:#1c1e21; font-family: Arial;">
+														{{ $comment->co_content }}</i>
+													</p>
+												</span>
 											</div>
 										</div>
 										@endforeach
 										<!-- Add review -->
-										<form class="w-full" action="" method="POST">
+										<form class="w-full" action="" method="POST" style="margin-top: 50px;">
 										@csrf
 											<h5 class="mtext-108 cl2 p-b-7">
 												Add a review
@@ -186,7 +200,6 @@
 													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email">
 												</div>
 											</div>
-
 											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
 												Submit
 											</button>

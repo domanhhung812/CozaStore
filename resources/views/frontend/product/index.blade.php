@@ -1,6 +1,6 @@
 @extends('frontend.base-layout')
-@section('title','My products')
 @section('content')
+</style>
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
       <div class="p-b-10">
@@ -189,10 +189,11 @@
               </div>
 
               <div class="block2-txt-child2 flex-r p-t-3">
-                <a href="{{ route('fr.addCart', ['id' => $product['id'] ]) }}" class="">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </a>
-              </div>
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png')}}" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png')}}" alt="ICON">
+								</a>
+							</div>
             </div>
           </div>
         </div>

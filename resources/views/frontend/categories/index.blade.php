@@ -1,7 +1,15 @@
 @extends('frontend.base-layout')
 @section('title','My categories')
 @section('content')
-<section class="bg0 p-t-23 p-b-140">
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
+<section class="bg0 p-t-23 p-b-140" style="margin-top: 100px;">
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
@@ -174,10 +182,11 @@
                 </span>
               </div>
               <div class="block2-txt-child2 flex-r p-t-3">
-                <a href="{{ route('fr.addCart', ['id' => $item->id ]) }}" class="">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </a>
-              </div>
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png')}}" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png')}}" alt="ICON">
+								</a>
+							</div>
             </div>
           </div>
         </div>

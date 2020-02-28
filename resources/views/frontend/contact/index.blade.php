@@ -1,6 +1,19 @@
 @extends('frontend.base-layout')
 @section('title','Contact us')
 @section('content')
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{asset('frontend/images/bg-01.jpg')}}');margin-top: 100px;">
+	<h2 class="ltext-105 cl0 txt-center">
+		Contact
+	</h2>
+</section>
 <div class="container">
 			<div class="flex-w flex-tr">
 				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">

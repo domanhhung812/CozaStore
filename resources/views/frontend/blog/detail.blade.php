@@ -1,7 +1,15 @@
 @extends('frontend.base-layout')
 @section('title', 'Detail Blog')
 @section('content')
-<div class="col-md-12 col-lg-12 p-b-80">
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
+<div class="col-md-12 col-lg-12 p-b-80" style="margin-top:100px;">
   <div class="p-r-45 p-r-0-lg">
     <!--  -->
     <?php $link = json_decode($blog->b_image);
@@ -102,10 +110,15 @@
         <div class="bor19 size-218 m-b-30">
           <input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="web" placeholder="Website">
         </div>
-
+        @if(Auth::check())
         <button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
           Post Comment
         </button>
+        @else
+        <a href="{{ route('get.login') }}" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
+          Post Comment
+        </a>
+        @endif
       </form>
     </div>
   </div>

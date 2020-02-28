@@ -9,9 +9,16 @@
   margin: 20px 0px;
   width: 350px;
   height: 40px;
+	
+}
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
 }
 </style>
-<div class="row">
+<div class="row" style="margin-top:100px;">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">

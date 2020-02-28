@@ -1,6 +1,14 @@
 @extends('frontend.base-layout')
 @section('title','My cart')
 @section('content')
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
 <script type="text/javascript">
 	function updateCart(qty, rowId){
 		$.get(
@@ -12,7 +20,7 @@
 		);
 	}
 </script>
-<div class="row">
+<div class="row" style="margin-top:100px;">
 				<div class="col-lg-12 col-xl-12 m-lr-auto">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
@@ -23,8 +31,10 @@
 									<th class="column-3">Product Name</th>
 									<th class="column-4">Price</th>
 									<th class="column-5">Quantity</th>
-									<th class="column-6">Action</th>
-									<th class="column-7">Subtotal</th>
+									<th class="column-6">Size</th>
+									<th class="column-7">Color</th>
+									<th class="column-8">Action</th>
+									<th class="column-9">Subtotal</th>
 								</tr>
 								@foreach($products as $key => $product)
 								<tr class="table_row">
@@ -41,9 +51,30 @@
 									</form>
 									</div>
 									<td class="column-6">
+										<?php
+											$arrSz = json_decode($sizes)
+										?>
+										@foreach( $arrSz as $size)
+											@if($size->id == $product->options->size)
+												{{ $size->letter_size }}
+											@endif
+										@endforeach
+									</td>
+									<td class="column-7">
+										<?php
+											$arrCl = json_decode($colors)
+										?>
+										@foreach( $arrCl as $color)
+											@if($color->id == $product->options->color)
+												{{ $color->name_color }}
+											@endif
+										@endforeach
+									</td>
+									<td class="column-8">
 										<a href="{{ route('fr.deleteCart',['rowId' => $product->rowId]) }}" style="color: white; cursor: pointer;" class="btn btn-danger">Delete</a>
 									</td>
-									<td class="column-7">{{ $product->price * $product->qty }}</td>
+									<td class="column-9">{{ $product->price * $product->qty }}</td>
+									
 								</tr>
 								@endforeach
 								<tr class="table_row">

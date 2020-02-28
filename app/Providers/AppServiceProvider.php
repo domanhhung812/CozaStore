@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Categories;
 use App\Models\Colors;
+use App\Models\Sizes;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
 
         $colors = Colors::all();
         View::share('colors', $colors);
+
+        $sizes = Sizes::all();
+        View::share('sizes', $sizes);
     }
 
     
