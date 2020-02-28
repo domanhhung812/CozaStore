@@ -1,8 +1,16 @@
 @extends('frontend.base-layout')
 @section('title','Đăng ký')
 @section('content')
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
 <div class="container">
-    <div class="row justify-content-center" style="margin-bottom:100px;">
+    <div class="row justify-content-center" style="margin:100px 0;">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>

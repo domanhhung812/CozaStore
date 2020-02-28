@@ -11,6 +11,31 @@
 .comments{
 	margin-left: 70px !important;
 }
+.list_text{
+	display: inline-block;
+	margin-left: 10px;
+	position: relative;
+	background: #52b858;
+	color: #fff;
+	padding: 2px 8px;
+	box-sizing: border-box;
+	font-size: 12px;
+	border-radius: 2px;
+}
+.list_text:after{
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(82,184,88,0);
+	border-right-color: #52b858;
+	border-width: 6px;
+	margin-top: -6px;
+}
 </style>
 <section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="margin-top: 100px;">
 		<div class="container">
@@ -19,16 +44,11 @@
 				<div class="row">
 					<div class="col-md-6 col-lg-7 p-b-30">
 						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-					
+							<div class="wrap-slick3 flex-sb flex-w" style="margin-left:200px;">
 									<img src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" alt="" style="width: 400px; heigth: 500px;">
-					
 							</div>
 						</div>
 					</div>
-						
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
@@ -42,7 +62,6 @@
 							<p class="stext-102 cl3 p-t-23">
 							{!! $info['description'] !!}
 							</p>
-							
 							<!--  -->
 							<div class="p-t-33">
 								<div class="flex-w flex-r-m p-b-10">
@@ -97,27 +116,6 @@
 									</div>
 								</div>	
 							</div>
-
-							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-										<i class="zmdi zmdi-favorite"></i>
-									</a>
-								</div>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-									<i class="fa fa-facebook"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-									<i class="fa fa-twitter"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -130,13 +128,8 @@
 						<li class="nav-item p-b-10">
 							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
 						</li>
-
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
-						</li>
-
-						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Comments</a>
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab" >Comments</a>
 						</li>
 					</ul>
 
@@ -151,19 +144,28 @@
 							</div>
 						</div>
 						<!-- - -->
+						<!--  -->
 						<div class="tab-pane fade" id="reviews" role="tabpanel">
 							<div class="row">
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div class="p-b-30 m-lr-15-sm" style="position:relative; top: -9%; left: 14%;">
+									<div class="p-b-30 m-lr-15-sm" style="margin-top:-60px; margin-left: 70px;">
 										<!-- Review -->
 										@foreach($comments as $key=> $comment)
 										<div class="flex-w flex-t p-b-68 py-0 comments">
 											<div class="size-207" style="">
 												<span>
-													<img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;">
+													<img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		">
 													<div class="flex-w flex-sb-m p-b-17">
 														<span class="mtext-107 cl2 p-r-20" style="color:#385898; font-family: Arial;">
 															{{ $comment->co_name }}
+														</span>
+														<?php 
+															$star = $comment->co_rating;
+														?>
+														<span class="fs-18 cl11">
+															@for($i = 0; $i < $star; $i++)
+															<i class="zmdi zmdi-star"></i>
+															@endfor
 														</span>
 													</div>
 
@@ -180,7 +182,18 @@
 											<h5 class="mtext-108 cl2 p-b-7">
 												Add a review
 											</h5>
-
+											<div class="flex-w flex-m p-t-50 p-b-23">
+												<span class="stext-102 cl3 m-r-16">
+													Your Rating
+												</span>
+												<span class="wrap-rating fs-18 cl11 pointer">
+													@for($i = 1; $i < 6; $i++)
+													<i class="item-rating pointer zmdi zmdi-star-outline star-icon" data-key="{{$i}}" style="font-size:30px;"></i>
+													@endfor
+													<input class="dis-none" type="number" name="rating">
+												</span>
+												<span class="list_text">Awesome</span>
+											</div>
 											<p class="stext-102 cl6">
 												Your email address will not be published. Required fields are marked *
 											</p>
@@ -212,4 +225,31 @@
 				</div>
 			</div>
 		</div>
+</section>
 @endsection
+@push('js')
+<script>
+	$(document).ready(function(){
+		const listRatingText = {
+			1 : 'Awful',
+			2 : 'Not bad',
+			3 : 'Good',
+			4 : 'Very good',
+			5 : 'Awesome',
+		};
+		//console.log($this.attr('data-key'));
+		$('.star-icon').mouseover(function(){
+				let $this = $(this);
+				$(".list_text").text('').text(listRatingText[$this.attr('data-key')]);
+				let id = $this.attr('data-key');
+				$('.dis-none').attr('value',id);
+		});
+		$('.star-icon').on('click',function(){
+			let $this = $(this);
+				$(".list_text").text('').text(listRatingText[$this.attr('data-key')]);
+				let id = $this.attr('data-key');
+				$('.dis-none').attr('value',id);
+		})
+	});
+</script>
+@endpush

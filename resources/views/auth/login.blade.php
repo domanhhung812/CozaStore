@@ -1,7 +1,15 @@
 @extends('frontend.base-layout')
 @section('title', 'Đăng nhập')
 @section('content')
-<div class="container" style="margin-bottom:100px;">
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+</style>
+<div class="container" style="margin:100px auto;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

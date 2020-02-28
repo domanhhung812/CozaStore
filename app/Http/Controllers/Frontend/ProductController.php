@@ -73,6 +73,7 @@ class ProductController extends BaseController
 			$comments->co_email = $request->co_email;
 			$comments->co_content = $request->co_content;
 			$comments->co_product_id = $id;
+			$comments->co_rating = $request->rating;
 			$comments->save();
 			\Toastr::success('Thêm comment thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
 			return redirect()->back();
