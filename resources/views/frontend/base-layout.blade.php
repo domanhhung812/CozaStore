@@ -276,6 +276,26 @@
   @include('frontend.slide-layout')
   
   @yield('content')
+  <!-- Live chat -->
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/5e586abaa89cda5a18885980/default';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+</script>
+<style>
+.btn-back-to-top{
+  display: none !important;
+}
+</style>
+<!--End of Tawk.to Script-->
+  <!-- End live chat -->
 
   @include('frontend.footer-layout')
  <!-- Footer -->
