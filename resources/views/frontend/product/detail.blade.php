@@ -11,6 +11,9 @@
 .comments{
 	margin-left: 70px !important;
 }
+.star-icon{
+	color: #f9ba48;
+}
 .list_text{
 	display: inline-block;
 	margin-left: 10px;
@@ -188,7 +191,7 @@
 												</span>
 												<span class="wrap-rating fs-18 cl11 pointer">
 													@for($i = 1; $i < 6; $i++)
-													<i class="item-rating pointer zmdi zmdi-star-outline star-icon" data-key="{{$i}}" style="font-size:30px;"></i>
+													<i class="item-rating pointer zmdi zmdi-star-outline star-icon" data-key="{{$i}}" style="font-size:30px;" data-type="default"></i>
 													@endfor
 													<input class="dis-none" type="number" name="rating">
 												</span>
@@ -226,6 +229,72 @@
 			</div>
 		</div>
 </section>
+<section class="sec-relate-product bg0 p-t-45 p-b-105">
+    <div class="container">
+			<div class="p-b-45">
+					<h3 class="ltext-106 cl5 txt-center">
+							Related Products
+					</h3>
+			</div>
+        <!-- Slide2 -->
+        <div class="swiper-container">
+				<div class="swiper-wrapper">
+					@foreach($items as $item)
+					<?php $link = json_decode($item->image_product)[0] ?>
+					@if($item->id == $info['id'])
+					<div class="swiper-slide" style="display:none;">
+						<div class="">
+							<span>
+								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
+								<div class="inline-text">
+									<div class="block2-txt-child1 flex-col-l ">
+										<a href="{{ route('fr.detailPd',$item->id) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
+										{{$item->name_product}}
+										</a>
+										<span class="stext-105 cl3">
+										{{$item->price}}$
+										</span>
+									</div>
+									<div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 100px;bottom: 25px;">
+										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
+										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
+										</a>
+									</div>
+								</div>
+							</span>
+						</div>
+					</div>
+					@else
+					<div class="swiper-slide" style="">
+						<div class="">
+							<span>
+								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;border-radius:15px; width:250px;">	
+								<div class="inline-text">
+									<div class="block2-txt-child1 flex-col-l ">
+										<a href="{{ route('fr.detailPd',$item->id) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
+										{{$item->name_product}}
+										</a>
+										<span class="stext-105 cl3">
+										{{$item->price}}$
+										</span>
+									</div>
+									<div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 120px;bottom: 25px;">
+										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
+										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
+										</a>
+									</div>
+								</div>
+							</span>
+						</div>
+					</div>
+					@endif
+					@endforeach
+				</div>
+			</div>
+    </div>
+</section>
 @endsection
 @push('js')
 <script>
@@ -239,17 +308,24 @@
 		};
 		//console.log($this.attr('data-key'));
 		$('.star-icon').mouseover(function(){
-				let $this = $(this);
-				$(".list_text").text('').text(listRatingText[$this.attr('data-key')]);
-				let id = $this.attr('data-key');
-				$('.dis-none').attr('value',id);
+			let $this = $(this);
+			$(".list_text").text('').text(listRatingText[$this.attr('data-key')]);
+			let id = $this.attr('data-key');
 		});
 		$('.star-icon').on('click',function(){
 			let $this = $(this);
-				$(".list_text").text('').text(listRatingText[$this.attr('data-key')]);
 				let id = $this.attr('data-key');
 				$('.dis-none').attr('value',id);
-		})
+		});
+		var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      freeMode: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
 	});
 </script>
 @endpush

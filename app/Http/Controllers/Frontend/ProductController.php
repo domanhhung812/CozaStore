@@ -34,16 +34,18 @@ class ProductController extends BaseController
     public function detail($id, Request $request, Products $pd, Sizes $size, Colors $color, Categories $cate)
     {
     	// lay thong tin cua san pham
-    	$infoPd = $pd->getInfoDataProductById($id);
+			$infoPd = $pd->getInfoDataProductById($id);
+			$items = Products::all();
     	if($infoPd){
     		$arrColor = json_decode($infoPd['colors_id'], true);
     		$arrSize = json_decode($infoPd['sizes_id'], true);
     		$arrImage = json_decode($infoPd['image_product'],true);
-
+				$arrProducts = json_decode($items);
     		$infoColor = $color->getInfoColorByArrId($arrColor);
     		$infoSize  = $size->getInfoSizeByArrid($arrSize);
     		$data = [];
-    		$data['info'] = $infoPd;
+				$data['info'] = $infoPd;
+				$data['items'] = $arrProducts;
     		$data['images'] = $arrImage;
     		$data['colors'] = $infoColor;
     		$data['sizes'] = $infoSize;

@@ -34,6 +34,8 @@
 <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/util.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/main.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   
 <!--===============================================================================================-->
@@ -216,6 +218,8 @@
   <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <!--===============================================================================================-->
   <script src="{{ asset('frontend/vendor/select2/select2.min.js') }}"></script>
+  <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
   <script>
     $(".js-select2").each(function(){
       $(this).select2({
