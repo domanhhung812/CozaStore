@@ -34,7 +34,7 @@
          
         </div>
 
-        <div class="flex-w flex-c-m m-tb-10">
+        <!-- <div class="flex-w flex-c-m m-tb-10">
           <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
             <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
             <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
@@ -46,7 +46,7 @@
             <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
             Search
           </div>
-        </div>
+        </div> -->
         
         <!-- Search product -->
         <div class="dis-none panel-search w-full p-t-10 p-b-15">
@@ -69,19 +69,19 @@
 
               <ul>
                 <li class="p-b-6">
-                  <a href="{{ route('fr.sortProductsByDate') }}" class="filter-link stext-106 trans-04 filter-link-active">
+                  <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
                     Newness
                   </a>
                 </li>
 
                 <li class="p-b-6">
-                  <a href="{{ route('fr.sortProductsByPriceAsc') }}" class="filter-link stext-106 trans-04">
+                  <a href="#" class="filter-link stext-106 trans-04">
                     Price: Low to High
                   </a>
                 </li>
 
                 <li class="p-b-6">
-                  <a href="{{ route('fr.sortProductsByPriceDesc') }}" class="filter-link stext-106 trans-04">
+                  <a href="#" class="filter-link stext-106 trans-04">
                     Price: High to Low
                   </a>
                 </li>
@@ -93,7 +93,7 @@
                 Price
               </div>
 
-              <form action="{{ route('fr.sortProductsByRangePrice') }}">
+              <form action="">
                 <span>
                   Min:<br />
                   <input type="number" name="min_price" required style="border: 1px solid gray;

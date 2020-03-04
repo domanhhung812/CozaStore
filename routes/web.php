@@ -154,7 +154,6 @@ Route::group([
 	->where(['id' => '\d+']);
 	// Sort Products
 	Route::get('/products-list','ProductController@searchProducts')->name('searchProducts');
-	Route::get('/products-list-by-range-price','ProductController@sortProductsByRangePrice')->name('sortProductsByRangePrice');
 	Route::get('/products-list-by-price-asc','ProductController@sortProductsByPriceAsc')->name('sortProductsByPriceAsc');
 	Route::get('/products-list-by-price-desc','ProductController@sortProductsByPriceDesc')->name('sortProductsByPriceDesc');
 	Route::get('/product-list-by-date','ProductController@sortProductsByDate')->name('sortProductsByDate');

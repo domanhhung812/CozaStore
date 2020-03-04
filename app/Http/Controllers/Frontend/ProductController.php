@@ -59,13 +59,25 @@ class ProductController extends BaseController
     	}
 		}
 		public function getCategories(Request $request, $id){
-			$items = DB::table('products')->whereJsonContains('categories_id', $id)->get();
-			// foreach($datas as $data)
-			// {
-			// 	$array = get_object_vars($data);
-			// 	$cate_id = json_decode($array['categories_id'])[0];
-			// }
-			
+			$min = $request->min_price;
+			$max = $request->max_price;
+			$sortDate = $request->sortDate;
+			$sortPrice = $request->sortPrice === 'asc' ? '1' : '0';
+			if($min && $max){
+				$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->get();
+				if($sortPrice === '1'){
+					$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->orderBy('price','asc')->get();
+				}else if($sortPrice === '0'){
+					$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->orderBy('price','desc')->get();
+				}
+			}else if($sortPrice === '1'){
+				$items = DB::table('products')->whereJsonContains('categories_id', $id)->orderBy('price','asc')->get();
+			}else if($sortPrice === '0'){
+				$items = DB::table('products')->whereJsonContains('categories_id', $id)->orderBy('price','desc')->get();
+			}
+			else{
+				$items = DB::table('products')->whereJsonContains('categories_id', $id)->get();
+			}
 			return view('frontend.categories.index', compact('items'));
 		}
 		public function postComments(Request $request, $id)
@@ -86,29 +98,5 @@ class ProductController extends BaseController
 				$items = DB::table('products')->where('name_product','like', '%'.$search.'%')->paginate(12);
 				return view('frontend.search.index',compact('items'));
 			}
-		}
-		public function sortProductsByRangePrice(Request $request){
-			$min = $request->min_price;
-			$max = $request->max_price;
-			$items = DB::table('products')->select('*')->whereBetween('price', [$min, $max])->get();
-			return view('frontend.search.index',compact('items'));
-		}
-		public function sortProductsByPriceAsc(){
-			$items = DB::table('products')->select('*')->orderBy('price','asc')->get();
-			return view('frontend.search.index',compact('items'));
-		}
-		public function sortProductsByPriceDesc(){
-			$items = DB::table('products')->select('*')->orderBy('price','desc')->get();
-			return view('frontend.search.index',compact('items'));
-		}
-		public function sortProductsByDate(){
-			$items = DB::table('products')
-							->latest()
-							->get();
-			return view('frontend.search.index',compact('items'));
-		}
-		public function sortProductsByColor($id){
-			$items = DB::table('products')->select('*')->whereJsonContains('colors_id',$id)->get();
-			return view('frontend.search.index',compact('items'));
 		}
 }

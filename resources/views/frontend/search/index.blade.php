@@ -92,7 +92,7 @@
                 Price
               </div>
 
-              <form action="{{ route('fr.sortProductsByRangePrice') }}">
+              <form action="">
                 <span>
                   Min:<br />
                   <input type="number" name="min_price" required style="border: 1px solid gray;
