@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
 
         $sizes = Sizes::all();
         View::share('sizes', $sizes);
+        if (!$this->app->isLocal()) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 
     

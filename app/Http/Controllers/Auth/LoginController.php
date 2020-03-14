@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-
+use Socialite;
+use App\User;
 
 
 class LoginController extends Controller
@@ -60,5 +60,36 @@ class LoginController extends Controller
     public function getLogout(Request $request){
         Auth::logout();
         return redirect()->route('home');
+    }
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->stateless()->user(); 
+        $authUser = $this->findOrCreateUser($user);
+        Auth::login($authUser);
+        return redirect()->route('home');
+    }
+    private function findOrCreateUser($user){
+        $authUser=User::where('facebook_id',$user->id)->first();
+        if($authUser){
+            return $authUser;
+
+        }else{
+            return User::create([
+                'username' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => '',
+                'facebook_id' => $user->getId(),
+            ]);
+        }
     }
 }

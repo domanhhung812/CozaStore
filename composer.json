@@ -15,6 +15,7 @@
         "gloudemans/shoppingcart": "^2.6",
         "grimthorr/laravel-toast": "^1.1",
         "laravel/framework": "5.7.*",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",
         "mcamara/laravel-localization": "^1.3"
     },
