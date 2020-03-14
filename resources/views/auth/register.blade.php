@@ -13,7 +13,9 @@
     <div class="row justify-content-center" style="margin:100px 0;">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+            <div class="card-header"><span style="padding-left: 340px;
+    font-size: 25px;
+    font-weight: bold;">{{ __('Register') }}</span></div>
 
                 <div class="card-body">
                     <form method="POST" action="">
@@ -70,9 +72,9 @@
                         </div> -->
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4" style="margin-left:253px;">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                            <div class="col-md-6 offset-md-4" style="margin-left:247px;">
+                                <button type="submit" class="btn btn-primary" style="width: 100%">
+                                    <span style="font-size: 18px;font-family: Tahoma;">{{ __('Register') }}</span>
                                 </button>
                             </div>
                         </div>
