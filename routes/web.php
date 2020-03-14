@@ -191,8 +191,12 @@ Route::group(['namespace' => 'Auth'], function(){
 });
 
 Route::get('/home', 'Frontend\ProductController@index')->name('home');
+// login fb
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+// login google
+Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::get('change-language/{lang?}',function($lang){
 	// set ngon ngu cho ung dung
 	App::setLocale($lang);

@@ -61,6 +61,7 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+    // Login FB
     public function redirectToProvider()
     {
         return Socialite::driver('facebook')->redirect();
@@ -87,9 +88,45 @@ class LoginController extends Controller
             return User::create([
                 'username' => $user->getName(),
                 'email' => $user->getEmail(),
-                'password' => '',
+                'password' => md5($user->token),
                 'facebook_id' => $user->getId(),
             ]);
         }
+    }
+
+    // Login Google
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return redirect('/dang-nhap');
+        }
+        // only allow people with @company.com to login
+        // if(explode("@", $user->email)[1] !== 'company.com'){
+        //     return redirect()->to('/');
+        // }
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        if($existingUser){
+            // log them in
+            Auth::Login($existingUser, true);
+        } else {
+            // create a new user
+            $newUser                  = new User;
+            $newUser->username            = $user->getName();
+            $newUser->email           = $user->getEmail();
+            $newUser->provider_id       = $user->getId();
+            $newUser->password          = md5($user->token);
+            $newUser->facebook_id       = '';
+            $newUser->save();
+            Auth::Login($newUser, true);
+        }
+        return redirect()->route('home');
     }
 }

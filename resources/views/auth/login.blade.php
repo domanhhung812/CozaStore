@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sd-3" style="
     margin-top: 15px;margin-left: 13px;">
-                            <a href="login/facebook" class="btn btn-primary" style="background-color:#ea4335;outline: none;">
+                            <a href="login/google" class="btn btn-primary" style="background-color:#ea4335;outline: none;">
                                 <i class="fa fa-google" style="width: 160px;
                                 font-size: 18px;"><span style="padding-left: 10px; font-family: Tahoma;">Google</span></i>
                             </a>
