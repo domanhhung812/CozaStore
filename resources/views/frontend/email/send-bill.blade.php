@@ -109,7 +109,8 @@
                             </td>
                             
                             <td>
-                                <h3>Invoice #{{$order_id}}</h3><br>
+                                <h3>Invoice #{{$transaction_id}}</h3><br>
+                                <h2><i style="color:red;width:80px; height:50px; border: 1px solid red;">{{ $paymentMethod === 'Stripe' ? 'PAID' : 'UNPAID' }}</i></h2>
                             </td>
                         </tr>
                     </table>
@@ -177,7 +178,7 @@ Coza Store Center 8th floor, 379 Hudson St, New York<br>
             <tr class="total">
                 <td></td>
                 <td>
-                   <h2><b style="color:red;">Total: {{$total}}$</b></h2>
+                   <h2><b style="color:black;">Total: {{$total}}$</b></h2>
                 </td>
             </tr>
         </table>

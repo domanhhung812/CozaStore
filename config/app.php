@@ -177,6 +177,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        // Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
     ],
 
@@ -229,6 +230,7 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        // 'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ],
 
 ];

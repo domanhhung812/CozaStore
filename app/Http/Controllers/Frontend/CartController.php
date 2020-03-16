@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Input;
 
+use Session;
+use Stripe;
+
+
 class CartController extends BaseController
 {
     public function deleteCart($rowId)
@@ -68,20 +72,68 @@ class CartController extends BaseController
             'tr_note' => $request->note,
             'tr_address' => $request->address,
             'tr_phone' => $request->phone,
+            'tr_payment_method' => $request->payment
         ]);
-
-        if($transactionId)
-        {
-            $products = Cart::content();
-            foreach($products as $product){
-                Order::insert([
-                    'or_transaction_id' => $transactionId,
-                    'or_product_id' => $product->id,
-                    'or_qty' => $product->qty,
-                    'or_price' => $product->price,
-                    // 'or_sale' => $product->price,
-                ]);
+        if($request->payment === 'Stripe'){
+            return view('frontend.payment.index');
+        }else{
+            if($transactionId)
+            {
+                $products = Cart::content();
+                foreach($products as $product){
+                    Order::insert([
+                        'or_transaction_id' => $transactionId,
+                        'or_product_id' => $product->id,
+                        'or_qty' => $product->qty,
+                        'or_price' => $product->price,
+                        'or_payment_method' => $request->payment
+                        // 'or_sale' => $product->price,
+                    ]);
+                }
             }
+            Cart::destroy();
+            \Toastr::success('Đặt hàng thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+            return redirect('/');
+        }
+        
+    }
+    public function stripe()
+    {
+        return view('frontend.payment.index');
+    }
+  
+    /**
+     * success response method.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function payStripe(Request $request)
+    {
+        $id = Auth::id();
+        $totalMoney = str_replace(',','', Cart::subtotal(0,3));
+        $transactionId = Transaction::select('id')->where('tr_user_id', $id)->get();
+        $arr_id = json_decode($transactionId);
+        //GET LASTED ID
+        $max = count($arr_id);
+        $or_id = $arr_id[$max - 1]->id;
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Charge::create ([
+                "amount" => $totalMoney * 100,
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                "description" => "Payment for CozaStore" 
+        ]);
+        
+        $products = Cart::content();
+        foreach($products as $product){
+            $order = new Order;
+            $order->or_transaction_id = $or_id;
+            $order->or_product_id = $product->id;
+            $order->or_qty = $product->qty;
+            $order->or_price = $product->price;
+            $order->or_payment_method ='Stripe';
+            $order->save();
+            // 'or_sale' => $product->price,
         }
         Cart::destroy();
         \Toastr::success('Đặt hàng thành công', 'Thành công', ["positionClass" => "toast-top-right"]);

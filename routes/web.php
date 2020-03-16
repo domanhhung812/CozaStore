@@ -166,6 +166,11 @@ Route::group([
 	Route::get('/update-cart','CartController@updateCart')->name('updateCart');
 	Route::get('/payment','CartController@getFormPayment')->name('getFormPayment');
 	Route::post('/payment','CartController@saveInfoShoppingCart');
+
+	//Stripe payment
+	Route::get('payment/stripe', 'CartController@stripe');
+ 	Route::post('payment/stripe', 'CartController@payStripe')->name('stripe.post'); 
+
 	// Contact
 	Route::get('/contact', 'ContactController@getContact')->name('getContact');
 	Route::post('/contact', 'ContactController@saveContact');
@@ -197,6 +202,7 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 // login google
 Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
+
 Route::get('change-language/{lang?}',function($lang){
 	// set ngon ngu cho ung dung
 	App::setLocale($lang);

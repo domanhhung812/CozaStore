@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h3 class="text-center">Users</h3>
+		<h3 class="text-center">Transactions</h3>
 		<br>
 		<!-- @if($message = Session::get('success'))
 			<div class="alert alert-success">
@@ -24,6 +24,7 @@
 					<th>Tên người dùng</th>
 					<th>Địa chỉ</th>
 					<th>Số điện thoại</th>
+					<th>Hình thức TT</th>
           <th>Tổng tiền </th>
           <th>Trạng thái</th>
 					<th colspan="2"  class="text-center">Thao tác</th>
@@ -40,6 +41,7 @@
 						<td>{{ isset($transaction->user->username) ? $transaction->user->username : '[N\A]'}}</td>
 						<td>{{ $transaction->tr_address }}</td>
 						<td>{{ $transaction->tr_phone }}</td>
+						<td>{{ $transaction->tr_payment_method }}</td>
             <td>{{ number_format($transaction->tr_total) }}$</td>
             <td>
             @if( $transaction->tr_status   == 1)

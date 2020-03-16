@@ -73,13 +73,14 @@ class AdminTransactionController extends Controller
         }
 
         $data = [
-            'order_id' => json_decode($dataProduct)[0]->id,
+            'transaction_id' => $id,
             'username' => json_decode($checkUser)[0]->username,
             'email' => json_decode($checkUser)[0]->email,
             'phone' => $transactions->tr_phone,
             'address' => $transactions->tr_address,
             'infoProduct' => json_decode($dataProduct),
-            'total' => $transactions->tr_total
+            'total' => $transactions->tr_total,
+            'paymentMethod' => $transactions->tr_payment_method
         ];
         $transactions->tr_status = Transaction::STATUS_DONE;
         $transactions->save();

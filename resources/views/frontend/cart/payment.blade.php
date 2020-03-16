@@ -18,9 +18,9 @@
 	display:none !important;
 }
 </style>
-<div class="row" style="margin-top:100px;">
+<div class="row" style="margin-top:100px;width:100%;">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-					<div class="m-l-25 m-r--38 m-lr-0-xl">
+					<div class="m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
 								<tbody><tr class="table_head">
@@ -64,6 +64,18 @@
                   <input class="shopping" type="text" name="address" placeholder="Address..." required>
                   <input class="shopping" type="text" name="note" placeholder="Note..." required>
               </div>
+						</div>
+						<h4 class="mtext-109 cl2 p-b-30">
+							Payment method:
+						</h4>
+						<div class="flex-w flex-t bor12 p-t-15 p-b-30" style="display: flex;
+    flex-direction: column;">
+								<input type="radio" id="payment1" name="payment" value="COD">
+								<label for="payment1" style="margin-top: -18px;
+    padding-left: 20px;">Cash on delivery</label>
+								<input type="radio" id="payment2" name="payment" value="Stripe">
+								<label for="payment2" style="margin-top: -18px;
+    padding-left: 20px;">Stripe</label>
 						</div>
 						<button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Checkout

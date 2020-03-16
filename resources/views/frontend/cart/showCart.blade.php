@@ -20,9 +20,9 @@
 		);
 	}
 </script>
-<div class="row" style="margin-top:100px;">
+<div class="row" style="margin-top:100px;width:100%;">
 				<div class="col-lg-12 col-xl-12 m-lr-auto">
-					<div class="m-l-25 m-r--38 m-lr-0-xl">
+					<div class="m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
 								<tbody><tr class="table_head">
