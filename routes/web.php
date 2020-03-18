@@ -140,7 +140,7 @@ function(){
 
 Route::group([
 	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ],
+	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' , 'web'],
 	'namespace' => 'Frontend',
 	'as' => 'fr.'
 ],function(){
@@ -182,17 +182,17 @@ Route::group([
 
 });
 Auth::routes();
-Route::group(['namespace' => 'Auth'], function(){
-	Route::get('/dang-ky', 'RegisterController@getRegister')->name('get.register');
-	Route::post('/dang-ky', 'RegisterController@postRegister')->name('post.register');
+Route::group(['namespace' => 'Auth','middleware' => 'web'], function(){
+	Route::get('/sign-up', 'RegisterController@getRegister')->name('get.register');
+	Route::post('/sign-up', 'RegisterController@postRegister')->name('post.register');
 
-	Route::get('/dang-nhap', 'LoginController@getLogin')->name('get.login');
-	Route::post('/dang-nhap', 'LoginController@postLogin')->name('post.login');
-	Route::get('/dang-xuat', 'LoginController@getLogout')->name('get.logout.user');
-	Route::get('/lay-lai-password','ForgotPasswordController@getFormResetPassword')->name('getFormResetPassword');
-	Route::post('/lay-lai-password','ForgotPasswordController@getCodeResetPassword')->name('getCodeResetPassword');
-	Route::get('/password-moi','ForgotPasswordController@resetPassword')->name('getNewPassword');
-	Route::post('/password-moi','ForgotPasswordController@saveResetPassword');
+	Route::get('/sign-in', 'LoginController@getLogin')->name('get.login');
+	Route::post('/sign-in', 'LoginController@postLogin')->name('post.login');
+	Route::get('/logout', 'LoginController@getLogout')->name('get.logout.user');
+	Route::get('/forgot-password','ForgotPasswordController@getFormResetPassword')->name('getFormResetPassword');
+	Route::post('/forgot-password','ForgotPasswordController@getCodeResetPassword')->name('getCodeResetPassword');
+	Route::get('/new-password','ForgotPasswordController@resetPassword')->name('getNewPassword');
+	Route::post('/new-password','ForgotPasswordController@saveResetPassword');
 });
 
 Route::get('/home', 'Frontend\ProductController@index')->name('home');

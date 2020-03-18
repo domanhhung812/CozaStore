@@ -293,6 +293,36 @@
     });
   
   </script>
+  <!-- <script>
+    function timeChecker(){
+      setInterval(function(){
+        var storedTimeStamp = sessionStorage.getItem("lastTimeStamp");
+        timeCompare(storedTimeStamp);
+      },1000)
+    }
+
+    function timeCompare(timeString){
+      var currentTime = new Date();
+      var pastTime = new Date(timeString);
+      var timeDiff = currentTime - pastTime;
+      var minPast = Math.floor((timeDiff/60000));
+
+      if( minPast > 0) 
+      {
+        sessionStorage.removeItem("lastTimeStamp");
+        window.location = '/sign-in';
+        return false;
+      }else{
+        console.log(currentTime + " - " + pastTime + " - " + minPast + "min past");
+      }
+    }
+    $(document).mousemove(function(){
+      var timeStamp = new Date();
+      sessionStorage.setItem('lastTimeStamp',timeStamp);
+    });
+
+    timeChecker();
+  </script> -->
 <!--===============================================================================================-->
   <script src="{{ asset('frontend/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
   <script>

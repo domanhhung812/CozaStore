@@ -1,12 +1,19 @@
 @extends('frontend.base-layout')
 @section('title', 'Đăng nhập')
 @section('content')
+<?php 
+session_start();
+session_destroy();
+?>
 <style>
 .section-slide{
 	display:none !important;
 }
 .sec-banner{
 	display:none !important;
+}
+.register:hover{
+    text-decoration: underline;
 }
 </style>
 <div class="container" style="margin:100px auto;">
@@ -95,10 +102,10 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-8" style="margin-top:15px;">
-                            <a href="/dang-ky" style="padding-left: 31%;
-    /* text-align: center; */
-    color: #222222;">Don't have an account? Sign up now</a>
+                        <div class="col-8" style="margin-top:15px;padding-left: 22%;
+    color: #222222;">
+                            Don't have an account?
+                            <a href="/sign-up" style="" class="register"> Sign up now</a>
                         </div>
                     </div>
                 </div>

@@ -216,9 +216,15 @@
 													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email">
 												</div>
 											</div>
+											@if(Auth::check())
 											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
 												Submit
 											</button>
+											@else
+											<a href="{{ route('get.login') }}" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+												Submit
+											</a>
+											@endif
 										</form>
 									</div>
 								</div>
