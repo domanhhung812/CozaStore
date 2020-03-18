@@ -10,6 +10,7 @@ use App\Models\Colors;
 use App\Models\Sizes;
 use App\Models\Brands;
 use App\Models\Products;
+use App\Models\Comments;
 use App\Http\Requests\StoreProductsPost;
 
 class ProductController extends Controller
@@ -29,6 +30,9 @@ class ProductController extends Controller
         $data['lstPd'] = $arrPd['data'];
         $data['link']  = $lstPd;
 
+        $arr_rate = 0;
+        $count = 1;
+        $rate = [];
         foreach($data['lstPd'] as $key => $item) {
             // xu ly cat
             $data['lstPd'][$key]['categories_id'] = json_decode($item['categories_id'],true);
@@ -38,8 +42,28 @@ class ProductController extends Controller
             $data['lstPd'][$key]['sizes_id'] = json_decode($item['sizes_id'],true);
             // xu ly images product
             $data['lstPd'][$key]['image_product'] = json_decode($item['image_product'],true);
+            $product_id = $data['lstPd'][$key]['id'];
+            $rating = Products::join('comments', 'products.id', '=', 'comments.co_product_id')
+                        ->select('co_rating')
+                        ->where('comments.co_product_id',$product_id)
+                        ->get();
+            // $count = count(json_decode($rating));
+            $arr = json_decode($rating);
+            $rate += $arr;
+            // dd($avg_rating);
         }
-
+        for($i = 0; $i < count($rate); $i++){
+            $arr_rate = $rate[$i]->co_rating + $arr_rate;
+            
+        }
+        $count = count($rate);
+        if($count === 0 || $count === null || $rate === []) {
+            $avg_rate = 0;
+        }else{
+            $avg_rate = ceil($arr_rate/$count);
+        }
+        //dd(count($rate));
+        $data['avg_rating'] = $avg_rate;
         foreach($data['lstPd'] as $key => $item){
            foreach($data['cat'] as $k => $val){
                 if(in_array($val['id'], $item['categories_id'])){

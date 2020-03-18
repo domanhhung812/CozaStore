@@ -97,7 +97,7 @@
 
 			<div class="form-group border-top">
 				@foreach($infoImage as $key => $img)
-					<img src="{{ URL::to('/') }}/upload/images/{{ $img }}" width="120" height="120" class="img ml-3">
+					<img src="{{ URL::to('/') }}/upload/images/{{ $img }}" width="120" height="149" class="img ml-3">
 				@endforeach
 			</div>
 
