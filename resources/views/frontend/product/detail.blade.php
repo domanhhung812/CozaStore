@@ -201,6 +201,7 @@
 												Your email address will not be published. Required fields are marked *
 											</p>
 											<div class="row p-b-25">
+											@if(Auth::check())
 												<div class="col-12 p-b-5">
 													<label class="stext-102 cl3" for="review">Your review</label>
 													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="co_content"></textarea>
@@ -208,15 +209,14 @@
 
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="co_name">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="co_name" value="{{ $userName }}">
 												</div>
 
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email" value="{{ $userEmail }}">
 												</div>
 											</div>
-											@if(Auth::check())
 											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
 												Submit
 											</button>

@@ -31,7 +31,7 @@
 					<th colspan="2" width="3%" class="text-center">Action</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="content">
 				@foreach($lstPd as $key => $item)
 					<tr id="row_{{ $item['id'] }}">
 						<td>{{ $item['id'] }}</td>

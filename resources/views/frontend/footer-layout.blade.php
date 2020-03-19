@@ -9,26 +9,20 @@
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="{{ route('fr.getCategories', 3) }}" class="stext-107 cl7 hov-cl1 trans-04">
 								Women
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="{{ route('fr.getCategories', 1) }}" class="stext-107 cl7 hov-cl1 trans-04">
 								Men
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="{{ route('fr.getCategories', 5) }}" class="stext-107 cl7 hov-cl1 trans-04">
 								Shoes
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
 							</a>
 						</li>
 					</ul>
@@ -45,22 +39,9 @@
                 Track Order
               </a>
             </li>
-
-            <li class="p-b-10">
-              <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                Returns 
-              </a>
-            </li>
-
             <li class="p-b-10">
               <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
                 Shipping
-              </a>
-            </li>
-
-            <li class="p-b-10">
-              <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                FAQs
               </a>
             </li>
           </ul>

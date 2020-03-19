@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .btn-secondary.focus, .btn-secondary:focus {
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.5) !important;
+    }
+  </style>
 <!--===============================================================================================-->  
   <link rel="icon" type="image/png" href="{{ asset('frontend/images/icons/favicon.png') }}"/>
 <!--===============================================================================================-->
@@ -37,7 +42,6 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-  
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -55,9 +59,17 @@
 
           <div class="right-top-bar flex-w h-full">
             @if(Auth::check())
-              <a href="{{ route('get.logout.user') }}" class="flex-c-m trans-04 p-lr-25">
+              
+            <div class="dropdown show">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#222222 !important; border-color: #222222; outline:none !important;">
               Hi {{ Auth::user()->username }}
-              </a>
+            </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="left: -30px !important;z-index: 9999 !important;">
+                <a class="dropdown-item" href="#">Track order</a>
+                <a class="dropdown-item" href="#">Shipping</a>
+                <a class="dropdown-item" href="{{ route('get.logout.user') }}">Logout</a>
+              </div>
+            </div>
             @else
               <a href="{{ route('get.register') }}" class="flex-c-m trans-04 p-lr-25">
                 Register
@@ -67,9 +79,6 @@
                 Login
               </a>
             @endif
-            <a href="#" class="flex-c-m trans-04 p-lr-25">
-              EN
-            </a>
           </div>
         </div>
       </div>
@@ -117,7 +126,7 @@
           </div>  
 
           <!-- Icon header -->
-          <div class="wrap-icon-header flex-w flex-r-m">
+          <div class="wrap-icon-header flex-w flex-r-m" style="margin-right: 100px;">
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
               <i class="zmdi zmdi-search"></i>
             </div>
@@ -293,36 +302,6 @@
     });
   
   </script>
-  <!-- <script>
-    function timeChecker(){
-      setInterval(function(){
-        var storedTimeStamp = sessionStorage.getItem("lastTimeStamp");
-        timeCompare(storedTimeStamp);
-      },1000)
-    }
-
-    function timeCompare(timeString){
-      var currentTime = new Date();
-      var pastTime = new Date(timeString);
-      var timeDiff = currentTime - pastTime;
-      var minPast = Math.floor((timeDiff/60000));
-
-      if( minPast > 0) 
-      {
-        sessionStorage.removeItem("lastTimeStamp");
-        window.location = '/sign-in';
-        return false;
-      }else{
-        console.log(currentTime + " - " + pastTime + " - " + minPast + "min past");
-      }
-    }
-    $(document).mousemove(function(){
-      var timeStamp = new Date();
-      sessionStorage.setItem('lastTimeStamp',timeStamp);
-    });
-
-    timeChecker();
-  </script> -->
 <!--===============================================================================================-->
   <script src="{{ asset('frontend/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
   <script>

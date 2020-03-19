@@ -8,8 +8,10 @@ use App\Models\Categories;
 use App\Models\Products;
 use App\Models\Sizes;
 use App\Models\Colors;
+use App\Models\Users;
 use App\Models\Comments;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends BaseController
 {
@@ -36,6 +38,10 @@ class ProductController extends BaseController
     	// lay thong tin cua san pham
 			$infoPd = $pd->getInfoDataProductById($id);
 			$items = Products::all();
+			$userId = Auth::id();
+			$infoUser = Users::select('email','username')->where('id',$userId)->get();
+			$userName = json_decode($infoUser)[0]->username;
+			$userEmail = json_decode($infoUser)[0]->email;
     	if($infoPd){
     		$arrColor = json_decode($infoPd['colors_id'], true);
     		$arrSize = json_decode($infoPd['sizes_id'], true);
@@ -51,7 +57,8 @@ class ProductController extends BaseController
     		$data['sizes'] = $infoSize;
 				$data['cate'] = $this->getAllDataCategoriesForUser($cate);
 				$data['comments'] = Comments::where('co_product_id', $id)->get();
-
+				$data['userName'] = $userName;
+				$data['userEmail'] = $userEmail;
     		return view('frontend.product.detail',$data);
 
     	} else {

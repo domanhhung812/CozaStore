@@ -88,7 +88,7 @@ class ProductController extends Controller
            }
         }
         //dd($data['lstPd']);
-    	return view('admin.product.index',$data);
+    	return view('admin.product.index',$data)->render();
     }
 
     public function addProduct(Categories $cat, Colors $color, Sizes $size, Brands $brand, Request $request)
