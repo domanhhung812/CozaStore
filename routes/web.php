@@ -180,6 +180,9 @@ Route::group([
 	Route::get('blog','BlogController@getBlog')->name('getBlog');
 	Route::get('detail-blog/{id}', 'BlogController@getDetailBlogs')->name('getDetailBlogs');
 
+	//Order tracking
+	Route::get('track-order','OrderController@index')->name('getOrderTracking');
+
 });
 Auth::routes();
 Route::group(['namespace' => 'Auth','middleware' => 'web'], function(){

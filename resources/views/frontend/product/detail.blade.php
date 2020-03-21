@@ -209,12 +209,12 @@
 
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="co_name" value="{{ $userName }}">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="co_name" value="{{ $userName }}" readonly>
 												</div>
 
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email" value="{{ $userEmail }}">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email" value="{{ $userEmail }}" readonly>
 												</div>
 											</div>
 											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">

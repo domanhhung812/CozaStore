@@ -86,7 +86,9 @@ class CartController extends BaseController
                         'or_product_id' => $product->id,
                         'or_qty' => $product->qty,
                         'or_price' => $product->price,
-                        'or_payment_method' => $request->payment
+                        'or_payment_method' => $request->payment,
+                        'or_size' => $product->options->size,
+                        'or_color' => $product->options->color
                         // 'or_sale' => $product->price,
                     ]);
                 }
