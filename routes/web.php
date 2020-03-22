@@ -182,6 +182,7 @@ Route::group([
 
 	//Order tracking
 	Route::get('track-order','OrderController@index')->name('getOrderTracking');
+	Route::post('track-order','OrderController@confirmOrders');
 
 });
 Auth::routes();

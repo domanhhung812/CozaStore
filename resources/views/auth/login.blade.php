@@ -79,7 +79,7 @@ session_destroy();
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4"style="margin-left:253px;">
                                 <button type="submit" class="btn btn-primary" style="width: 76%">
-                                    <span style="font-size: 18px;font-family: Tahoma;">{{ __('Login') }}</span>
+                                    <span style="font-size: 18px;font-family: Tahoma;">Login</span>
                                 </button>   
                                 
                             </div>
