@@ -8,8 +8,21 @@
 .sec-banner{
 	display:none !important;
 }
+#section-contact{
+	margin-top: 100px;
+}
+@media only screen and (max-width: 667px){
+  #section-contact{
+      margin-top:0px;
+	}
+}
+@media only screen and (max-width: 1024px){
+  #section-contact{
+      margin-top:0px;
+	}
+}
 </style>
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{asset('frontend/images/bg-01.jpg')}}');margin-top: 100px;">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" id="section-contact" style="background-image: url('{{asset('frontend/images/bg-01.jpg')}}');">
 	<h2 class="ltext-105 cl0 txt-center">
 		Contact
 	</h2>

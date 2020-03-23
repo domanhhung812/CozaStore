@@ -46,6 +46,11 @@
             <td>
             @if( $transaction->tr_status   == 1)
               <a href="#" class="label-success label">Đã xử lý</a>
+							@if($transaction->tr_confirm == 1)
+								<p>(Khách đã nhận được sản phẩm)</p>
+							@else
+								<p>(Đang giao hàng)</p>
+							@endif
             @else
               <a href="{{route('admin.sendEmailBill', $transaction->id)}}" class="label-default label">Chờ xử lý</a>
             @endif

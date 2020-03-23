@@ -8,8 +8,27 @@
 .sec-banner{
 	display:none !important;
 }
+#section-about{
+	margin-top: 100px;
+}
+@media only screen and (max-width: 667px){
+  #section-about{
+      margin-top:0px;
+	}
+	#footer{
+		margin-top: -150px;
+	}
+}
+@media only screen and (max-width: 1024px){
+  #section-about{
+      margin-top:0px;
+	}
+	#footer{
+		margin-top: -100px;
+	}
+}
 </style>
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{asset('frontend/images/bg-01.jpg')}}');margin-top: 100px;">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" id="section-about" style="background-image: url('{{asset('frontend/images/bg-01.jpg')}}');">
 		<h2 class="ltext-105 cl0 txt-center">
 			About
 		</h2>

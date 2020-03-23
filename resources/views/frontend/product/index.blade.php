@@ -1,5 +1,28 @@
 @extends('frontend.base-layout')
 @section('content')
+<style>
+.img-product{
+  height:333px;
+}
+@media only screen and (max-width: 667px){
+ .container{
+      margin-top:-70px;
+  }
+  .ltext-103{
+    font-size:33px;
+  }
+  .stext-106{
+    font-size:14px;
+  }
+  .img-product{
+  height: auto;
+  }
+}
+@media only screen and (max-width: 1024px){
+  #section-contact{
+      margin-top:0px;
+	}
+}
 </style>
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
@@ -167,7 +190,7 @@
           <!-- Block2 -->
           <div class="block2">
             <div class="block2-pic hov-img0">
-              <img src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT" style="height:333px;">
+              <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT">
 
               <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                 Quick View

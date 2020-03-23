@@ -8,8 +8,59 @@
 .sec-banner{
 	display:none !important;
 }
+#section-category{
+	margin-top: 100px;
+}
+.img-product{
+  height: 333px;
+}
+#btnSort{
+  margin-top:70px;
+  margin-left: 130px;
+}
+@media only screen and (max-width: 667px){
+  #section-category{
+      margin-top:0px;
+	}
+	#footer{
+		margin-top: -150px;
+  }
+  .img-product{
+    height:auto;
+  }
+  .stext-106{
+    font-size:14px !important;
+  }
+  .ltext-103{
+    font-size: 33px !important;
+  }
+  #sortProducts{
+    flex-direction: column;
+  }
+  #sortPrice{
+    margin-top:-50px;
+  }
+  #btnSort{
+    margin-top:0px;
+    margin-left: 0px;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 1024px){
+  #section-category{
+      margin-top:0px;
+	}
+	#footer{
+		margin-top: -100px;
+	}
+}
+@media only screen and (min-width: 1024px){
+  #section-category{
+      margin-top:100px;
+	} 
+}
 </style>
-<section class="bg0 p-t-23 p-b-140" style="margin-top: 100px;">
+<section class="bg0 p-t-23 p-b-140" id="section-category">
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
@@ -61,9 +112,9 @@
         <!-- Filter -->
         <div class="dis-none panel-filter w-full p-t-10">
           <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-          <form action="" style="display:flex; align-items:center;">
+          <form action="" id="sortProducts" style="display:flex; align-items:center;">
             <div class="filter-col1 p-r-15 p-b-27" style="width:100% !important;margin-bottom:36px">
-              <div class="mtext-102 cl2 p-b-15">
+              <div class="mtext-102 cl2 p-b-15" id="sortBy">
                 Sort By
               </div>
 
@@ -82,8 +133,8 @@
               </ul>
             </div>
 
-            <div class="filter-col2 p-r-15 p-b-27">
-              <div class="mtext-102 cl2 p-b-15">
+            <div class="filter-col2 p-r-15 p-b-27" id="sortPrice">
+              <div class="mtext-102 cl2 p-b-15 ">
                 Price
               </div>
 
@@ -102,7 +153,6 @@
               id="btnSort"
               type="submit"
               class="btn btn-primary"
-              style="margin-top:70px;margin-left: 130px;"
             >
             Search
             </button>
@@ -118,7 +168,7 @@
           <!-- Block2 -->
           <div class="block2">
             <div class="block2-pic hov-img0">
-              <img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" style="height:333px;">
+              <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
               <a href="{{ route('fr.detailPd', $item->id) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                 Quick View
               </a>

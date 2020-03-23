@@ -8,8 +8,27 @@
 .sec-banner{
 	display:none !important;
 }
+#section-blog{
+	margin-top: 100px;
+}
+@media only screen and (max-width: 667px){
+  #section-blog{
+      margin-top:0px;
+	}
+	#footer{
+		margin-top: -150px;
+	}
+}
+@media only screen and (max-width: 1024px){
+  #section-blog{
+      margin-top:0px;
+	}
+	#footer{
+		margin-top: -100px;
+	}
+}
 </style>
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{asset('frontend/images/bg-02.jpg')}}');margin-top: 100px;">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" id="section-blog"style="background-image: url('{{asset('frontend/images/bg-02.jpg')}}');">
 	<h2 class="ltext-105 cl0 txt-center">
 		Blog
 	</h2>

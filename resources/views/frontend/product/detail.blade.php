@@ -39,6 +39,56 @@
 	border-width: 6px;
 	margin-top: -6px;
 }
+.img-product{
+	width: 400px;
+	height: 500px;
+}
+.image-product{
+	height:333px;
+	border-radius:15px;
+	width:250px;
+}
+@media only screen and (max-width: 667px){
+  .size-204{
+      margin-left:50px;
+	}
+	.respon6-next{
+		width: 65%;
+	}
+	.wrap-slick3{
+		margin-left: 0px !important;
+	}
+	.img-product{
+		width:100%;
+		height: auto;
+	}
+	.image-product{
+		height:auto;
+		width: 100%;
+	}
+	.w-full{
+		margin-left:-30px;
+	}
+	.btnComment{
+		width:100%;
+	}
+}
+@media only screen and (min-width: 768px){
+  .detail-product{
+		margin-left: 50px;
+	}
+	.wrap-slick3{
+		margin-left: 0!important;
+	}
+}
+@media only screen and (min-width: 1024px){
+	.wrap-slick3{
+		margin-left: 100px !important;
+	}
+	.detail-product{
+		margin-left: 0px;
+	}
+}
 </style>
 <section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="margin-top: 100px;">
 		<div class="container">
@@ -48,12 +98,12 @@
 					<div class="col-md-6 col-lg-7 p-b-30">
 						<div class="p-l-25 p-r-30 p-lr-0-lg">
 							<div class="wrap-slick3 flex-sb flex-w" style="margin-left:200px;">
-									<img src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" alt="" style="width: 400px; heigth: 500px;">
+									<img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" alt="">
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<div class="p-r-50 p-t-5 p-lr-0-lg detail-product">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
 							{{ $info['name_product'] }}
 							</h4>
@@ -217,7 +267,7 @@
 													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="co_email" value="{{ $userEmail }}" readonly>
 												</div>
 											</div>
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10 btnComment">
 												Submit
 											</button>
 											@else
@@ -275,7 +325,7 @@
 					<div class="swiper-slide" style="">
 						<div class="">
 							<span>
-								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;border-radius:15px; width:250px;">	
+								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">	
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
 										<a href="{{ route('fr.detailPd',$item->id) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
