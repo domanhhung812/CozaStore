@@ -131,9 +131,9 @@
               <i class="zmdi zmdi-search"></i>
             </div>
 
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ Cart::count() }}">
+            <a href="{{ route('fr.getListCart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ Cart::count() }}">
               <i class="zmdi zmdi-shopping-cart"></i>
-            </div>
+            </a>
 
           </div>
         </nav>
@@ -155,9 +155,9 @@
               <i class="zmdi zmdi-search"></i>
             </div>
 
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ Cart::count() }}">
+            <a href="{{ route('fr.getListCart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ Cart::count() }}">
               <i class="zmdi zmdi-shopping-cart"></i>
-            </div>
+            </a>
 
           </div>
 
@@ -253,7 +253,7 @@
   </header>
 
   <!-- Cart -->
-  <div class="wrap-header-cart js-panel-cart">
+  <!-- <div class="wrap-header-cart js-panel-cart">
     <div class="s-full js-hide-cart"></div>
 
     <div class="header-cart flex-col-l p-l-65 p-r-25">
@@ -281,7 +281,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   
   @include('frontend.slide-layout')
   

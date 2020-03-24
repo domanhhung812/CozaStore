@@ -1,7 +1,43 @@
 @extends('frontend.base-layout')
 @section('title','Lấy lại mật khẩu')
 @section('content')
-<div class="container" style="margin-bottom: 100px;">
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+.btnSendMail{
+    margin-left: 253px;
+}
+@media only screen and (min-width: 320px){
+    .btnSendMail{
+        margin: 0px auto;
+    }
+    .btn, .btn-primary{
+        width: 100%;
+    }
+}
+@media only screen and (min-width: 768px){
+    .btnSendMail{
+        margin: 0px auto;
+        position: relative;
+        left: 8.5%;
+    }
+}
+@media only screen and (min-width: 1024px){
+    .btnSendMail{
+        margin: 0px auto;
+        position: relative;
+        left: 8.5%;
+    }
+    .btn, .btn-primary{
+        width: 100%;
+    }
+}
+</style>
+<div class="container" style="margin: 100px 0px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -32,7 +68,7 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4" style="margin-left: 253px;">
+                            <div class="col-md-6 offset-md-4 btnSendMail" style="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>

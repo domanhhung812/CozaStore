@@ -71,7 +71,7 @@
 										@endforeach
 									</td>
 									<td class="column-8">
-										<a href="{{ route('fr.deleteCart',['rowId' => $product->rowId]) }}" style="color: white; cursor: pointer;" class="btn btn-danger">Delete</a>
+										<a href="{{ route('fr.deleteCart',['rowId' => $product->rowId]) }}" style="color: white; cursor: pointer;"><i class="fa fa-trash" aria-hidden="true" style="color: black;"></i></a>
 									</td>
 									<td class="column-9">{{ $product->price * $product->qty }}</td>
 									

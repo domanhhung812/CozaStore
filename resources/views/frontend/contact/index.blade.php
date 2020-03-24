@@ -11,6 +11,11 @@
 #section-contact{
 	margin-top: 100px;
 }
+@media only screen and (min-width: 320px){
+  .stext-115{
+		font-size: 13px !important;
+	}
+}
 @media only screen and (max-width: 667px){
   #section-contact{
       margin-top:0px;

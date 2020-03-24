@@ -1,7 +1,43 @@
 @extends('frontend.base-layout')
 @section('title','Mật khẩu mới')
 @section('content')
-<div class="container" style="margin-bottom: 100px;">
+<style>
+.section-slide{
+	display:none !important;
+}
+.sec-banner{
+	display:none !important;
+}
+.btnNewPassword{
+    margin-left: 253px;
+}
+@media only screen and (min-width: 320px){
+    .btnNewPassword{
+        margin: 0px auto;
+    }
+    .btn, .btn-primary{
+        width: 100%;
+    }
+}
+@media only screen and (min-width: 768px){
+    .btnNewPassword{
+        margin: 0px auto;
+        position: relative;
+        left: 8.5%;
+    }
+}
+@media only screen and (min-width: 1024px){
+    .btnNewPassword{
+        margin: 0px auto;
+        position: relative;
+        left: 8.5%;
+    }
+    .btn, .btn-primary{
+        width: 100%;
+    }
+}
+</style>
+<div class="container container-reset-email" style="margin: 100px 0px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -39,7 +75,7 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4" style="margin-left: 253px;">
+                            <div class="col-md-6 offset-md-4 btnNewPassword" style=NewPassword">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Reset Password') }}
                                 </button>

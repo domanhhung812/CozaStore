@@ -48,6 +48,26 @@
 	border-radius:15px;
 	width:250px;
 }
+.sec-product-detail{
+	margin-top: 100px;
+}
+@media only screen and (max-width: 568px){
+  .respon6 {
+    width: 25px;
+	}
+	.quantity{
+		margin-right: 30px;
+	}
+	.comments{
+		margin-left: 60px !important;
+	}
+	.mtext-107{
+		font-size: 15px !important;
+	}
+	.sec-product-detail{
+	margin-top: 0px;
+	}
+}
 @media only screen and (max-width: 667px){
   .size-204{
       margin-left:50px;
@@ -72,6 +92,9 @@
 	.btnComment{
 		width:100%;
 	}
+	.sec-product-detail{
+	margin-top: 0px;
+	}
 }
 @media only screen and (min-width: 768px){
   .detail-product{
@@ -79,6 +102,9 @@
 	}
 	.wrap-slick3{
 		margin-left: 0!important;
+	}
+	.sec-product-detail{
+	margin-top: 0px;
 	}
 }
 @media only screen and (min-width: 1024px){
@@ -88,9 +114,15 @@
 	.detail-product{
 		margin-left: 0px;
 	}
+	.selector-components{
+		margin-left: -30px;
+	}
+	.sec-product-detail{
+	margin-top: 100px;
+	}
 }
 </style>
-<section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="margin-top: 100px;">
+<section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="">
 		<div class="container">
 			<form action="{{ route('fr.addCart', ['id' => $info['id'] ]) }}" method="post">
 						@csrf
@@ -116,7 +148,7 @@
 							{!! $info['description'] !!}
 							</p>
 							<!--  -->
-							<div class="p-t-33">
+							<div class="p-t-33 selector-components">
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
 										Size
@@ -156,7 +188,7 @@
 								</div>
 
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
+									<div class="size-204 flex-w flex-m respon6-next quantity">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
 											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
 										</div>
@@ -201,7 +233,7 @@
 						<div class="tab-pane fade" id="reviews" role="tabpanel">
 							<div class="row">
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div class="p-b-30 m-lr-15-sm" style="margin-top:-60px; margin-left: 70px;">
+									<div class="p-b-30 m-lr-15-sm comments" style="margin-top:-60px; margin-left: 70px;">
 										<!-- Review -->
 										@foreach($comments as $key=> $comment)
 										<div class="flex-w flex-t p-b-68 py-0 comments">

@@ -63,6 +63,33 @@ section .section-title {
 .container-3{
 	margin-top: 20px;
 }
+.card-img-top{
+	width: 180px;
+	height:240px;
+}
+@media only screen and (max-width: 667px){
+  .nav-item{
+      font-size:12px !important;
+	}
+	.bg-img1{
+		margin-top: 0 !important;
+	}
+	.card-img-top{
+		width: 50% !important; 
+		height: auto !important;
+	}
+	.card-body{
+		font-size: 10px;
+	}
+	.card-title{
+		font-size: 1rem !important;
+	}
+	.card-price{
+		top: 80%;
+		right: 30%;
+		font-size: 1.5rem;
+	}
+}
 </style>
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('http://localhost:8000/frontend/images/bg-02.jpg');margin-top: 100px;">
 	<h2 class="ltext-105 cl0 txt-center">
@@ -117,7 +144,7 @@ section .section-title {
 									$colors = json_decode($arrColors);
 								?>
 								<div class="card">
-									<img class="card-img-top" src="{{ URL::to('/') }}/upload/images/{{$link}}" alt="Card image cap" style="width: 180px; height:240px;">
+									<img class="card-img-top" src="{{ URL::to('/') }}/upload/images/{{$link}}" alt="Card image cap" style="">
 									<div class="card-body">
 										<h5 class="card-title">{{ $item->name_product }}</h5>
 										<p class="card-text">Quantity: {{$item->or_qty}}</p>
