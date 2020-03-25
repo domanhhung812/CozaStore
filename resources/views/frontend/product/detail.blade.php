@@ -67,6 +67,9 @@
 	.sec-product-detail{
 	margin-top: 0px;
 	}
+	.selector-components{
+		margin-right:25px;
+	}
 }
 @media only screen and (max-width: 667px){
   .size-204{
@@ -95,8 +98,11 @@
 	.sec-product-detail{
 	margin-top: 0px;
 	}
+	.block2-txt-child2{
+		right: 0 !important;
+	}
 }
-@media only screen and (min-width: 768px){
+@media only screen and (max-width: 1024px){
   .detail-product{
 		margin-left: 50px;
 	}
@@ -105,6 +111,9 @@
 	}
 	.sec-product-detail{
 	margin-top: 0px;
+	}
+	.block2-txt-child2{
+		right: 0 !important;
 	}
 }
 @media only screen and (min-width: 1024px){
@@ -343,12 +352,12 @@
 										{{$item->price}}$
 										</span>
 									</div>
-									<div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 100px;bottom: 25px;">
+									<!-- <div class="block2-txt-child2 flex-r p-t-3 heart" style="position: absolute;right: 100px;bottom: 25px;">
 										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
 										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
 										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
 										</a>
-									</div>
+									</div> -->
 								</div>
 							</span>
 						</div>
@@ -367,12 +376,12 @@
 										{{$item->price}}$
 										</span>
 									</div>
-									<div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 120px;bottom: 25px;">
+									<!-- <div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 120px;bottom: 25px;">
 										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
 										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
 										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
 										</a>
-									</div>
+									</div> -->
 								</div>
 							</span>
 						</div>
