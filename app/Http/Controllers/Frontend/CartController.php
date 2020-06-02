@@ -65,6 +65,21 @@ class CartController extends BaseController
     }
     public function saveInfoShoppingCart(Request $request){
         $totalMoney = str_replace(',','', Cart::subtotal(0,3));
+        if($totalMoney >= 100){
+            $totalMoney = $totalMoney;
+        }else if($totalMoney == 0){
+            $totalMoney = 0;
+        }
+        else{
+            $totalMoney+=20;
+        }
+        $discount = session()->get('coupon')['discount'];
+        if($discount){
+            $totalMoney-=$discount;
+        }else{
+            $totalMoney = $totalMoney;
+        }
+        
         $id = Auth::id();
         $transactionId = Transaction::insertGetId([
             'tr_user_id' => $id,
@@ -113,6 +128,20 @@ class CartController extends BaseController
     {
         $id = Auth::id();
         $totalMoney = str_replace(',','', Cart::subtotal(0,3));
+        if($totalMoney >= 100){
+            $totalMoney = $totalMoney;
+        }else if($totalMoney == 0){
+            $totalMoney = 0;
+        }else{
+            $totalMoney+=20;
+        }
+        $discount = session()->get('coupon')['discount'];
+        if($discount){
+            $totalMoney-=$discount;
+        }else{
+            $totalMoney = $totalMoney;
+        }
+        dd($totalMoney);
         $transactionId = Transaction::select('id')->where('tr_user_id', $id)->get();
         $arr_id = json_decode($transactionId);
         //GET LASTED ID

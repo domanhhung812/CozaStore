@@ -202,7 +202,7 @@
                 <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                   {{ $product['name_product'] }} 
                   @if($product['qty'] == 0)
-                    <span><i style="color:blue; font-family: Arial;">(Tạm hết hàng)</i></span>
+                    <span><i style="color:blue; font-family: Arial;">(Sold out)</i></span>
                   @endif
                 </a>
 

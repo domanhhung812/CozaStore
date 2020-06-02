@@ -165,7 +165,10 @@ Route::group([
 	Route::get('/delete-cart/{rowId}','CartController@deleteCart')->name('deleteCart');
 	Route::get('/update-cart','CartController@updateCart')->name('updateCart');
 	Route::get('/payment','CartController@getFormPayment')->name('getFormPayment');
-	Route::post('/payment','CartController@saveInfoShoppingCart');
+	Route::post('/payment','CartController@saveInfoShoppingCart')->name('postFormPayment');
+	//Coupons
+	Route::post('/coupon','CouponsController@store')->name('postCoupons');
+	Route::delete('/coupon','CouponsController@destroy')->name('removeCoupons');
 
 	//Stripe payment
 	Route::get('payment/stripe', 'CartController@stripe');
