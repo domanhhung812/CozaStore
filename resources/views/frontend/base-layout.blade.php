@@ -66,7 +66,7 @@
             </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="left: -30px !important;z-index: 9999 !important;">
                 <a class="dropdown-item" href="{{ route('fr.getOrderTracking') }}">Track order</a>
-                <!-- <a class="dropdown-item" href="#">Shipping</a> -->
+                <a class="dropdown-item" href="{{ route('fr.getFavoriteProduct') }}">My favorite product</a>
                 <a class="dropdown-item" href="{{ route('get.logout.user') }}">Logout</a>
               </div>
             </div>
@@ -187,7 +187,7 @@
             </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="left: -30px !important;z-index: 9999 !important;">
                 <a class="dropdown-item" href="{{ route('fr.getOrderTracking') }}">Track order</a>
-                <!-- <a class="dropdown-item" href="#">Shipping</a> -->
+                <a class="dropdown-item" href="{{ route('fr.getFavoriteProduct') }}">My favorite product</a>
                 <a class="dropdown-item" href="{{ route('get.logout.user') }}">Logout</a>
               </div>
             </div>

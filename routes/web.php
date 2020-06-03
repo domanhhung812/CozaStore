@@ -186,6 +186,9 @@ Route::group([
 	//Order tracking
 	Route::get('track-order','OrderController@index')->name('getOrderTracking');
 	Route::post('track-order','OrderController@confirmOrders');
+	//Favorite product
+	Route::post('/favorite/{id}','UserFavoriteController@addFavorite')->name('postAddFavorite');
+	Route::get('/favorite','UserFavoriteController@index')->name('getFavoriteProduct');
 
 });
 Auth::routes();

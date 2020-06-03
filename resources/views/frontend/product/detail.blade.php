@@ -51,6 +51,10 @@
 .sec-product-detail{
 	margin-top: 100px;
 }
+.add-favorite-product{
+	display: flex;
+	flex-direction: column;
+}
 @media only screen and (max-width: 568px){
   .respon6 {
     width: 25px;
@@ -72,11 +76,8 @@
 	}
 }
 @media only screen and (max-width: 667px){
-  .size-204{
-      margin-left:50px;
-	}
 	.respon6-next{
-		width: 65%;
+		width: 100%;
 	}
 	.wrap-slick3{
 		margin-left: 0px !important;
@@ -130,12 +131,188 @@
 	margin-top: 100px;
 	}
 }
+img {
+  max-width: 100%; }
+
+.preview {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  @media screen and (max-width: 996px) {
+    .preview {
+      margin-bottom: 20px; } }
+
+.preview-pic {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px; }
+  .preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%; }
+    .preview-thumbnail.nav-tabs li img {
+      max-width: 100%;
+      display: block; }
+    .preview-thumbnail.nav-tabs li a {
+      padding: 0;
+      margin: 0; }
+    .preview-thumbnail.nav-tabs li:last-of-type {
+      margin-right: 0; }
+
+.tab-content {
+  overflow: hidden;
+  display: flex; 
+  justify-content: center;
+  }
+  .tab-content img {
+    width: 100%;
+    -webkit-animation-name: opacity;
+            animation-name: opacity;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s; }
+
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 3em;
+  line-height: 1.5em; }
+.color_products{
+	display: flex;
+	flex-direction: row;
+}
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+.details {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.colors {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.product-title, .price, .sizes, .colors {
+  text-transform: UPPERCASE;
+  font-weight: bold; }
+
+.checked, .price span {
+  color: #ff9f1a; }
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px; }
+
+.product-title {
+  margin-top: 0; }
+
+.sizes{
+  margin-right: 10px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  }
+.size:first-of-type {
+    margin-left: 40px; 
+}
+.size{
+	position: relative;
+	top: -1.2rem;
+}
+.color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  width: 10em;
+  border-radius: 2px;
+  position: relative;
+  top: -0.8rem; }
+  .color:first-of-type {
+    margin-left: 30px; }
+
+.add-to-cart, .like {
+  background: #ff9f1a;
+  padding: 1.2em 1.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; }
+  .add-to-cart:hover, .like:hover {
+    background: #b36800;
+    color: #fff; }
+
+.not-available {
+  text-align: center;
+  line-height: 2em; }
+  .not-available:before {
+    font-family: fontawesome;
+    content: "\f00d";
+    color: #fff; }
+
+.orange {
+  background: #ff9f1a; }
+
+.green {
+  background: #85ad00; }
+
+.blue {
+  background: #0076ad; }
+
+.tooltip-inner {
+  padding: 1.3em; }
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 </style>
 <section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="">
 		<div class="container">
 			<form action="{{ route('fr.addCart', ['id' => $info['id'] ]) }}" method="post">
 						@csrf
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-md-6 col-lg-7 p-b-30">
 						<div class="p-l-25 p-r-30 p-lr-0-lg">
 							<div class="wrap-slick3 flex-sb flex-w" style="margin-left:200px;">
@@ -148,7 +325,7 @@
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
 							{{ $info['name_product'] }}
 							</h4>
-
+							
 							<span class="mtext-106 cl2">
 							{{ number_format($info['price']) }}$
 							</span>
@@ -156,7 +333,6 @@
 							<p class="stext-102 cl3 p-t-23">
 							{!! $info['description'] !!}
 							</p>
-							<!--  -->
 							<div class="p-t-33 selector-components">
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
@@ -207,8 +383,69 @@
 										<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 											Add to cart
 										</button>
+										<div class="add-favorite-product">
+											<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 favorite_product js-add-favorite">
+												<i class="fa fa-heart-o" aria-hidden="true"></i>
+											</button>
+										</div>
 									</div>
 								</div>	
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<div class="container-fluild p-l-0 p-r-0">
+					<div class="card">
+						<div class="container-fliud">
+							<div class="wrapper row">
+								<div class="preview col-md-6">
+									
+									<div class="preview-pic tab-content">
+										<img class="img-fluid" alt="Responsive image" src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" >
+									</div>
+									
+								</div>
+								<div class="details col-md-6">
+									<h3 class="product-title">{{ $info['name_product'] }}</h3>
+									<div class="rating">
+										<span class="review-no">41 reviews</span>
+									</div>
+									<p class="product-description">{!! $info['description'] !!}</p>
+									<h4 class="price">price: <span>{{ number_format($info['price']) }}$</span></h4>
+									<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+									<h5 class="sizes">sizes:
+										
+										@foreach($sizes as $key => $item)
+											<label class="form-check" style="padding-top: 10px;">
+											<input class="" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}">
+											<span class="size" data-toggle="tooltip" title="{{ $item['letter_size'] }}" style="font-size: 14px;">{{ $item['letter_size'] }}</span>
+										</label>
+										@endforeach
+									</h5>
+									<h5 class="colors">colors:
+										@foreach($colors as $key => $item)
+											<label class="form-check" style="padding-top: 10px;">
+												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}">
+												<span class="color" style="padding-left: 10px;font-size: 14px;"
+												>{{ $item['name_color'] }}</span>
+											</label>
+										@endforeach
+									</h5>
+									<div class="flex-w p-b-10">
+										<div class="size-204 flex-w flex-m respon6-next quantity">
+											<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
+											</div>
+											<div class="my-10">
+												<p>(Left in stock: {{ $info['qty'] }}.)</p>
+											</div>
+										</div>
+									</div>
+									<div class="action">
+										<button class="add-to-cart btn btn-default" type="submit">add to cart</button>
+										<a class="like btn btn-default js-add-favorite" href="{{ route('fr.postAddFavorite', ['id' => $info['id']]) }}"><span class="fa fa-heart"></span></a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -241,7 +478,7 @@
 						<!--  -->
 						<div class="tab-pane fade" id="reviews" role="tabpanel">
 							<div class="row">
-								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+								<div class="col-lg-12 col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 									<div class="p-b-30 m-lr-15-sm comments" style="margin-top:-60px; margin-left: 70px;">
 										<!-- Review -->
 										@foreach($comments as $key=> $comment)
@@ -415,14 +652,39 @@
 				$('.dis-none').attr('value',id);
 		});
 		var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 3,
-      spaceBetween: 30,
-      freeMode: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
+			slidesPerView: 3,
+			spaceBetween: 30,
+			freeMode: true,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+		});
+		$('.js-add-favorite').click(function(e){
+			let $this = $(this);
+			let url = $this.attr('href');
+			e.preventDefault();
+
+			if(url){
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: "POST",
+					url: url
+				}).done(function(results){
+					if(results['messages'] === 'Add favorite product successfully'){
+						toastr.success('Add favorite product successfully');
+					}else if(results['messages'] === 'Not exist product. Please choose again'){
+						toastr.info('Not exist product. Please choose again');
+					}else if(results['messages'] === 'This product was to be favorite'){
+						toastr.error('This product was to be favorite');
+					}else{
+						toastr.error('Something is wrong. Please try again');
+					}
+				})
+			}
+		});
 	});
 </script>
 @endpush
