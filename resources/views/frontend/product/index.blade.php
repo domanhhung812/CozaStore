@@ -2,7 +2,8 @@
 @section('content')
 <style>
 .img-product{
-  height:333px;
+  width: 300px;
+  height:372px;
 }
 @media only screen and (max-width: 667px){
  .container{

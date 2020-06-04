@@ -12,6 +12,7 @@ use App\Models\Users;
 use App\Models\Comments;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ProcessViewService;
 
 class ProductController extends BaseController
 {
@@ -39,6 +40,7 @@ class ProductController extends BaseController
 			$infoPd = $pd->getInfoDataProductById($id);
 			$items = Products::all();
 			$userId = Auth::id();
+			$product = Products::find($id);
 			$infoUser = Users::select('email','username')->where('id',$userId)->get();
 			$userName = json_decode($infoUser)[0]->username;
 			$userEmail = json_decode($infoUser)[0]->email;
@@ -59,6 +61,7 @@ class ProductController extends BaseController
 				$data['comments'] = Comments::where('co_product_id', $id)->get();
 				$data['userName'] = $userName;
 				$data['userEmail'] = $userEmail;
+				ProcessViewService::view('products','view_product','$product', $id);
     		return view('frontend.product.detail',$data);
 
     	} else {

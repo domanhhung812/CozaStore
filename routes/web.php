@@ -189,6 +189,9 @@ Route::group([
 	//Favorite product
 	Route::post('/favorite/{id}','UserFavoriteController@addFavorite')->name('postAddFavorite');
 	Route::get('/favorite','UserFavoriteController@index')->name('getFavoriteProduct');
+	//Profile user
+	Route::get('/profile','UserProfileController@index')->name('getUserProfile');
+	Route::post('/profile','UserProfileController@editProfile')->name('postUserProfile');
 
 });
 Auth::routes();

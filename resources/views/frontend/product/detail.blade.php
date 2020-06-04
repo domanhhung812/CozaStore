@@ -408,7 +408,7 @@ img {
 								<div class="details col-md-6">
 									<h3 class="product-title">{{ $info['name_product'] }}</h3>
 									<div class="rating">
-										<span class="review-no">41 reviews</span>
+										<span class="review-no">{{$info['view_product']}} views</span>
 									</div>
 									<p class="product-description">{!! $info['description'] !!}</p>
 									<h4 class="price">price: <span>{{ number_format($info['price']) }}$</span></h4>
