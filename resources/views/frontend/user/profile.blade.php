@@ -57,7 +57,7 @@
 <?php $item = json_decode($data)[0] ?>
 <div class="row justify-content-center mx-0">
     <div class="col-lg-8 col-md-10 col-sm-10-col-xs-10">
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
     @csrf
         <div class="card">
         <div class="card-body">
@@ -67,7 +67,7 @@
                 <div class="mx-auto" style="width: 140px;">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);border-radius: 50%;">
                     <!-- <div class="avatar-uploader__avatar-image" style="background-image: url();"></div> -->
-                        <img src="{{ $item->user_image }}"  class="avatar-uploader__avatar-image" style="border-radius: 50%;">
+                        <img src="{{ URL::to('/') }}/upload/images/{{ $item->user_image }}"  class="avatar-uploader__avatar-image" style="border-radius: 50%;">
                         <input type="text" hidden value="" name="user_image" class="user_image">   
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <button class="btn btn-primary upload-button" type="button">
                             <i class="fa fa-fw fa-camera"></i>
                             <span class="btn btn-file">
-                                Change photo <input type="file" class="file-upload">
+                                Change photo <input type="file" class="file-upload" name="user_image">
                             </span>
                         </button>
                     </div>
@@ -93,6 +93,7 @@
             <ul class="nav nav-tabs">
                 <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
             </ul>
+            
             <div class="tab-content pt-3">
                 <div class="tab-pane active">
                     <div class="row">
@@ -101,7 +102,7 @@
                         <div class="col">
                             <div class="form-group">
                             <label>Username</label>
-                            <input class="form-control" type="text" name="username" placeholder="johnny.s" value="{{ $item->username }}">
+                            <input class="form-control" type="text" name="username" placeholder="johnny.s" value="{{ $item->username }}" required>
                             </div>
                         </div>
                         </div>
@@ -109,7 +110,7 @@
                         <div class="col">
                             <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" type="text" placeholder="user@example.com" value="{{ $item->email }}" name="email">
+                            <input class="form-control" type="text" placeholder="user@example.com" value="{{ $item->email }}" name="email" required>
                             </div>
                         </div>
                         </div>
@@ -117,7 +118,7 @@
                         <div class="col">
                             <div class="form-group">
                             <label>Phone</label>
-                            <input class="form-control" type="text" placeholder="0123456789" value="{{ $item->phone }}" name="phone">
+                            <input class="form-control" type="text" placeholder="0123456789" value="{{ $item->phone }}" name="phone" required>
                             </div>
                         </div>
                         </div>
@@ -125,7 +126,7 @@
                         <div class="col">
                             <div class="form-group">
                             <label>Address</label>
-                            <input class="form-control" type="text" placeholder="New York, USA" value="{{ $item->address }}" name="address">
+                            <input class="form-control" type="text" placeholder="New York, USA" value="{{ $item->address }}" name="address" required>
                             </div>
                         </div>
                         </div>

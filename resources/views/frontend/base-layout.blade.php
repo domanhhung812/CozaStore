@@ -64,9 +64,9 @@
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#222222 !important; border-color: #222222; outline:none !important;">
               <span>
               @if(Auth::user()->user_image)
-                <img src="{{ Auth::user()->user_image }}" style="width: 25px; height: 25px; border-radius: 50%;" alt="">
+                <img src="{{ URL::to('/') }}/upload/images/{{ Auth::user()->user_image }}" style="width: 22px; height: 22px; border-radius: 50%;" alt="">
               @else
-                <img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 25px; height: 25px; border-radius: 50%;" alt="">
+                <img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 22px; height: 22px; border-radius: 50%;" alt="">
               @endif
               </span> {{ Auth::user()->username }}
             </a>
@@ -190,7 +190,13 @@
               
             <div class="dropdown show">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#222222 !important; border-color: #222222; outline:none !important;">
-              <span><img src="{{ Auth::user()->user_image }}" alt=""></span> {{ Auth::user()->username }}
+              <span>
+              @if(Auth::user()->user_image)
+                <img src="{{ URL::to('/') }}/upload/images/{{ Auth::user()->user_image }}" style="width: 22px; height: 22px; border-radius: 50%;" alt="">
+              @else
+                <img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 22px; height: 22px; border-radius: 50%;" alt="">
+              @endif
+              </span> {{ Auth::user()->username }}
             </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="left: -30px !important;z-index: 9999 !important;">
                 <a class="dropdown-item" href="{{ route('fr.getUserProfile') }}">My profile</a>
