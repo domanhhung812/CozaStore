@@ -12,7 +12,8 @@
 	margin-top: 100px;
 }
 .img-product{
-  height: 333px;
+  height: 372px;
+  width: 300px;
 }
 #btnSort{
   margin-top:70px;

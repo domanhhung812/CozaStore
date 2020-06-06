@@ -42,7 +42,7 @@
 						<td>{{ $transaction->tr_address }}</td>
 						<td>{{ $transaction->tr_phone }}</td>
 						<td>{{ $transaction->tr_payment_method }}</td>
-            <td>{{ number_format($transaction->tr_total) }}$</td>
+            <td>{{ $transaction->tr_total }}$</td>
             <td>
             @if( $transaction->tr_status   == 1)
               <a href="#" class="label-success label">Đã xử lý</a>

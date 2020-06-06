@@ -89,7 +89,7 @@
 						@endforeach
 						<tr class="">
 						<td colspan="8" style="color:red; font-size: 25px">Total: </td>
-							<td style="color:red; font-size: 25px">{{ str_replace(',','', Cart::subtotal(0,3)) }}$</td>
+							<td style="color:red; font-size: 25px">{{ Cart::subtotal() }}$</td>
 						</tr>
 					</tbody></table>
 				</div>

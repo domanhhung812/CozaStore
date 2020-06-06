@@ -26,7 +26,7 @@
 		// $output = array_slice($link, 2, $count);
 	?>
 	<tr class="table_row">
-		<th scope="row">{{$key}}</th>
+		<th scope="row">{{$key + 1}}</th>
 		<!-- <td class="column-1 column"></td> -->
 		<td class="column-2 column">
 			<img width="60px" height="80px" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="">

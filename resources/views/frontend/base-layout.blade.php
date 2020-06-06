@@ -9,6 +9,7 @@
     .btn-secondary.focus, .btn-secondary:focus {
     box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.5) !important;
     }
+    
   </style>
 <!--===============================================================================================-->  
   <link rel="icon" type="image/png" href="{{ asset('frontend/images/icons/favicon.png') }}"/>

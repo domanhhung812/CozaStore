@@ -5,6 +5,9 @@
   width: 300px;
   height:372px;
 }
+.sale_price{
+  display: flex;
+}
 @media only screen and (max-width: 667px){
  .container{
       margin-top:-70px;
@@ -207,8 +210,12 @@
                   @endif
                 </a>
 
-                <span class="stext-105 cl3">
-                  {{ $product['price'] }}$
+                <span class="stext-105 cl3 sale_price">
+                  @if($product['sale_off'])
+                  <strike>{{$product['price']}}$</strike>&nbsp;&nbsp;<h4 style="color: red;">{{$product['price'] - $product['price'] * $product['sale_off']/100}}$</h4>
+                  @else
+                  {{$product['price']}}$
+                  @endif
                 </span>
               </div>
 

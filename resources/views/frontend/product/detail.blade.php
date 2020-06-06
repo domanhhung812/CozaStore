@@ -55,6 +55,52 @@
 	display: flex;
 	flex-direction: column;
 }
+.price{
+	display: flex; 
+	flex-direction: row;
+}
+.flex{
+	display: flex;
+	margin-bottom: 10px;
+}
+.items-center{
+	align-items: center;
+}
+._2n_9_X {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 625px;
+    -webkit-flex-basis: 625px;
+    -ms-flex-preferred-size: 625px;
+    flex-basis: 625px;
+}
+._3_ISdg {
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: #929292;
+    margin-right: 10px;
+}
+._3n5NQx {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #ff9f1a;
+
+}
+._1GAMqZ, .MITExd {
+    margin-left: 15px;
+    white-space: nowrap;
+}
+.MITExd {
+    font-size: .75rem;
+    color: #fff;
+    text-transform: uppercase;
+    background: #ff9f1a;
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-weight: 600;
+    line-height: 1;
+}
 @media only screen and (max-width: 568px){
   .respon6 {
     width: 25px;
@@ -401,7 +447,7 @@ img {
 								<div class="preview col-md-6">
 									
 									<div class="preview-pic tab-content">
-										<img class="img-fluid" alt="Responsive image" src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" >
+										<img class="img-fluid" alt="Responsive image" src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" style="width: 100%; height: auto;">
 									</div>
 									
 								</div>
@@ -410,14 +456,27 @@ img {
 									<div class="rating">
 										<span class="review-no">{{$info['view_product']}} views</span>
 									</div>
-									<p class="product-description">{!! $info['description'] !!}</p>
-									<h4 class="price">price: <span>{{ number_format($info['price']) }}$</span></h4>
+									
+									@if($info['sale_off'])
+										<div class="flex items-center">
+											<div class="flex items-center _2n_9_X">
+												<div class="_3_ISdg">{{ number_format($info['price']) }}$</div>
+													<div class="flex items-center">
+														<div class="_3n5NQx">{{ number_format($info['price']) - number_format($info['price']) * $info['sale_off']/100 }}$
+														</div>
+														<div class="MITExd">{{$info['sale_off']}}% sale</div>
+														</div>
+													</div>
+												</div>
+									@else
+										<h4 class="price"><span style="font-size: 1.875rem !important;">{{ number_format($info['price']) }}$</span></h4>
+									@endif
 									<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 									<h5 class="sizes">sizes:
 										
 										@foreach($sizes as $key => $item)
 											<label class="form-check" style="padding-top: 10px;">
-											<input class="" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}">
+											<input class="" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
 											<span class="size" data-toggle="tooltip" title="{{ $item['letter_size'] }}" style="font-size: 14px;">{{ $item['letter_size'] }}</span>
 										</label>
 										@endforeach
@@ -425,7 +484,7 @@ img {
 									<h5 class="colors">colors:
 										@foreach($colors as $key => $item)
 											<label class="form-check" style="padding-top: 10px;">
-												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}">
+												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
 												<span class="color" style="padding-left: 10px;font-size: 14px;"
 												>{{ $item['name_color'] }}</span>
 											</label>
@@ -469,8 +528,8 @@ img {
 						<!-- - -->
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
 							<div class="how-pos2 p-lr-15-md">
-								<p class="stext-102 cl6">
-									Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+								<p class="stext-102 cl6" style="font-family: Arial;"">
+								{!! $info['description'] !!}
 								</p>
 							</div>
 						</div>

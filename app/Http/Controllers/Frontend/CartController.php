@@ -34,10 +34,10 @@ class CartController extends BaseController
 
     public function addCart(Request $request, $id)
     {
-        $product = Products::select('name_product', 'id', 'price','colors_id','sizes_id', 'qty', 'image_product')->find($id);
+        $product = Products::select('name_product', 'id', 'price','colors_id','sizes_id', 'qty', 'image_product','sale_off')->find($id);
         if(!$product) return redirect('/');
         if($product->qty == 0){
-            \Toastr::warning('Sản phẩm đã hết vui lòng chọn sản phẩm khác', 'Cảnh báo', ["positionClass" => "toast-top-right"]);
+            \Toastr::warning('This product is out of stock. Please choose anothers', '', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
 
@@ -45,14 +45,14 @@ class CartController extends BaseController
             			'id' => $id,
             			'name' => $product->name_product,
             			'qty' => $request->num_product,
-            			'price' => $product->price,
+            			'price' => $product->price - $product->price * $product->sale_off /100,
             			'options' => [
                             'images' => json_decode($product->image_product,true)[0],
                             'size' => $request->inlineRadioOptions,
                             'color' => $request->inlineRadioOptionsColor
             			]
                     ]);
-        \Toastr::success('Thêm vào giỏ hàng thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+        \Toastr::success('Add to cart successfully', '', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function getListCart(){
@@ -109,7 +109,7 @@ class CartController extends BaseController
                 }
             }
             Cart::destroy();
-            \Toastr::success('Đặt hàng thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+            \Toastr::success('Ordered successfully', '', ["positionClass" => "toast-top-right"]);
             return redirect('/');
         }
         
@@ -141,7 +141,6 @@ class CartController extends BaseController
         }else{
             $totalMoney = $totalMoney;
         }
-        dd($totalMoney);
         $transactionId = Transaction::select('id')->where('tr_user_id', $id)->get();
         $arr_id = json_decode($transactionId);
         //GET LASTED ID
@@ -167,7 +166,7 @@ class CartController extends BaseController
             // 'or_sale' => $product->price,
         }
         Cart::destroy();
-        \Toastr::success('Đặt hàng thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+        \Toastr::success('Ordered successfully', '', ["positionClass" => "toast-top-right"]);
         return redirect('/');
     }
 }

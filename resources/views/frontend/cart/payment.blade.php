@@ -11,6 +11,9 @@
   height: 40px;
 	
 }
+.form-control{
+	border-radius: 25px;
+}
 @media only screen and (max-width: 1024px){
   .shopping{
 		width:100%;
@@ -60,7 +63,7 @@
 						</tr>
 						@endforeach
 						<?php $ship_cost = 20; 	
-							$total = str_replace(',','', Cart::subtotal(0,3));
+							$total = Cart::subtotal();
 							if($total >= 100){
 								$ship_cost = 0;
 							}else if($total == 0){
@@ -128,11 +131,17 @@
 				<h4 class="mtext-109 cl2 p-b-30">
 					Shopping Information:
 				</h4>
-				<div class="flex-w flex-t bor12 p-t-15 p-b-30">
-					<div class="size-208 w-full-ssm stext-110 cl2 input-group-prepend">
-							<input class="shopping" type="text" name="phone" placeholder=Phone... required>
-							<input class="shopping" type="text" name="address" placeholder="Address..." required>
-							<input class="shopping" type="text" name="note" placeholder="Note..." required>
+				<div class="container-fluild">
+					<div class="col-lg-12 col-md-12 col-xs-8 col-sm-8">
+						<div class="row m-t-15 m-b-15" >
+							<input type="text" class="form-control" placeholder="Phone..." aria-label="Recipient's username" aria-describedby="basic-addon2" name="phone"  value="{{Auth::user()->phone}}">
+						</div>
+						<div class="row m-t-15 m-b-15">
+							<input type="text" class="form-control" placeholder="Address..." aria-label="Recipient's username" aria-describedby="basic-addon2" name="address" value="{{Auth::user()->address}}">
+						</div>
+						<div class="row m-t-15 m-b-15">
+							<input type="text" class="form-control" placeholder="Note..." aria-label="Recipient's username" aria-describedby="basic-addon2" name="note" value="">
+						</div>
 					</div>
 				</div>
 				<h4 class="mtext-109 cl2 p-b-30">
