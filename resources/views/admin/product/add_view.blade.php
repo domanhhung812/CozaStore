@@ -89,3 +89,9 @@
 	</div>
 </form>
 @endsection
+@push('js')
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript">
+	CKEDITOR.replace('description');
+</script>
+@endpush

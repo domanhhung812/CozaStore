@@ -24,7 +24,7 @@
         <label for="nameCategories"> Meta title: </label>
 				<input type="text" class="form-control" name="meta_title" id="meta_title" value="">
         <label for="nameCategories"> Meta decription: </label>
-				<input type="text" class="form-control" name="meta_description" id="meta_description" value="">
+				<textarea type="text" class="form-control" name="meta_description" id="meta_description" value=""></textarea>
 			</div>
 		<div class="col-md-6 offset-md-3 mt-3 mb-3">
 			<button type="submit" class="btn btn-primary btn-block"> ADD </button>
@@ -32,3 +32,9 @@
 	</div>
 </form>
 @stop
+@push('js')
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript">
+	CKEDITOR.replace('meta_description');
+</script>
+@endpush

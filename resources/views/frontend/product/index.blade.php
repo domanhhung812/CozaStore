@@ -8,6 +8,56 @@
 .sale_price{
   display: flex;
 }
+._2N1Tif {
+    top: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+._2N1Tif .coza-badge {
+    float: right;
+    margin-left: .3125rem;
+}
+.coza-badge--promotion {
+    background-color: rgba(255,212,36,.9);
+}
+.coza-badge--fixed-width {
+    width: 38px;
+    height: 35px;
+}
+.coza-badge {
+    display: inline-block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    padding: 4px 2px 3px;
+    font-weight: 700;
+}
+.coza-badge--promotion__label-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    font-weight: 700;
+    line-height: .8125rem;
+    color: red;
+    text-transform: uppercase;
+    font-size: .75rem;
+}
+.coza-badge--promotion__label-wrapper__off-label {
+    color: red;
+    margin: 2px 0;
+}
 @media only screen and (max-width: 667px){
  .container{
       margin-top:-70px;
@@ -190,6 +240,43 @@
 
       <div class="row isotope-grid">
         @foreach($listPd as $key => $product)
+        @if($product['sale_off'])
+        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+          <!-- Block2 -->
+          <div class="block2">
+            <div class="block2-pic hov-img0">
+              <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT">
+
+              <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                Quick View
+              </a>
+              <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$product['sale_off']}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
+            </div>
+
+            <div class="block2-txt flex-w flex-t p-t-14">
+              <div class="block2-txt-child1 flex-col-l ">
+                <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                  {{ $product['name_product'] }} 
+                  @if($product['qty'] == 0)
+                    <span><i style="color:blue; font-family: Arial;">(Sold out)</i></span>
+                  @endif
+                </a>
+
+                <span class="stext-105 cl3 sale_price">
+                  <strike>{{$product['price']}}$</strike>&nbsp;&nbsp;<h4 style="color: red;">{{$product['price'] - $product['price'] * $product['sale_off']/100}}$</h4>
+                </span>
+              </div>
+
+              <div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png')}}" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png')}}" alt="ICON">
+								</a>
+							</div>
+            </div>
+          </div>
+        </div>
+        @else
         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
           <!-- Block2 -->
           <div class="block2">
@@ -211,11 +298,7 @@
                 </a>
 
                 <span class="stext-105 cl3 sale_price">
-                  @if($product['sale_off'])
-                  <strike>{{$product['price']}}$</strike>&nbsp;&nbsp;<h4 style="color: red;">{{$product['price'] - $product['price'] * $product['sale_off']/100}}$</h4>
-                  @else
                   {{$product['price']}}$
-                  @endif
                 </span>
               </div>
 
@@ -228,6 +311,7 @@
             </div>
           </div>
         </div>
+        @endif
         @endforeach    
       </div>
 

@@ -526,7 +526,7 @@ img {
 					<!-- Tab panes -->
 					<div class="tab-content p-t-43">
 						<!-- - -->
-						<div class="tab-pane fade show active" id="description" role="tabpanel">
+						<div class="tab-pane fade show active" id="description" role="tabpanel" style="width: 100%">
 							<div class="how-pos2 p-lr-15-md">
 								<p class="stext-102 cl6" style="font-family: Arial;"">
 								{!! $info['description'] !!}
