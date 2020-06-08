@@ -44,7 +44,7 @@
                     </td>
                     <td>{{$item->price}}$</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('fr.detailPd', $item->id) }}">Click here</button>
+                        <a class="btn btn-primary" href="{{ route('fr.detailPd', ['slug' => $item->pro_slug, 'id' => $item->id]) }}">Click here</button>
                     </td>
                 </tr>
                 @endforeach

@@ -58,6 +58,10 @@
     color: red;
     margin: 2px 0;
 }
+.product-pagination{
+  display: flex;
+  justify-content: center;
+}
 @media only screen and (max-width: 667px){
  .container{
       margin-top:-70px;
@@ -78,7 +82,7 @@
 	}
 }
 </style>
-<section class="bg0 p-t-23 p-b-140">
+<section class="bg0 p-t-23 p-b-50">
     <div class="container">
       <div class="p-b-10">
         <h3 class="ltext-103 cl5">
@@ -247,7 +251,7 @@
             <div class="block2-pic hov-img0">
               <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT">
 
-              <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+              <a href="{{ route('fr.detailPd',['slug' => $product['pro_slug'],'id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                 Quick View
               </a>
               <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$product['sale_off']}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
@@ -255,7 +259,7 @@
 
             <div class="block2-txt flex-w flex-t p-t-14">
               <div class="block2-txt-child1 flex-col-l ">
-                <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                <a href="{{ route('fr.detailPd',['slug' => $product['pro_slug'],'id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                   {{ $product['name_product'] }} 
                   @if($product['qty'] == 0)
                     <span><i style="color:blue; font-family: Arial;">(Sold out)</i></span>
@@ -283,14 +287,14 @@
             <div class="block2-pic hov-img0">
               <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $product['image_product'][0] }}" alt="IMG-PRODUCT">
 
-              <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+              <a href="{{ route('fr.detailPd',['slug' => $product['pro_slug'],'id' => $product['id']]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                 Quick View
               </a>
             </div>
 
             <div class="block2-txt flex-w flex-t p-t-14">
               <div class="block2-txt-child1 flex-col-l ">
-                <a href="{{ route('fr.detailPd',['id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                <a href="{{ route('fr.detailPd',['slug' => $product['pro_slug'],'id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                   {{ $product['name_product'] }} 
                   @if($product['qty'] == 0)
                     <span><i style="color:blue; font-family: Arial;">(Sold out)</i></span>
@@ -323,9 +327,13 @@
       </div> --}}
     </div>
   </section>
-<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
- 
-    {{ $link->links() }}
+    <div class="container-fluid p-b-35">
+        <div class="row justify-content-center" >
+          <div class="col-lg-6 col-md-6 col-md-6 col-xs-6 product-pagination">
+          {{ $link->links() }}
+          </div>
+        </div>
+    
 
 </div>
 @endsection      

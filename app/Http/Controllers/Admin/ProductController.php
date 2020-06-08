@@ -148,6 +148,7 @@ class ProductController extends Controller
             // json_encode : bien mang thanh chuoi json - object trong js
             $dataInsert = [
                 'name_product' => $nameProduct,
+                'pro_slug' => str_slug($nameProduct),
                 'categories_id' => json_encode($categories),
                 'colors_id' => json_encode($colors),
                 'sizes_id' => json_encode($sizes),
@@ -163,7 +164,7 @@ class ProductController extends Controller
                 'updated_at' => null
             ];
             if($pd->addDataProduct($dataInsert)){
-                $request->session()->flash('addPd','success');
+                \Toastr::success('Thêm sản phẩm thành công', '', ["positionClass" => "toast-top-right"]);
                 return redirect()->route('admin.products');
             } else {
                 $request->session()->flash('addPd','Fail');
@@ -262,6 +263,7 @@ class ProductController extends Controller
             if($arrNameFile){
                 $dataUpdate = [
                     'name_product' => $nameProduct,
+                    'pro_slug' => str_slug($nameProduct),
                     'categories_id' => json_encode($categories),
                     'colors_id' => json_encode($colors),
                     'sizes_id' => json_encode($sizes),

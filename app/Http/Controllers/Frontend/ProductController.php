@@ -36,7 +36,9 @@ class ProductController extends BaseController
 
     public function detail($id, Request $request, Products $pd, Sizes $size, Colors $color, Categories $cate)
     {
-    	// lay thong tin cua san pham
+		// lay thong tin cua san pham
+			$url = $request->segment('4');
+			$id = preg_split('/(-)/i', $url);
 			$infoPd = $pd->getInfoDataProductById($id);
 			$items = Products::all();
 			$userId = Auth::id();
@@ -45,12 +47,16 @@ class ProductController extends BaseController
 			$userName = json_decode($infoUser)[0]->username;
 			$userEmail = json_decode($infoUser)[0]->email;
     	if($infoPd){
-    		$arrColor = json_decode($infoPd['colors_id'], true);
-    		$arrSize = json_decode($infoPd['sizes_id'], true);
-    		$arrImage = json_decode($infoPd['image_product'],true);
+			// dd($infoPd[0]['colors_id']);
+			// die();
+    		$arrColor = json_decode($infoPd[0]['colors_id'], true);
+    		$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+    		$arrImage = json_decode($infoPd[0]['image_product'],true);
 				$arrProducts = json_decode($items);
     		$infoColor = $color->getInfoColorByArrId($arrColor);
-    		$infoSize  = $size->getInfoSizeByArrid($arrSize);
+			$infoSize  = $size->getInfoSizeByArrid($arrSize);
+			// dd($infoColor);
+			// die();
     		$data = [];
 				$data['info'] = $infoPd;
 				$data['items'] = $arrProducts;

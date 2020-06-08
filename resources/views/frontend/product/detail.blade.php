@@ -356,90 +356,8 @@ img {
 </style>
 <section class="sec-product-detail bg0 p-t-65 p-b-60 py-0" style="">
 		<div class="container">
-			<form action="{{ route('fr.addCart', ['id' => $info['id'] ]) }}" method="post">
-						@csrf
-				<!-- <div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w" style="margin-left:200px;">
-									<img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $images[0] }}" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg detail-product">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							{{ $info['name_product'] }}
-							</h4>
-							
-							<span class="mtext-106 cl2">
-							{{ number_format($info['price']) }}$
-							</span>
-
-							<p class="stext-102 cl3 p-t-23">
-							{!! $info['description'] !!}
-							</p>
-							<div class="p-t-33 selector-components">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="">
-										@foreach($sizes as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}">
-											<span class="form-check-label">{{ $item['letter_size'] }}</span>
-										</label>
-										@endforeach
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="">
-										@foreach($colors as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
-												<input class="form-check-input px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}">
-												<p class="form-check-label" 
-												style="
-													padding-left: -10px !important;
-												"
-												>{{ $item['name_color'] }}</p>
-											</label>
-										@endforeach
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next quantity">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
-										</div>
-										<div class="my-10">
-											<p>(Số lượng còn trong kho: {{ $info['qty'] }}.)</p>
-										</div>
-										<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
-										</button>
-										<div class="add-favorite-product">
-											<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 favorite_product js-add-favorite">
-												<i class="fa fa-heart-o" aria-hidden="true"></i>
-											</button>
-										</div>
-									</div>
-								</div>	
-							</div>
-						</div>
-					</div>
-				</div> -->
+			<form action="{{ route('fr.addCart', ['id' => $info[0]['id'] ]) }}" method="post">
+				@csrf
 				<div class="container-fluild p-l-0 p-r-0">
 					<div class="card">
 						<div class="container-fliud">
@@ -452,24 +370,24 @@ img {
 									
 								</div>
 								<div class="details col-md-6">
-									<h3 class="product-title">{{ $info['name_product'] }}</h3>
+									<h3 class="product-title">{{ $info[0]['name_product'] }}</h3>
 									<div class="rating">
-										<span class="review-no">{{$info['view_product']}} views</span>
+										<span class="review-no">{{$info[0]['view_product']}} views</span>
 									</div>
 									
-									@if($info['sale_off'])
+									@if($info[0]['sale_off'])
 										<div class="flex items-center">
 											<div class="flex items-center _2n_9_X">
-												<div class="_3_ISdg">{{ number_format($info['price']) }}$</div>
+												<div class="_3_ISdg">{{ number_format($info[0]['price']) }}$</div>
 													<div class="flex items-center">
-														<div class="_3n5NQx">{{ number_format($info['price']) - number_format($info['price']) * $info['sale_off']/100 }}$
+														<div class="_3n5NQx">{{ number_format($info[0]['price']) - number_format($info[0]['price']) * $info[0]['sale_off']/100 }}$
 														</div>
-														<div class="MITExd">{{$info['sale_off']}}% sale</div>
+														<div class="MITExd">{{$info[0]['sale_off']}}% sale</div>
 														</div>
 													</div>
 												</div>
 									@else
-										<h4 class="price"><span style="font-size: 1.875rem !important;">{{ number_format($info['price']) }}$</span></h4>
+										<h4 class="price"><span style="font-size: 1.875rem !important;">{{ number_format($info[0]['price']) }}$</span></h4>
 									@endif
 									<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 									<h5 class="sizes">sizes:
@@ -496,13 +414,13 @@ img {
 												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
 											</div>
 											<div class="my-10">
-												<p>(Left in stock: {{ $info['qty'] }}.)</p>
+												<p>(Left in stock: {{ $info[0]['qty'] }}.)</p>
 											</div>
 										</div>
 									</div>
 									<div class="action">
 										<button class="add-to-cart btn btn-default" type="submit">add to cart</button>
-										<a class="like btn btn-default js-add-favorite" href="{{ route('fr.postAddFavorite', ['id' => $info['id']]) }}"><span class="fa fa-heart"></span></a>
+										<a class="like btn btn-default js-add-favorite" href="{{ route('fr.postAddFavorite', ['id' => $info[0]['id']]) }}"><span class="fa fa-heart"></span></a>
 									</div>
 								</div>
 							</div>
@@ -529,7 +447,7 @@ img {
 						<div class="tab-pane fade show active" id="description" role="tabpanel" style="width: 100%">
 							<div class="how-pos2 p-lr-15-md">
 								<p class="stext-102 cl6" style="font-family: Arial;"">
-								{!! $info['description'] !!}
+								{!! $info[0]['description'] !!}
 								</p>
 							</div>
 						</div>
@@ -634,14 +552,14 @@ img {
 				<div class="swiper-wrapper">
 					@foreach($items as $item)
 					<?php $link = json_decode($item->image_product)[0] ?>
-					@if($item->id == $info['id'])
+					@if($item->id == $info[0]['id'])
 					<div class="swiper-slide" style="display:none;">
 						<div class="">
 							<span>
 								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
-										<a href="{{ route('fr.detailPd',$item->id) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
+										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
 										{{$item->name_product}}
 										</a>
 										<span class="stext-105 cl3">
@@ -665,7 +583,7 @@ img {
 								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">	
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
-										<a href="{{ route('fr.detailPd',$item->id) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
+										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
 										{{$item->name_product}}
 										</a>
 										<span class="stext-105 cl3">

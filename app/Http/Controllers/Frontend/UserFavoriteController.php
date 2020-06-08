@@ -34,7 +34,7 @@ class UserFavoriteController extends Controller
                         
         $products = Products::whereHas('favorite', function($query) use ($id){
             $query->where('uf_user_id',$id);
-        })->select('id','name_product','image_product','price')
+        })->select('id','name_product','image_product','price','pro_slug')
           ->paginate(10);
         
         return view('frontend.user.favorite',compact('products'));

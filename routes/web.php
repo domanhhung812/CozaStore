@@ -146,12 +146,10 @@ Route::group([
 ],function(){
 	Route::get('/','ProductController@index')->name('product');
 	Route::get('/categories/{id}', 'ProductController@getCategories')->name('getCategories');
-	Route::get('/detail-product/{id}','ProductController@detail')
-	      ->name('detailPd')
-				->where(['id' => '\d+']);
-	Route::post('/detail-product/{id}','ProductController@postComments')
-	->name('postComments')
-	->where(['id' => '\d+']);
+	Route::get('/detail-product/{slug}/{id}','ProductController@detail')
+	      ->name('detailPd');
+	Route::post('/detail-product/{slug}/{id}','ProductController@postComments')
+	->name('postComments');
 	// Sort Products
 	Route::get('/products-list','ProductController@searchProducts')->name('searchProducts');
 	Route::get('/products-list-by-price-asc','ProductController@sortProductsByPriceAsc')->name('sortProductsByPriceAsc');
