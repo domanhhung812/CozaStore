@@ -101,6 +101,14 @@
     font-weight: 600;
     line-height: 1;
 }
+.login_link:hover{
+	text-decoration: underline;
+}
+.comment-tabs{
+	font-size: 20px;
+	display: flex;
+	flex-direction: column;
+}
 @media only screen and (max-width: 568px){
   .respon6 {
     width: 25px;
@@ -395,7 +403,7 @@ img {
 										@foreach($sizes as $key => $item)
 											<label class="form-check" style="padding-top: 10px;">
 											<input class="" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
-											<span class="size" data-toggle="tooltip" title="{{ $item['letter_size'] }}" style="font-size: 14px;">{{ $item['letter_size'] }}</span>
+											<span class="size" data-toggle="tooltip" title="{{ $item['letter_size'] }}" style="font-size: 14px;">{{ $item['letter_size'] }} ({{$item['number_size']}})</span>
 										</label>
 										@endforeach
 									</h5>
@@ -452,7 +460,7 @@ img {
 							</div>
 						</div>
 						<!-- - -->
-						<!--  -->
+						<!--  -->@if(Auth::id())
 						<div class="tab-pane fade" id="reviews" role="tabpanel">
 							<div class="row">
 								<div class="col-lg-12 col-sm-10 col-md-8 col-lg-6 m-lr-auto">
@@ -535,6 +543,16 @@ img {
 								</div>
 							</div>
 						</div>
+						@else
+						<div class="tab-pane fade" id="reviews" role="tabpanel">
+							<div class="row">
+								<div class="col-lg-12 col-sm-10 col-md-8 col-lg-6 m-lr-auto comment-tabs">
+									<!-- Review -->
+									<a class="login_link" href="{{ route('get.login') }}" style="text-align: center;color: #ff9f1a"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Please login here to comment</a>
+								</div>
+							</div>
+						</div>
+						@endif
 					</div>
 				</div>
 			</div>

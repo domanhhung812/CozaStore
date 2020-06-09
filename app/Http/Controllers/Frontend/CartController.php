@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Input;
 
 use Session;
 use Stripe;
+use Mail;
 
 
 class CartController extends BaseController
@@ -64,26 +65,26 @@ class CartController extends BaseController
         return view('frontend.cart.payment',compact('products'));
     }
     public function saveInfoShoppingCart(Request $request){
-        $totalMoney = str_replace(',','', Cart::subtotal(0,3));
+        $totalMoney = Cart::subtotal();
         if($totalMoney >= 100){
-            $totalMoney = $totalMoney;
+            $totalMoney1 = $totalMoney;
         }else if($totalMoney == 0){
-            $totalMoney = 0;
+            $totalMoney1 = 0;
         }
         else{
-            $totalMoney+=20;
+            $totalMoney1=$totalMoney + 20;
         }
         $discount = session()->get('coupon')['discount'];
         if($discount){
-            $totalMoney-=$discount;
+            $totalMoney2= $totalMoney1 - $discount;
         }else{
-            $totalMoney = $totalMoney;
+            $totalMoney2 = $totalMoney1;
         }
         
         $id = Auth::id();
         $transactionId = Transaction::insertGetId([
             'tr_user_id' => $id,
-            'tr_total' => (int)$totalMoney,
+            'tr_total' => $totalMoney2,
             'tr_note' => $request->note,
             'tr_address' => $request->address,
             'tr_phone' => $request->phone,
@@ -100,7 +101,7 @@ class CartController extends BaseController
                         'or_transaction_id' => $transactionId,
                         'or_product_id' => $product->id,
                         'or_qty' => $product->qty,
-                        'or_price' => $product->price,
+                        'or_price' => $product->price - $product->price * $product->sale_off /100,
                         'or_payment_method' => $request->payment,
                         'or_size' => $product->options->size,
                         'or_color' => $product->options->color
@@ -109,6 +110,7 @@ class CartController extends BaseController
                 }
             }
             Cart::destroy();
+            $request->session()->forget('coupon')['discount'];
             \Toastr::success('Ordered successfully', '', ["positionClass" => "toast-top-right"]);
             return redirect('/');
         }
@@ -127,19 +129,20 @@ class CartController extends BaseController
     public function payStripe(Request $request)
     {
         $id = Auth::id();
-        $totalMoney = str_replace(',','', Cart::subtotal(0,3));
+        $totalMoney = Cart::subtotal();
         if($totalMoney >= 100){
-            $totalMoney = $totalMoney;
+            $totalMoney1 = $totalMoney;
         }else if($totalMoney == 0){
-            $totalMoney = 0;
-        }else{
-            $totalMoney+=20;
+            $totalMoney1 = 0;
+        }
+        else{
+            $totalMoney1=$totalMoney + 20;
         }
         $discount = session()->get('coupon')['discount'];
         if($discount){
-            $totalMoney-=$discount;
+            $totalMoney2= $totalMoney1 - $discount;
         }else{
-            $totalMoney = $totalMoney;
+            $totalMoney2 = $totalMoney1;
         }
         $transactionId = Transaction::select('id')->where('tr_user_id', $id)->get();
         $arr_id = json_decode($transactionId);
@@ -148,7 +151,7 @@ class CartController extends BaseController
         $or_id = $arr_id[$max - 1]->id;
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-                "amount" => $totalMoney * 100,
+                "amount" => $totalMoney2 * 100,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => "Payment for CozaStore" 
@@ -160,12 +163,13 @@ class CartController extends BaseController
             $order->or_transaction_id = $or_id;
             $order->or_product_id = $product->id;
             $order->or_qty = $product->qty;
-            $order->or_price = $product->price;
+            $order->or_price = $product->price - $product->price * $product->sale_off /100;
             $order->or_payment_method ='Stripe';
             $order->save();
             // 'or_sale' => $product->price,
         }
         Cart::destroy();
+        $request->session()->forget('coupon')['discount'];
         \Toastr::success('Ordered successfully', '', ["positionClass" => "toast-top-right"]);
         return redirect('/');
     }

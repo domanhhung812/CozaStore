@@ -41,39 +41,55 @@ class ProductController extends BaseController
 			$id = preg_split('/(-)/i', $url);
 			$infoPd = $pd->getInfoDataProductById($id);
 			$items = Products::all();
-			$userId = Auth::id();
-			$product = Products::find($id);
-			$infoUser = Users::select('email','username')->where('id',$userId)->get();
-			$userName = json_decode($infoUser)[0]->username;
-			$userEmail = json_decode($infoUser)[0]->email;
-    	if($infoPd){
-			// dd($infoPd[0]['colors_id']);
-			// die();
-    		$arrColor = json_decode($infoPd[0]['colors_id'], true);
-    		$arrSize = json_decode($infoPd[0]['sizes_id'], true);
-    		$arrImage = json_decode($infoPd[0]['image_product'],true);
-				$arrProducts = json_decode($items);
-    		$infoColor = $color->getInfoColorByArrId($arrColor);
-			$infoSize  = $size->getInfoSizeByArrid($arrSize);
-			// dd($infoColor);
-			// die();
-    		$data = [];
-				$data['info'] = $infoPd;
-				$data['items'] = $arrProducts;
-    		$data['images'] = $arrImage;
-    		$data['colors'] = $infoColor;
-    		$data['sizes'] = $infoSize;
-				$data['cate'] = $this->getAllDataCategoriesForUser($cate);
-				$data['comments'] = Comments::where('co_product_id', $id)->get();
-				$data['userName'] = $userName;
-				$data['userEmail'] = $userEmail;
-				ProcessViewService::view('products','view_product','$product', $id);
-    		return view('frontend.product.detail',$data);
+			if(Auth::id()){
+				$userId = Auth::id();
+					$product = Products::find($id);
+					$infoUser = Users::select('email','username')->where('id',$userId)->get();
+					$userName = json_decode($infoUser)[0]->username;
+					$userEmail = json_decode($infoUser)[0]->email;
+					if($infoPd){
+					$arrColor = json_decode($infoPd[0]['colors_id'], true);
+					$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					$arrImage = json_decode($infoPd[0]['image_product'],true);
+						$arrProducts = json_decode($items);
+					$infoColor = $color->getInfoColorByArrId($arrColor);
+					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					$data = [];
+						$data['info'] = $infoPd;
+						$data['items'] = $arrProducts;
+					$data['images'] = $arrImage;
+					$data['colors'] = $infoColor;
+					$data['sizes'] = $infoSize;
+						$data['cate'] = $this->getAllDataCategoriesForUser($cate);
+						$data['comments'] = Comments::where('co_product_id', $id)->get();
+						$data['userName'] = $userName;
+						$data['userEmail'] = $userEmail;
+						ProcessViewService::view('products','view_product','$product', $id);
+					return view('frontend.product.detail',$data);
 
-    	} else {
-    		abort(404);
-    	}
+				} else {
+					abort(404);
+				}
+			}else{
+				$product = Products::find($id);
+				if($infoPd){
+					$arrColor = json_decode($infoPd[0]['colors_id'], true);
+					$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					$arrImage = json_decode($infoPd[0]['image_product'],true);
+					$arrProducts = json_decode($items);
+					$infoColor = $color->getInfoColorByArrId($arrColor);
+					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					$data = [];
+					$data['info'] = $infoPd;
+					$data['items'] = $arrProducts;
+					$data['images'] = $arrImage;
+					$data['colors'] = $infoColor;
+					$data['sizes'] = $infoSize;
+					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
+					return view('frontend.product.detail',$data);
+			}
 		}
+	}	
 		public function getCategories(Request $request, $id){
 			$min = $request->min_price;
 			$max = $request->max_price;
