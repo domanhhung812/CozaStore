@@ -64,7 +64,7 @@
 
 							<div class="p-t-32">
 								<h4 class="p-b-15">
-									<a href="{{ route('fr.getDetailBlogs', $blog->id) }}" class="ltext-108 cl2 hov-cl1 trans-04">
+									<a href="{{ route('fr.getDetailBlogs', ['slug' => $blog->b_slug, 'id' => $blog->id]) }}" class="ltext-108 cl2 hov-cl1 trans-04">
 										{{ $blog->b_title_seo }}
 									</a>
 								</h4>
@@ -94,7 +94,7 @@
 										</span>
 									</span>
 
-									<a href="{{ route('fr.getDetailBlogs', $blog->id) }}" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+									<a href="{{ route('fr.getDetailBlogs', ['slug' => $blog->b_slug, 'id' => $blog->id]) }}" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
 										Continue Reading
 
 										<i class="fa fa-long-arrow-right m-l-9"></i>

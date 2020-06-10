@@ -16,6 +16,11 @@ use App\Services\ProcessViewService;
 
 class ProductController extends BaseController
 {
+	private function getRalativeProducts($cateId)
+	{
+        $items = DB::table('products')->whereJsonContains('categories_id', $cateId)->select('id','name_product','categories_id', 'price','image_product', 'sale_off', 'pro_slug')->get();
+		return $items;
+	}
     public function index(Categories $cate, Products $pd)
     {
     	// load cate
@@ -79,6 +84,12 @@ class ProductController extends BaseController
 					$arrProducts = json_decode($items);
 					$infoColor = $color->getInfoColorByArrId($arrColor);
 					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					$cateId = Products::select('categories_id')->where('id', $id)->first();
+					$countStr = strlen($cateId->categories_id);
+					$cateId1 = substr($cateId->categories_id,-($countStr-2));
+					$idCate = substr($cateId1,0,($countStr-4));
+					
+					
 					$data = [];
 					$data['info'] = $infoPd;
 					$data['items'] = $arrProducts;
@@ -86,52 +97,56 @@ class ProductController extends BaseController
 					$data['colors'] = $infoColor;
 					$data['sizes'] = $infoSize;
 					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
+					
+					$data['relativeProducts'] = $this->getRalativeProducts($idCate);
+					
 					return view('frontend.product.detail',$data);
 			}
 		}
 	}	
-		public function getCategories(Request $request, $id){
-			$url = $request->segment('4');
-			$id = preg_split('/(-)/i', $url)[0];
-			$min = $request->min_price;
-			$max = $request->max_price;
-			$sortDate = $request->sortDate;
-			$sortPrice = $request->sortPrice === 'asc' ? '1' : '0';
-			if($min && $max){
-				$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->get();
-				if($sortPrice === '1'){
-					$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->orderBy('price','asc')->get();
-				}else if($sortPrice === '0'){
-					$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->orderBy('price','desc')->get();
-				}
-			}else if($sortPrice === '1'){
-				$items = DB::table('products')->whereJsonContains('categories_id', $id)->orderBy('price','asc')->get();
+	public function getCategories(Request $request, $id){
+		$url = $request->segment('4');
+		$id = preg_split('/(-)/i', $url)[0];
+		$min = $request->min_price;
+		$max = $request->max_price;
+		$sortDate = $request->sortDate;
+		$sortPrice = $request->sortPrice === 'asc' ? '1' : '0';
+		if($min && $max){
+			$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->get();
+			if($sortPrice === '1'){
+				$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->orderBy('price','asc')->get();
 			}else if($sortPrice === '0'){
-				$items = DB::table('products')->whereJsonContains('categories_id', $id)->orderBy('price','desc')->get();
+				$items = DB::table('products')->whereJsonContains('categories_id', $id)->whereBetween('price', [$min, $max])->orderBy('price','desc')->get();
 			}
-			else{
-				$items = DB::table('products')->whereJsonContains('categories_id', $id)->get();
-			}
-			
-			return view('frontend.categories.index', compact('items'));
+		}else if($sortPrice === '1'){
+			$items = DB::table('products')->whereJsonContains('categories_id', $id)->orderBy('price','asc')->get();
+		}else if($sortPrice === '0'){
+			$items = DB::table('products')->whereJsonContains('categories_id', $id)->orderBy('price','desc')->get();
 		}
-		public function postComments(Request $request, $id)
-		{
-			$comments = new Comments;
-			$comments->co_name = $request->co_name;
-			$comments->co_email = $request->co_email;
-			$comments->co_content = $request->co_content;
-			$comments->co_product_id = $id;
-			$comments->co_rating = $request->rating;
-			$comments->save();
-			\Toastr::success('Thêm comment thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
-			return redirect()->back();
+		else{
+			$items = DB::table('products')->whereJsonContains('categories_id', $id)->get();
 		}
-		public function searchProducts(Request $request){
-			$search = $request->search;
-			if($search){
-				$items = DB::table('products')->where('name_product','like', '%'.$search.'%')->paginate(12);
-				return view('frontend.search.index',compact('items'));
-			}
+		
+		return view('frontend.categories.index', compact('items'));
+	}
+	public function postComments(Request $request, $id)
+	{
+		$comments = new Comments;
+		$comments->co_name = $request->co_name;
+		$comments->co_email = $request->co_email;
+		$comments->co_content = $request->co_content;
+		$comments->co_product_id = $id;
+		$comments->co_rating = $request->rating;
+		$comments->save();
+		\Toastr::success('Thêm comment thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+		return redirect()->back();
+	}
+	public function searchProducts(Request $request){
+		$search = $request->search;
+		if($search){
+			$items = DB::table('products')->where('name_product','like', '%'.$search.'%')->paginate(12);
+			return view('frontend.search.index',compact('items'));
 		}
+	}
+
 }

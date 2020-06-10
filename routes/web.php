@@ -179,7 +179,7 @@ Route::group([
 	Route::get('about', 'AboutController@getAbout')->name('getAbout');
 	// Blog
 	Route::get('blog','BlogController@getBlog')->name('getBlog');
-	Route::get('detail-blog/{id}', 'BlogController@getDetailBlogs')->name('getDetailBlogs');
+	Route::get('detail-blog/{slug}/{id}', 'BlogController@getDetailBlogs')->name('getDetailBlogs');
 
 	//Order tracking
 	Route::get('track-order','OrderController@index')->name('getOrderTracking');

@@ -86,4 +86,13 @@ class Products extends Model
                 ->paginate(12);
         return $data;
     }
+    public function getRalativeProducts($idCate)
+	{
+        $products = DB::table('products')
+                            ->select('id','name_product','pro_slug','price','image_product','sale_off')
+                            ->where('categories_id', $idCate)
+							->orderBy('id')
+							->get();
+		return $products;
+	}
 }

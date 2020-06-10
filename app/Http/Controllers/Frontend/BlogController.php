@@ -15,6 +15,8 @@ class BlogController extends Controller
     }
     public function getDetailBlogs(Request $request, $id)
     {
+        $url = $request->segment('4');
+		$id = preg_split('/(-)/i', $url)[0];
         $blog = Blogs::find($id);
         return view('frontend.blog.detail', compact('blog'));
     }

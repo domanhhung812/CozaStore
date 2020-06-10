@@ -565,10 +565,12 @@ img {
 							Related Products
 					</h3>
 			</div>
-        <!-- Slide2 -->
+		<!-- Slide2 -->
         <div class="swiper-container">
 				<div class="swiper-wrapper">
-					@foreach($items as $item)
+					
+					@foreach($relativeProducts as $item)
+					
 					<?php $link = json_decode($item->image_product)[0] ?>
 					@if($item->id == $info[0]['id'])
 					<div class="swiper-slide" style="display:none;">
