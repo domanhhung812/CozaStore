@@ -9,19 +9,19 @@
 
 					<ul>
 						<li class="p-b-10">
-							<a href="{{ route('fr.getCategories', 3) }}" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="{{ route('fr.getCategories', ['women', 3]) }}" class="stext-107 cl7 hov-cl1 trans-04">
 								Women
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="{{ route('fr.getCategories', 1) }}" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="{{ route('fr.getCategories', ['men', 1]) }}" class="stext-107 cl7 hov-cl1 trans-04">
 								Men
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="{{ route('fr.getCategories', 5) }}" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="{{ route('fr.getCategories', ['shoes', 1]) }}" class="stext-107 cl7 hov-cl1 trans-04">
 								Shoes
 							</a>
 						</li>

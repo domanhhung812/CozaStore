@@ -5,63 +5,7 @@
   width: 300px;
   height:372px;
 }
-.sale_price{
-  display: flex;
-}
-._2N1Tif {
-    top: 0;
-    position: absolute;
-    right: 0;
-    z-index: 1;
-}
-._2N1Tif .coza-badge {
-    float: right;
-    margin-left: .3125rem;
-}
-.coza-badge--promotion {
-    background-color: rgba(255,212,36,.9);
-}
-.coza-badge--fixed-width {
-    width: 38px;
-    height: 35px;
-}
-.coza-badge {
-    display: inline-block;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    position: relative;
-    padding: 4px 2px 3px;
-    font-weight: 700;
-}
-.coza-badge--promotion__label-wrapper {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -moz-box-orient: vertical;
-    -moz-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    text-align: center;
-    position: relative;
-    font-weight: 700;
-    line-height: .8125rem;
-    color: red;
-    text-transform: uppercase;
-    font-size: .75rem;
-}
-.coza-badge--promotion__label-wrapper__off-label {
-    color: red;
-    margin: 2px 0;
-}
-.product-pagination{
-  display: flex;
-  justify-content: center;
-}
+
 @media only screen and (max-width: 667px){
  .container{
       margin-top:-70px;
@@ -97,8 +41,9 @@
           </a>
           @foreach($categories as $cate)
           <?php $name = json_decode($cate)->name;
-                $id = json_decode($cate)->id ?>
-          <a href="{{ route('fr.getCategories', $id) }}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                $id = json_decode($cate)->id;
+                $cate_slug = json_decode($cate)->cate_slug ?>
+          <a href="{{ route('fr.getCategories',[$cate_slug, $id]) }}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
             {{ $name }}
           </a>
           @endforeach
@@ -262,7 +207,7 @@
                 <a href="{{ route('fr.detailPd',['slug' => $product['pro_slug'],'id' => $product['id']]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                   {{ $product['name_product'] }} 
                   @if($product['qty'] == 0)
-                    <span><i style="color:blue; font-family: Arial;">(Sold out)</i></span>
+                    <span><i style="color:red; font-family: Arial;">(Sold out)</i></span>
                   @endif
                 </a>
 

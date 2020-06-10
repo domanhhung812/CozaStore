@@ -3157,8 +3157,75 @@ input.num-product::-webkit-inner-spin-button {
 .hov3:hover {
   opacity: 1;
 }
-
-
+/* Sale css */
+._2N1Tif {
+  top: 0;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+._2N1Tif .coza-badge {
+  float: right;
+  margin-left: .3125rem;
+}
+.coza-badge--promotion {
+  background-color: rgba(255,212,36,.9);
+}
+.coza-badge--fixed-width {
+  width: 38px;
+  height: 35px;
+}
+.coza-badge {
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  padding: 4px 2px 3px;
+  font-weight: 700;
+}
+.coza-badge--promotion__label-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  font-weight: 700;
+  line-height: .8125rem;
+  color: red;
+  text-transform: uppercase;
+  font-size: .75rem;
+}
+.coza-badge--promotion__label-wrapper__off-label {
+  color: red;
+  margin: 2px 0;
+}
+.coza-badge--promotion:after {
+  content: "";
+  width: 0;
+  height: 0;
+  left: 0;
+  bottom: -4px;
+  position: absolute;
+  border-color: transparent rgba(255,212,36,.9);
+  border-style: solid;
+  border-width: 0 19px 4px;
+}
+.product-pagination{
+display: flex;
+justify-content: center;
+}
+.sale_price{
+  display: flex;
+}
 
 
 /*==================================================================
@@ -3328,5 +3395,5 @@ input.num-product::-webkit-inner-spin-button {
   .respon3 {
     padding: 20px;
   }
-
+  /* Sale css */
 }

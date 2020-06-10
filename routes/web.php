@@ -145,7 +145,7 @@ Route::group([
 	'as' => 'fr.'
 ],function(){
 	Route::get('/','ProductController@index')->name('product');
-	Route::get('/categories/{id}', 'ProductController@getCategories')->name('getCategories');
+	Route::get('/categories/{slug}/{id}', 'ProductController@getCategories')->name('getCategories');
 	Route::get('/detail-product/{slug}/{id}','ProductController@detail')
 	      ->name('detailPd');
 	Route::post('/detail-product/{slug}/{id}','ProductController@postComments')

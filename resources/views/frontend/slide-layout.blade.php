@@ -87,7 +87,7 @@
           <div class="block1 wrap-pic-w">
             <img src="{{ asset('frontend/images/banner-01.jpg') }}" alt="IMG-BANNER">
 
-            <a href="{{ route('fr.getCategories',1) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+            <a href="{{ route('fr.getCategories',['women', 3]) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
               <div class="block1-txt-child1 flex-col-l">
                 <span class="block1-name ltext-102 trans-04 p-b-8" style="margin-top:-30px;margin-left:-30px;">
                   Women
@@ -112,14 +112,14 @@
           <div class="block1 wrap-pic-w">
             <img src="{{ asset('frontend/images/banner-02.jpg') }}" alt="IMG-BANNER">
 
-            <a href="{{ route('fr.getCategories',3) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+            <a href="{{ route('fr.getCategories',['men', 1]) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
               <div class="block1-txt-child1 flex-col-l">
                 <span class="block1-name ltext-102 trans-04 p-b-8" style="margin-top:-30px;margin-left:-30px;">
                   Men
                 </span>
 
                 <span class="block1-info stext-102 trans-04">
-                  Spring 2020
+                  Summer 2020
                 </span>
               </div>
 
@@ -137,7 +137,7 @@
           <div class="block1 wrap-pic-w">
             <img src="{{ asset('frontend/images/banner-10.jpg') }}" alt="IMG-BANNER">
 
-            <a href="{{ route('fr.getCategories',5) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+            <a href="{{ route('fr.getCategories',['shoes', 5]) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
               <div class="block1-txt-child1 flex-col-l">
                 <span class="block1-name ltext-102 trans-04 p-b-8" style="margin-top:-30px;margin-left:-30px;">
                   Shoes

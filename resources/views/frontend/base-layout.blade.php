@@ -111,7 +111,7 @@
                 <a href="#">Categories</a>
                 <ul class="sub-menu">
                   @foreach($categories as $cate)
-                 <li><a href="{{ route('fr.getCategories', $cate->id) }}">{{ $cate->name}}</a></li>
+                 <li><a href="{{ route('fr.getCategories',['slug' => $cate->cate_slug, 'id' => $cate->id]) }}">{{ $cate->name}}</a></li>
                   @endforeach
                 </ul>
                 <span class="arrow-main-menu">
@@ -228,7 +228,7 @@
                 <a href="#">Categories</a>
                 <ul class="sub-menu-m" >
                   @foreach($categories as $cate)
-                 <li class="label1 rs1" data-label1="hot"><a href="{{ route('fr.getCategories', $cate->id) }}">{{ $cate->name}}</a></li>
+                 <li class="label1 rs1" data-label1="hot"><a href="{{ route('fr.getCategories', ['slug' => $cate->cate_slug, 'id' => $cate->id]) }}">{{ $cate->name}}</a></li>
                   @endforeach
                 </ul>
                 <span class="arrow-main-menu-m">

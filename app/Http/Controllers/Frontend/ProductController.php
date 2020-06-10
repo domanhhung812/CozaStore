@@ -91,6 +91,8 @@ class ProductController extends BaseController
 		}
 	}	
 		public function getCategories(Request $request, $id){
+			$url = $request->segment('4');
+			$id = preg_split('/(-)/i', $url)[0];
 			$min = $request->min_price;
 			$max = $request->max_price;
 			$sortDate = $request->sortDate;
@@ -110,6 +112,7 @@ class ProductController extends BaseController
 			else{
 				$items = DB::table('products')->whereJsonContains('categories_id', $id)->get();
 			}
+			
 			return view('frontend.categories.index', compact('items'));
 		}
 		public function postComments(Request $request, $id)

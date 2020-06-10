@@ -45,6 +45,7 @@ class CategoriesController extends Controller
         ]);
         $infoCat = Categories::find($id);
         $infoCat->name = $request->get('name');
+        $infoCat->cate_slug = str_slug($request->get('name'));
         $infoCat->parent_id = $request->get('parent_id');
         $infoCat->status = $request->get('status');
         $infoCat->save();
@@ -65,6 +66,7 @@ class CategoriesController extends Controller
         ]);
         $dataInsert = new Categories;
         $dataInsert->name = $request->post('name');
+        $dataInsert->cate_slug = str_slug($request->post('name'));
         $dataInsert->parent_id = $request->post('parent_id');
         $dataInsert->status = $request->post('status');
         $dataInsert->save();
