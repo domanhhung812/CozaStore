@@ -59,6 +59,10 @@ class ProductController extends BaseController
 						$arrProducts = json_decode($items);
 					$infoColor = $color->getInfoColorByArrId($arrColor);
 					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					$cateId = Products::select('categories_id')->where('id', $id)->first();
+					$countStr = strlen($cateId->categories_id);
+					$cateId1 = substr($cateId->categories_id,-($countStr-2));
+					$idCate = substr($cateId1,0,($countStr-4));
 					$data = [];
 						$data['info'] = $infoPd;
 						$data['items'] = $arrProducts;
@@ -69,6 +73,7 @@ class ProductController extends BaseController
 						$data['comments'] = Comments::where('co_product_id', $id)->get();
 						$data['userName'] = $userName;
 						$data['userEmail'] = $userEmail;
+						$data['relativeProducts'] = $this->getRalativeProducts($idCate);
 						ProcessViewService::view('products','view_product','$product', $id);
 					return view('frontend.product.detail',$data);
 

@@ -20,7 +20,7 @@
 				<label for="nameCategories"> Mô tả: </label>
 				<input type="text" class="form-control" name="description" id="description" value="">
         <label for="nameCategories"> Nội dung: </label>
-				<textarea type="text" class="form-control" name="content" id="content" value="" row="3"></textarea>
+				<textarea type="text" class="form-control" name="content" id="meta_content" value="" ></textarea>
         <label for="nameCategories"> Meta title: </label>
 				<input type="text" class="form-control" name="meta_title" id="meta_title" value="">
         <label for="nameCategories"> Meta decription: </label>
@@ -35,6 +35,6 @@
 @push('js')
 <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript">
-	CKEDITOR.replace('meta_description');
+	CKEDITOR.replace('meta_content');
 </script>
 @endpush
