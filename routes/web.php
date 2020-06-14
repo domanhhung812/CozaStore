@@ -134,6 +134,10 @@ function(){
 		->name('handleEditBlogs')
 		->where(['id'=>'[0-9]+']);
 	});
+	Route::group(['prefix' => 'feedbacks'], function(){
+		Route::get('/products','AdminFeedbackController@getFeedbackProducts')->name('getFeedbackProducts');
+		Route::post('delete-feedbacks','AdminBlogController@deleteFeedback')->name('deleteFeedback');
+	});
 });
 
 /******************** Router Frontend - User **************************/
