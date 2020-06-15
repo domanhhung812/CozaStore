@@ -11,6 +11,7 @@ use App\Models\Sizes;
 use App\Models\Brands;
 use App\Models\Products;
 use App\Models\Comments;
+use App\Models\ProductDetails;
 use App\Http\Requests\StoreProductsPost;
 
 class ProductController extends Controller
@@ -104,21 +105,26 @@ class ProductController extends Controller
     	return view('admin.product.add_view',$data);
     }
 
-    public function handleAddProduct(StoreProductsPost $request, Products $pd)
+    public function handleAddProduct(Request $request, Products $pd)
     {
-    	//dd($request->all());
-        // lay cac du lieu tu form nguoi dung gui len
+        $sizeId = Sizes::select('id')->orderBy('id')->get();
+        $idSizes = json_decode($sizeId);
+        $data = array();
+        foreach($idSizes as $item){
+            if(isset($data[$item->id])){
+                $data[$item->id] = array();
+            }
+            $data[$item->id] = $request->post('size_qty_'.$item->id);
+        }
         $nameProduct = $request->nameProduct;
         $categories  = $request->cat;
-        $colors = $request->color;
-        $sizes = $request->size;
+        $colors = array($request->color);
         $brand = $request->brands;
         $price = $request->price;
         $qty = $request->qty;
         $sale = $request->sale;
         $description = $request->description;
         $arrNameFile = [];
-
         // thuc hien upload file
         // kiem tra xem nguoi co chon file ko
         if($request->hasFile('images')){
@@ -142,6 +148,8 @@ class ProductController extends Controller
                 }
             }
         }
+
+            
         // tien hanh luu thong vao db
         if($arrNameFile){
             // luu vao db
@@ -151,7 +159,7 @@ class ProductController extends Controller
                 'pro_slug' => str_slug($nameProduct),
                 'categories_id' => json_encode($categories),
                 'colors_id' => json_encode($colors),
-                'sizes_id' => json_encode($sizes),
+                'sizes_id' => json_encode($data),
                 'brands_id' => $brand,
                 'price' => $price,
                 'qty' => $qty,
@@ -161,9 +169,18 @@ class ProductController extends Controller
                 'status' => 1,
                 'view_product' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => null
+                'updated_at' => null,
             ];
             if($pd->addDataProduct($dataInsert)){
+                $lastId  = Products::orderBy('id', 'desc')->take(1)->first();
+                foreach($data as $key => $item){
+                    $proDetail = new ProductDetails();
+                    $proDetail->pd_product_id = $lastId->id;
+                    $proDetail->pd_color_id = $colors[0];
+                    $proDetail->pd_size_id = $key;
+                    $proDetail->pd_qty = $item;
+                    $proDetail->save();
+                }
                 \Toastr::success('Thêm sản phẩm thành công', '', ["positionClass" => "toast-top-right"]);
                 return redirect()->route('admin.products');
             } else {
@@ -220,11 +237,19 @@ class ProductController extends Controller
         // lay cac du lieu tu form nguoi dung gui len
         $id = $request->id;
         $infoPd = $pd->getInfoDataProductById($id);
+        $sizeId = Sizes::select('id')->orderBy('id')->get();
+        $idSizes = json_decode($sizeId);
+        $data = array();
+        foreach($idSizes as $item){
+            if(isset($data[$item->id])){
+                $data[$item->id] = array();
+            }
+            $data[$item->id] = $request->post('size_qty_'.$item->id);
+        }
         if($infoPd){
             $nameProduct = $request->nameProduct;
             $categories  = $request->cat;
             $colors = $request->color;
-            $sizes = $request->size;
             $brand = $request->brands;
             $price = $request->price;
             $qty = $request->qty;
@@ -266,7 +291,7 @@ class ProductController extends Controller
                     'pro_slug' => str_slug($nameProduct),
                     'categories_id' => json_encode($categories),
                     'colors_id' => json_encode($colors),
-                    'sizes_id' => json_encode($sizes),
+                    'sizes_id' => json_encode($data),
                     'brands_id' => $brand,
                     'price' => $price,
                     'qty' => $qty,
@@ -277,6 +302,14 @@ class ProductController extends Controller
                 ];
                 $up = $pd->updateDataProductById($dataUpdate, $id);
                 if($up){
+                    foreach($data as $key => $item){
+                        $proDetail = new ProductDetails();
+                        $proDetail->pd_product_id = $id;
+                        $proDetail->pd_color_id = $colors[0];
+                        $proDetail->pd_size_id = $key;
+                        $proDetail->pd_qty = $item;
+                        $proDetail->save();
+                    }
                     $request->session()->flash('editPd','update successful');
                     return redirect()->route('admin.products');
                 } else {

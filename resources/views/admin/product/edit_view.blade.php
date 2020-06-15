@@ -34,11 +34,10 @@
 				@foreach($cat as $key => $item)
 					<label for="cat_{{ $item['id'] }}"> {{ $item['name'] }} </label>
 					<input 
-						type="checkbox"
+						type="radio"
 						name="cat[]" 
 						id="cat_{{ $item['id'] }}"
 						value="{{ $item['id'] }}"
-						multiple
 						{{ in_array($item['id'], $infoCat) ? 'checked' : '' }}
 					>
 				@endforeach
@@ -48,11 +47,10 @@
 				@foreach($colors as $key => $item)
 					<label for="color_{{ $item['id'] }}"> {{ $item['name_color'] }} </label>
 					<input 
-						type="checkbox"
+						type="radio"
 						name="color[]"
 						id="color_{{ $item['id'] }}"
 						value="{{ $item['id'] }}"
-						multiple
 						{{ in_array($item['id'], $infoColor) ? 'checked' : '' }}
 					>
 				@endforeach

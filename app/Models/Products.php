@@ -30,6 +30,10 @@ class Products extends Model
     {
     	return $this->belongsToMany('App\Models\Colors');
     }
+    public function products_detail()
+    {
+    	return $this->belongsToMany('App\Models\ProductDetails');
+    }
     public function favorite()
     {
         return $this->belongsToMany(Users::class,'user_favorite','uf_product_id','uf_user_id');
