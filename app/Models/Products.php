@@ -52,6 +52,7 @@ class Products extends Model
                 ->join('brands','brands.id','=','products.brands_id')
                 ->where('products.name_product','LIKE','%'.$keyword.'%')
                 ->orWhere('products.price', 'LIKE' , '%'.$keyword.'%')
+                ->orderBy('products.id')
                 ->paginate(2);
         // if($data){
         //     $data = $data->toArray();
@@ -63,6 +64,7 @@ class Products extends Model
     {
         $del = DB::table('products')
                    ->where('id',$id)
+                   
                    ->delete();
         return $del;
     }
@@ -87,6 +89,7 @@ class Products extends Model
     public function getDataProductForUser()
     {
         $data = Products::select('*')
+        ->orderBy('id')
                 ->paginate(12);
         return $data;
     }

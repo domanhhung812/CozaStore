@@ -74,7 +74,7 @@ class ProductController extends BaseController
 						$data['userName'] = $userName;
 						$data['userEmail'] = $userEmail;
 						$data['relativeProducts'] = $this->getRalativeProducts($idCate);
-						ProcessViewService::view('products','view_product','$product', $id);
+						
 					return view('frontend.product.detail',$data);
 
 				} else {

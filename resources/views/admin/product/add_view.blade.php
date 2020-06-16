@@ -85,7 +85,7 @@
 								</select>
 							</td>
 							<td>
-								<input type="number" name="size_qty_{{ $item['id'] }}" id="size_qty" class="form-control">
+								<input type="number" name="size_qty_{{ $item['id'] }}" id="size_qty" class="form-control" value="0">
 							</td>
 						</tr>
 					@endforeach
@@ -109,10 +109,10 @@
 				<label for="price">Price</label>
 				<input type="number" name="price" id="price" class="form-control">
 			</div>
-			<div class="form-group border-top">
+			<!-- <div class="form-group border-top">
 				<label for="qty">QTY</label>
 				<input type="number" name="qty" id="qty" class="form-control">
-			</div>
+			</div> -->
 			<div class="form-group border-top">
 				<label for="images">Images</label>
 				<input type="file" name="images[]" id="images" class="form-control" multiple="multiple">

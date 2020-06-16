@@ -80,15 +80,17 @@ class ProductController extends Controller
                 }
            }
         }
-
+        
         foreach($data['lstPd'] as $key => $item){
-           foreach($data['sizes'] as $k => $val){
-                if(in_array($val['id'], $item['sizes_id'])){
+            // dd($item['sizes_id']);
+        
+            foreach($data['sizes'] as $k => $val){
+                // dd($item['sizes_id']);
+                
                     $data['lstPd'][$key]['sizes_id']['letter_size'][] = $val['letter_size'];
-                }
+                
            }
         }
-        //dd($data['lstPd']);
     	return view('admin.product.index',$data)->render();
     }
 
@@ -121,7 +123,7 @@ class ProductController extends Controller
         $colors = array($request->color);
         $brand = $request->brands;
         $price = $request->price;
-        $qty = $request->qty;
+        $qty = 0;
         $sale = $request->sale;
         $description = $request->description;
         $arrNameFile = [];
@@ -162,7 +164,7 @@ class ProductController extends Controller
                 'sizes_id' => json_encode($data),
                 'brands_id' => $brand,
                 'price' => $price,
-                'qty' => $qty,
+                'qty' => 0,
                 'description' => $description,
                 'image_product' => json_encode($arrNameFile),
                 'sale_off' => $sale,
@@ -181,6 +183,15 @@ class ProductController extends Controller
                     $proDetail->pd_qty = $item;
                     $proDetail->save();
                 }
+                $totalQty = 0;
+                    $amount = ProductDetails::select('pd_qty')->where('pd_product_id',$id)->get();
+                    foreach($amount as $key => $value){
+                        $totalQty+=$value->pd_qty;
+                    }
+                    
+                    $products = Products::find($id);
+                    $products->qty = $totalQty;
+                    $products->save();
                 \Toastr::success('Thêm sản phẩm thành công', '', ["positionClass" => "toast-top-right"]);
                 return redirect()->route('admin.products');
             } else {
@@ -212,11 +223,15 @@ class ProductController extends Controller
         $id = is_numeric($id) ? $id : 0;
         // lay thong tin san pham theo id
         $infoPd = $pd->getInfoDataProductById($id);
+        $qtySizes = Sizes::join('products_detail','products_detail.pd_size_id','=','sizes.id')
+                                    ->where('products_detail.pd_product_id', $id)
+                                    ->select('sizes.*','pd_qty')
+                                    ->get();
         if($infoPd){
             $data = [];
             $data['cat'] = $cat->getAllDataCategories();
             $data['colors'] = $color->getAllDataColors();
-            $data['sizes'] = $size->getAllDataSizes();
+            $data['sizes'] = json_decode($qtySizes);
             $data['brands'] = $brand->getAllDataBrands();
             $data['info'] = $infoPd;
 
@@ -232,7 +247,7 @@ class ProductController extends Controller
         }
     }
 
-    public function handleEditProduct(StoreProductsPost $request, Products $pd)
+    public function handleEditProduct(Request $request, Products $pd)
     {
         // lay cac du lieu tu form nguoi dung gui len
         $id = $request->id;
@@ -249,10 +264,10 @@ class ProductController extends Controller
         if($infoPd){
             $nameProduct = $request->nameProduct;
             $categories  = $request->cat;
-            $colors = $request->color;
+            $colors = array($request->color);
             $brand = $request->brands;
             $price = $request->price;
-            $qty = $request->qty;
+            $qty = 0;
             $sale = $request->sale;
             $description = $request->description;
             // nhung anh ban dau khi add - truoc khi edit san pham
@@ -294,7 +309,7 @@ class ProductController extends Controller
                     'sizes_id' => json_encode($data),
                     'brands_id' => $brand,
                     'price' => $price,
-                    'qty' => $qty,
+                    'qty' => 0,
                     'description' => $description,
                     'image_product' => json_encode($arrNameFile),
                     'sale_off' => $sale,
@@ -302,22 +317,35 @@ class ProductController extends Controller
                 ];
                 $up = $pd->updateDataProductById($dataUpdate, $id);
                 if($up){
+                    $proDetail = ProductDetails::where('pd_product_id',$id)->get();
+                    $data = json_decode($proDetail);
                     foreach($data as $key => $item){
-                        $proDetail = new ProductDetails();
-                        $proDetail->pd_product_id = $id;
-                        $proDetail->pd_color_id = $colors[0];
-                        $proDetail->pd_size_id = $key;
-                        $proDetail->pd_qty = $item;
-                        $proDetail->save();
+                        $proDetail2 = ProductDetails::find($item->id);
+                        $proDetail2->pd_product_id = $id;
+                        $proDetail2->pd_size_id = $request->get('size_detail_'.$item->pd_size_id);
+                        $proDetail2->pd_color_id = $request->get('color');
+                        $proDetail2->pd_qty = $request->get('size_qty_'.$item->pd_size_id);
+                        $proDetail2->save();
+                        
                     }
-                    $request->session()->flash('editPd','update successful');
+                    $totalQty = 0;
+                    $amount = ProductDetails::select('pd_qty')->where('pd_product_id',$id)->get();
+                    foreach($amount as $key => $value){
+                        $totalQty+=$value->pd_qty;
+                    }
+                    
+                    $products = Products::find($id);
+                    $products->qty = $totalQty;
+                    $products->save();
+
+                    \Toastr::success('Updated succesfully', '', ["positionClass" => "toast-top-right"]);
                     return redirect()->route('admin.products');
                 } else {
-                    $request->session()->flash('editPd','Can not update');
+                    \Toastr::error('Updated fail', '', ["positionClass" => "toast-top-right"]);
                     return redirect()->route('admin.editProduct',['id'=>$id]);
                 }
             } else {
-                $request->session()->flash('editPd','Can not upload image');
+                \Toastr::info("Can't upload image", "", ["positionClass" => "toast-top-right"]);
                 return redirect()->route('admin.editProduct',['id'=>$id]);
             }
         } else {
