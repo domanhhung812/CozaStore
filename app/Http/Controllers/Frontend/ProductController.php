@@ -45,6 +45,11 @@ class ProductController extends BaseController
 			$url = $request->segment('4');
 			$id = preg_split('/(-)/i', $url);
 			$infoPd = $pd->getInfoDataProductById($id);
+			$sizes = Sizes::join('products_detail', 'sizes.id','=','products_detail.pd_size_id')
+							->where('pd_product_id', $id)
+							->select('sizes.*','products_detail.pd_qty')
+							->get();
+			$arrSizes = json_decode($sizes);
 			$items = Products::all();
 			if(Auth::id()){
 				$userId = Auth::id();
@@ -54,27 +59,28 @@ class ProductController extends BaseController
 					$userEmail = json_decode($infoUser)[0]->email;
 					if($infoPd){
 					$arrColor = json_decode($infoPd[0]['colors_id'], true);
-					$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					// $arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					//dd($arrSize);
 					$arrImage = json_decode($infoPd[0]['image_product'],true);
-						$arrProducts = json_decode($items);
+					$arrProducts = json_decode($items);
 					$infoColor = $color->getInfoColorByArrId($arrColor);
-					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					// $infoSize  = $size->getInfoSizeByArrid($arrSize);
 					$cateId = Products::select('categories_id')->where('id', $id)->first();
 					$countStr = strlen($cateId->categories_id);
 					$cateId1 = substr($cateId->categories_id,-($countStr-2));
 					$idCate = substr($cateId1,0,($countStr-4));
 					$data = [];
-						$data['info'] = $infoPd;
-						$data['items'] = $arrProducts;
+					$data['info'] = $infoPd;
+					$data['items'] = $arrProducts;
 					$data['images'] = $arrImage;
 					$data['colors'] = $infoColor;
-					$data['sizes'] = $infoSize;
-						$data['cate'] = $this->getAllDataCategoriesForUser($cate);
-						$data['comments'] = Comments::where('co_product_id', $id)->get();
-						$data['userName'] = $userName;
-						$data['userEmail'] = $userEmail;
-						$data['relativeProducts'] = $this->getRalativeProducts($idCate);
-						
+					$data['sizes'] = $arrSizes;
+					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
+					$data['comments'] = Comments::where('co_product_id', $id)->get();
+					$data['userName'] = $userName;
+					$data['userEmail'] = $userEmail;
+					$data['relativeProducts'] = $this->getRalativeProducts($idCate);
+					//dd($data['sizes']);
 					return view('frontend.product.detail',$data);
 
 				} else {
@@ -84,11 +90,11 @@ class ProductController extends BaseController
 				$product = Products::find($id);
 				if($infoPd){
 					$arrColor = json_decode($infoPd[0]['colors_id'], true);
-					$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					// $arrSize = json_decode($infoPd[0]['sizes_id'], true);
 					$arrImage = json_decode($infoPd[0]['image_product'],true);
 					$arrProducts = json_decode($items);
 					$infoColor = $color->getInfoColorByArrId($arrColor);
-					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					// $infoSize  = $size->getInfoSizeByArrid($arrSize);
 					$cateId = Products::select('categories_id')->where('id', $id)->first();
 					$countStr = strlen($cateId->categories_id);
 					$cateId1 = substr($cateId->categories_id,-($countStr-2));
@@ -100,7 +106,7 @@ class ProductController extends BaseController
 					$data['items'] = $arrProducts;
 					$data['images'] = $arrImage;
 					$data['colors'] = $infoColor;
-					$data['sizes'] = $infoSize;
+					$data['sizes'] = $arrSizes;
 					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
 					
 					$data['relativeProducts'] = $this->getRalativeProducts($idCate);

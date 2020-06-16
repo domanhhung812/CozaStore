@@ -397,25 +397,26 @@ img {
 									@else
 										<h4 class="price"><span style="font-size: 1.875rem !important;">{{ number_format($info[0]['price']) }}$</span></h4>
 									@endif
-									<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-									<h5 class="sizes">sizes:
-										
-										@foreach($sizes as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
-											<input class="" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
-											<span class="size" data-toggle="tooltip" title="{{ $item['letter_size'] }}" style="font-size: 14px;">{{ $item['letter_size'] }} ({{$item['number_size']}})</span>
-										</label>
-										@endforeach
-									</h5>
+									<!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
 									<h5 class="colors">colors:
 										@foreach($colors as $key => $item)
 											<label class="form-check" style="padding-top: 10px;">
-												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
+												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" class="checked-button" required>
 												<span class="color" style="padding-left: 10px;font-size: 14px;"
 												>{{ $item['name_color'] }}</span>
 											</label>
 										@endforeach
 									</h5>
+									<h5 class="sizes">sizes:
+									
+										@foreach($sizes as $key => $item)
+											<label class="form-check" style="padding-top: 10px;">
+											<input class="checked-button2" type="radio" name="inlineRadioOptions" id="size_{{ $item->id }}" value="{{ $item->id }}" required>
+											<span class="size" data-toggle="tooltip" title="" style="font-size: 14px;">{{$item->letter_size}} - {{$item->number_size}}</span>
+										</label>
+										@endforeach
+									</h5>
+									
 									<div class="flex-w p-b-10">
 										<div class="size-204 flex-w flex-m respon6-next quantity">
 											<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -682,6 +683,9 @@ img {
 				})
 			}
 		});
+		$('.checked-button').change(function(e){
+			
+		})
 	});
 </script>
 @endpush
