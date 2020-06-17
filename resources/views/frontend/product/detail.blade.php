@@ -401,7 +401,7 @@ img {
 									<h5 class="colors">colors:
 										@foreach($colors as $key => $item)
 											<label class="form-check" style="padding-top: 10px;">
-												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" class="checked-button" required>
+												<input class= "color-rd" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" class="checked-button" required>
 												<span class="color" style="padding-left: 10px;font-size: 14px;"
 												>{{ $item['name_color'] }}</span>
 											</label>
@@ -411,8 +411,9 @@ img {
 									
 										@foreach($sizes as $key => $item)
 											<label class="form-check" style="padding-top: 10px;">
-											<input class="checked-button2" type="radio" name="inlineRadioOptions" id="size_{{ $item->id }}" value="{{ $item->id }}" required>
+											<input class="size-rd" type="radio" name="inlineRadioOptions" id="size_{{ $item->id }}" value="{{ $item->id }}" required>
 											<span class="size" data-toggle="tooltip" title="" style="font-size: 14px;">{{$item->letter_size}} - {{$item->number_size}}</span>
+											<input id="amount_in_stock_{{ $item->id }}" type="number" value="{{$item->pd_qty}}" hidden>
 										</label>
 										@endforeach
 									</h5>
@@ -423,7 +424,7 @@ img {
 												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
 											</div>
 											<div class="my-10">
-												<p>(Left in stock: {{ $info[0]['qty'] }}.)</p>
+												<p>(Left in stock: <span id="qty">{{ $info[0]['qty'] }}</span>.)</p>
 											</div>
 										</div>
 									</div>
@@ -638,6 +639,8 @@ img {
 			4 : 'Very good',
 			5 : 'Awesome',
 		};
+
+		
 		//console.log($this.attr('data-key'));
 		$('.star-icon').mouseover(function(){
 			let $this = $(this);
@@ -683,8 +686,24 @@ img {
 				})
 			}
 		});
-		$('.checked-button').change(function(e){
-			
+
+
+
+		//  action change the number remain of product
+		let data = {};
+		$('.size-rd, .color-rd').on('change',function(){
+			if($(this).is(':checked')){
+				const thisClass = $(this).attr('class');
+				if(thisClass.indexOf('size') > -1){
+					data.size = $('#amount_in_stock_'+ $(this).val()).val();
+				}else{
+					data.color = $(this).val();
+				}
+			}
+
+			if(Object.keys(data).length === 2){
+				$('#qty').html(data.size);
+			}
 		})
 	});
 </script>

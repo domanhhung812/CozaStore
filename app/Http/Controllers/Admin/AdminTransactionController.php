@@ -10,6 +10,7 @@ use App\Models\Products;
 use App\Models\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\ProductDetails;
 use Mail;
 
 class AdminTransactionController extends Controller
@@ -56,7 +57,7 @@ class AdminTransactionController extends Controller
         if($orders){
             foreach($orders as $order){
                 $product = Products::find($order->or_product_id);
-
+                //$productDetail = ProductDetails::find
                 $product->qty = $product->qty - $order->or_qty;
 
                 if($product->qty == 0){
