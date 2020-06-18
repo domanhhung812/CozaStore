@@ -37,7 +37,8 @@ class CartController extends BaseController
     {
         $product = Products::select('name_product', 'id', 'price','colors_id','sizes_id', 'qty', 'image_product','sale_off')->find($id);
         if(!$product) return redirect('/');
-        if($product->qty == 0){
+        
+        if($product->qty == 0 || $request->qty2 == 0){
             \Toastr::warning('This product is out of stock. Please choose anothers', '', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }

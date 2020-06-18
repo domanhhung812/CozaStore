@@ -42,7 +42,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/main.css') }}">
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
-  <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+  <link rel="stylesheet" href="{{ asset('frontend/css/toastr.min.css') }}">
 <!--===============================================================================================-->
 </head>
 <body class="animsition">

@@ -424,12 +424,13 @@ img {
 												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
 											</div>
 											<div class="my-10">
-												<p>(Left in stock: <span id="qty">{{ $info[0]['qty'] }}</span>.)</p>
+												<p>(Left in stock: <span id="qty" value="">{{ $info[0]['qty'] }}</span>)</p>
+												<input name="qty2" id="qty2" type="number" value="" hidden>
 											</div>
 										</div>
 									</div>
 									<div class="action">
-										<button class="add-to-cart btn btn-default" type="submit">add to cart</button>
+										<button class="add-to-cart btn btn-default" type="submit" id="btn-add-cart">add to cart</button>
 										<a class="like btn btn-default js-add-favorite" href="{{ route('fr.postAddFavorite', ['id' => $info[0]['id']]) }}"><span class="fa fa-heart"></span></a>
 									</div>
 								</div>
@@ -696,6 +697,7 @@ img {
 				const thisClass = $(this).attr('class');
 				if(thisClass.indexOf('size') > -1){
 					data.size = $('#amount_in_stock_'+ $(this).val()).val();
+					$('#qty2').attr('value',$('#amount_in_stock_'+ $(this).val()).val());
 				}else{
 					data.color = $(this).val();
 				}
@@ -703,8 +705,9 @@ img {
 
 			if(Object.keys(data).length === 2){
 				$('#qty').html(data.size);
-			}
-		})
+			}	
+		});
+		
 	});
 </script>
 @endpush
