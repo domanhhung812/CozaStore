@@ -2,6 +2,13 @@
 @section('title','My product details')
 @section('content')
 <style>
+.colors{
+	max-height: 90px;
+}
+.size-items{
+	display: flex;
+	flex-wrap: wrap;
+}
 .section-slide{
 	display:none !important;
 }
@@ -109,6 +116,44 @@
 	display: flex;
 	flex-direction: column;
 }
+.radbox {
+  position: relative;
+  cursor: pointer;
+  border: none;
+  outline :none;
+
+}
+
+.radbox input[type='radio'] {
+  display:none;
+}
+
+.radbox .rad-text {
+  content: '';
+  display: inline-flex;
+  width: 100px;
+  margin-right: 5px;
+  height: 40px;
+  background-color : fff;
+  border: 2px solid #f2f2f2;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid #666666;
+}
+
+input[type="radio"]:checked + .rad-text
+{
+  content: '';
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  background-color: #ff9f1a;
+}
+
 @media only screen and (max-width: 568px){
   .respon6 {
     width: 25px;
@@ -284,31 +329,6 @@ img {
 .product-title {
   margin-top: 0; }
 
-.sizes{
-  margin-right: 10px; 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  }
-.size:first-of-type {
-    margin-left: 40px; 
-}
-.size{
-	position: relative;
-	top: -1.2rem;
-}
-.color {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-  height: 2em;
-  width: 10em;
-  border-radius: 2px;
-  position: relative;
-  top: -0.8rem; }
-  .color:first-of-type {
-    margin-left: 30px; }
-
 .add-to-cart, .like {
   background: #ff9f1a;
   padding: 1.2em 1.5em;
@@ -398,25 +418,32 @@ img {
 										<h4 class="price"><span style="font-size: 1.875rem !important;">{{ number_format($info[0]['price']) }}$</span></h4>
 									@endif
 									<!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
-									<h5 class="colors">colors:
+									<div class="colors">colors:
+										<div>
 										@foreach($colors as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
+											<label class="form-check radbox" style="padding-top: 10px;">
 												<input class= "color-rd" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" class="checked-button" required>
-												<span class="color" style="padding-left: 10px;font-size: 14px;"
+												<span class="color rad-text" style="font-size: 12px;"
 												>{{ $item['name_color'] }}</span>
 											</label>
 										@endforeach
-									</h5>
-									<h5 class="sizes">sizes:
-									
-										@foreach($sizes as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
-											<input class="size-rd" type="radio" name="inlineRadioOptions" id="size_{{ $item->id }}" value="{{ $item->id }}" required>
-											<span class="size" data-toggle="tooltip" title="" style="font-size: 14px;">{{$item->letter_size}} - {{$item->number_size}}</span>
-											<input id="amount_in_stock_{{ $item->id }}" type="number" value="{{$item->pd_qty}}" hidden>
-										</label>
-										@endforeach
-									</h5>
+										</div>
+									</div>
+									<div class="sizes">sizes:
+										<div class="size-items">
+											@foreach($sizes as $key => $item)
+											<label class="form-check radbox" style="">
+												<input class="size-rd" type="radio" name="inlineRadioOptions" id="size_{{ $item->id }}" value="{{ $item->id }}" required>
+												@if($idCate == 5)
+												<span class="size rad-text" data-toggle="tooltip" title="" style="font-size: 12px;">{{$item->number_size}}</span>
+												@else
+												<span class="size rad-text" data-toggle="tooltip" title="" style="font-size: 12px;">{{$item->letter_size}}</span>
+												@endif
+												<input id="amount_in_stock_{{ $item->id }}" type="number" value="{{$item->pd_qty}}" hidden>
+											</label>
+											@endforeach
+										</div>
+									</div>
 									
 									<div class="flex-w p-b-10">
 										<div class="size-204 flex-w flex-m respon6-next quantity">

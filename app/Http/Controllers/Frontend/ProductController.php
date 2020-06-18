@@ -79,6 +79,7 @@ class ProductController extends BaseController
 					$data['comments'] = Comments::where('co_product_id', $id)->get();
 					$data['userName'] = $userName;
 					$data['userEmail'] = $userEmail;
+					$data['idCate'] = $idCate;
 					$data['relativeProducts'] = $this->getRalativeProducts($idCate);
 					//dd($data['sizes']);
 					return view('frontend.product.detail',$data);
@@ -108,7 +109,7 @@ class ProductController extends BaseController
 					$data['colors'] = $infoColor;
 					$data['sizes'] = $arrSizes;
 					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
-					
+					$data['idCate'] = $idCate;
 					$data['relativeProducts'] = $this->getRalativeProducts($idCate);
 					
 					return view('frontend.product.detail',$data);
