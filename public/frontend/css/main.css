@@ -3226,7 +3226,17 @@ justify-content: center;
 .sale_price{
   display: flex;
 }
-
+.sale-title{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.show-all{
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+}
 
 /*==================================================================
   RESPONSIVE RESPONSIVE RESPONSIVE RESPONSIVE RESPONSIVE RESPONSIVE

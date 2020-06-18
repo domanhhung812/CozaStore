@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\Categories;
 use App\Models\Colors;
 use App\Models\Sizes;
+use App\Models\Products;
 use Illuminate\Support\Facades\View;
+use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
 
         $sizes = Sizes::all();
         View::share('sizes', $sizes);
+
+        $products = DB::table('products')->get();
+        view()->share('products', $products);
+
         if (!$this->app->isLocal()) {
             $this->app['request']->server->set('HTTPS', true);
         }

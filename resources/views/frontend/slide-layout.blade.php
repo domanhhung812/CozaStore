@@ -77,85 +77,71 @@
     </div>
   </section>
 
-
   <!-- Banner -->
   <div class="sec-banner bg0 p-t-80 p-b-50">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-          <!-- Block1 -->
-          <div class="block1 wrap-pic-w">
-            <img src="{{ asset('frontend/images/banner-01.jpg') }}" alt="IMG-BANNER">
-
-            <a href="{{ route('fr.getCategories',['women', 3]) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-              <div class="block1-txt-child1 flex-col-l">
-                <span class="block1-name ltext-102 trans-04 p-b-8" style="margin-top:-30px;margin-left:-30px;">
-                  Women
-                </span>
-
-                <span class="block1-info stext-102 trans-04">
-                  Spring 2020
-                </span>
-              </div>
-
-              <div class="block1-txt-child2 p-b-4 trans-05">
-                <div class="block1-link stext-101 cl0 trans-09">
-                  Shop Now
-                </div>
-              </div>
-            </a>
-          </div>
+    <div class="p-b-10 sale-title">
+        <h3 class="ltext-103 cl5">
+          Top sale
+        </h3>
+        <a href="#" class="show-all">Show all ></a>
+      </div>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+        @foreach($products as $item)
+        <?php $link = json_decode($item->image_product)[0] ?>
+        @if($item->sale_off)
+          <div class="swiper-slide" style="">
+						<div class="">
+							<span>
+								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
+                <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$product['sale_off']}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
+								<div class="inline-text">
+									<div class="block2-txt-child1 flex-col-l ">
+										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
+										{{$item->name_product}}
+										</a>
+										<span class="stext-105 cl3 sale_price">
+										<strike>{{$item->price}}$</strike>&nbsp;&nbsp;<h4 style="color: red;">{{$item->price - $item->price * $item->sale_off/100}}$</h4>
+										</span>
+									</div>
+									<!-- <div class="block2-txt-child2 flex-r p-t-3 heart" style="position: absolute;right: 100px;bottom: 25px;">
+										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
+										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
+										</a>
+									</div> -->
+								</div>
+							</span>
+						</div>
+					</div>
+        @endif
+        @endforeach
         </div>
-
-        <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-          <!-- Block1 -->
-          <div class="block1 wrap-pic-w">
-            <img src="{{ asset('frontend/images/banner-02.jpg') }}" alt="IMG-BANNER">
-
-            <a href="{{ route('fr.getCategories',['men', 1]) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-              <div class="block1-txt-child1 flex-col-l">
-                <span class="block1-name ltext-102 trans-04 p-b-8" style="margin-top:-30px;margin-left:-30px;">
-                  Men
-                </span>
-
-                <span class="block1-info stext-102 trans-04">
-                  Summer 2020
-                </span>
-              </div>
-
-              <div class="block1-txt-child2 p-b-4 trans-05">
-                <div class="block1-link stext-101 cl0 trans-09">
-                  Shop Now
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-          <!-- Block1 -->
-          <div class="block1 wrap-pic-w">
-            <img src="{{ asset('frontend/images/banner-10.jpg') }}" alt="IMG-BANNER">
-
-            <a href="{{ route('fr.getCategories',['shoes', 5]) }}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-              <div class="block1-txt-child1 flex-col-l">
-                <span class="block1-name ltext-102 trans-04 p-b-8" style="margin-top:-30px;margin-left:-30px;">
-                  Shoes
-                </span>
-
-                <span class="block1-info stext-102 trans-04">
-                  New Trend
-                </span>
-              </div>
-
-              <div class="block1-txt-child2 p-b-4 trans-05">
-                <div class="block1-link stext-101 cl0 trans-09">
-                  Shop Now
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
     </div>
   </div>
+  @push('js')
+  <script type="text/javascript">
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 4,
+      spaceBetween: 30,
+      slidesPerGroup: 3,
+      loop: true,
+      loopFillGroupWithBlank: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+  @endpush
