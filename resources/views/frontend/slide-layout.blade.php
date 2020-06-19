@@ -84,7 +84,7 @@
         <h3 class="ltext-103 cl5">
           Top sale
         </h3>
-        <a href="#" class="show-all">Show all ></a>
+        <a href="{{ route('fr.topsale') }}" class="show-all">Show all ></a>
       </div>
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -95,7 +95,7 @@
 						<div class="">
 							<span>
 								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
-                <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$product['sale_off']}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
+                <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$item->sale_off}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
 										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
@@ -105,12 +105,6 @@
 										<strike>{{$item->price}}$</strike>&nbsp;&nbsp;<h4 style="color: red;">{{$item->price - $item->price * $item->sale_off/100}}$</h4>
 										</span>
 									</div>
-									<!-- <div class="block2-txt-child2 flex-r p-t-3 heart" style="position: absolute;right: 100px;bottom: 25px;">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
-										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
-										</a>
-									</div> -->
 								</div>
 							</span>
 						</div>
@@ -129,14 +123,30 @@
   @push('js')
   <script type="text/javascript">
     var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 4,
-      spaceBetween: 30,
-      slidesPerGroup: 3,
-      loop: true,
-      loopFillGroupWithBlank: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      // init: false,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        1366: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
       },
       navigation: {
         nextEl: '.swiper-button-next',

@@ -184,12 +184,12 @@ class ProductController extends Controller
                     $proDetail->save();
                 }
                 $totalQty = 0;
-                    $amount = ProductDetails::select('pd_qty')->where('pd_product_id',$id)->get();
+                    $amount = ProductDetails::select('pd_qty')->where('pd_product_id',$lastId->id)->get();
                     foreach($amount as $key => $value){
                         $totalQty+=$value->pd_qty;
                     }
                     
-                    $products = Products::find($id);
+                    $products = Products::find($lastId->id);
                     $products->qty = $totalQty;
                     $products->save();
                 \Toastr::success('Thêm sản phẩm thành công', '', ["positionClass" => "toast-top-right"]);

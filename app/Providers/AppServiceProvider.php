@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $sizes = Sizes::all();
         View::share('sizes', $sizes);
 
-        $products = DB::table('products')->get();
+        $products = DB::table('products')->paginate(10);
         view()->share('products', $products);
 
         if (!$this->app->isLocal()) {

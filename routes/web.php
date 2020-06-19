@@ -194,7 +194,8 @@ Route::group([
 	//Profile user
 	Route::get('/profile','UserProfileController@index')->name('getUserProfile');
 	Route::post('/profile','UserProfileController@editProfile')->name('postUserProfile');
-
+	//Top Sale
+	Route::get('/top-sale','ProductController@topsale')->name('topsale');
 });
 Auth::routes();
 Route::group(['namespace' => 'Auth','middleware' => 'web'], function(){

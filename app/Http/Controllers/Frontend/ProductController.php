@@ -160,5 +160,8 @@ class ProductController extends BaseController
 			return view('frontend.search.index',compact('items'));
 		}
 	}
-
+	public function topsale(Request $request){
+		$items = DB::table('products')->select('id','name_product','price','image_product', 'sale_off', 'pro_slug','qty')->get();
+		return view('frontend.sale.index',compact('items'));
+	}
 }
