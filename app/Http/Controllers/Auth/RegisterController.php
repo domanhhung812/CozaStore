@@ -60,10 +60,10 @@ class RegisterController extends Controller
         $user->save();
 
         if($user->id){
-            \Toastr::success('Đăng ký thành công. Mời bạn đăng nhập', 'Thành công', ["positionClass" => "toast-top-right"]);
+            \Toastr::success('Register successfully', '', ["positionClass" => "toast-top-right"]);
             return redirect()->route('get.login');
         }
-        \Toastr::error('Đăng ký thất bại vui lòng thử lại', 'Lỗi', ["positionClass" => "toast-top-right"]);
+        \Toastr::error('Register failed', 'Lỗi', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     protected function validator(array $data)

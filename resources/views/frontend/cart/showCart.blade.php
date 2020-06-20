@@ -65,7 +65,11 @@
 									$arrSz = json_decode($sizes)
 								?>
 								@foreach( $arrSz as $size)
-									@if($size->id == $product->options->size)
+									@if($size->id == $product->options->size && $product->options->cate == 5)
+										{{ $size->number_size }}
+									@elseif($size->id == $product->options->size && $product->options->cate == 3)
+										{{ $size->letter_size }}
+									@elseif($size->id == $product->options->size && $product->options->cate == 1)
 										{{ $size->letter_size }}
 									@endif
 								@endforeach

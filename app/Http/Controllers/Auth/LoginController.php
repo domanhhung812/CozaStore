@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Socialite;
 use App\User;
 
@@ -50,11 +51,12 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         
         if(\Auth::attempt($credentials)){
-            \Toastr::success('Đăng nhập thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+            \Cart::destroy();
+            \Toastr::success('Login successfully', '', ["positionClass" => "toast-top-right"]);
             return redirect()->route('home');
         }
-        \Toastr::error('Đăng nhập thất bại vui lòng thử lại', 'Lỗi', ["positionClass" => "toast-top-right"]);
-        return redirect()->back()->with('Thong bao', 'Login failed');
+        \Toastr::error('Login failed', '', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 
     public function getLogout(Request $request){
@@ -82,6 +84,7 @@ class LoginController extends Controller
     private function findOrCreateUser($user){
         $authUser=User::where('facebook_id',$user->id)->first();
         if($authUser){
+            \Cart::destroy();
             return $authUser;
 
         }else{
@@ -115,6 +118,7 @@ class LoginController extends Controller
         $existingUser = User::where('email', $user->email)->first();
         if($existingUser){
             // log them in
+            \Cart::destroy();
             Auth::Login($existingUser, true);
         } else {
             // create a new user

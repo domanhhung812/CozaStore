@@ -92,8 +92,8 @@
         <?php $link = json_decode($item->image_product)[0] ?>
         @if($item->sale_off)
           <div class="swiper-slide" style="">
-						<div class="">
-							<span>
+						<div class="swiper-slide__display">
+							<span style="position: relative;">
 								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
                 <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$item->sale_off}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
 								<div class="inline-text">
