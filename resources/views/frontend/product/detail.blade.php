@@ -53,7 +53,7 @@
 .image-product{
 	height:333px;
 	border-radius:15px;
-	width:250px;
+	width:100%;
 }
 .sec-product-detail{
 	margin-top: 100px;
@@ -153,6 +153,7 @@ input[type="radio"]:checked + .rad-text
   color: #fff;
   background-color: #ff9f1a;
 }
+
 
 @media only screen and (max-width: 568px){
   .respon6 {
@@ -596,63 +597,53 @@ img {
 					</h3>
 			</div>
 		<!-- Slide2 -->
-        <div class="swiper-container">
+        <div class="swiper-container related-products">
 				<div class="swiper-wrapper">
 					
 					@foreach($relativeProducts as $item)
 					
 					<?php $link = json_decode($item->image_product)[0] ?>
-					@if($item->id == $info[0]['id'])
-					<div class="swiper-slide" style="display:none;">
+					<div class="swiper-slide" style="" data-id="{{$item->id}}" id="swiper-slide__{{$item->id}}">
 						<div class="">
+						@if($item->sale_off)
 							<span>
-								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
+								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
+								<div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$item->sale_off}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
 										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
 										{{$item->name_product}}
 										</a>
-										<span class="stext-105 cl3">
-										{{$item->price}}$
+										<span class="stext-105 cl3 sale_price">
+											<strike>{{$item->price}}$</strike>&nbsp;&nbsp;<p style="color: red;">{{$item->price - $item->price * $item->sale_off/100}}$</p>
+										
 										</span>
 									</div>
-									<!-- <div class="block2-txt-child2 flex-r p-t-3 heart" style="position: absolute;right: 100px;bottom: 25px;">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
-										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
-										</a>
-									</div> -->
 								</div>
 							</span>
-						</div>
-					</div>
-					@else
-					<div class="swiper-slide" style="">
-						<div class="">
+							@else
 							<span>
-								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">	
+								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
 										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
 										{{$item->name_product}}
 										</a>
-										<span class="stext-105 cl3">
-										{{$item->price}}$
+										<span class="stext-105 cl3 sale_price">
+											{{$item->price}}$
 										</span>
 									</div>
-									<!-- <div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 120px;bottom: 25px;">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
-										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
-										</a>
-									</div> -->
 								</div>
 							</span>
+							@endif
 						</div>
 					</div>
-					@endif
 					@endforeach
 				</div>
+				<div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
 			</div>
     </div>
 </section>
@@ -680,14 +671,32 @@ img {
 				let id = $this.attr('data-key');
 				$('.dis-none').attr('value',id);
 		});
-		var swiper = new Swiper('.swiper-container', {
-			slidesPerView: 3,
-			spaceBetween: 30,
-			freeMode: true,
-			pagination: {
-				el: '.swiper-pagination',
-				clickable: true,
+		var swiper = new Swiper('.related-products', {
+		slidesPerView: 1,
+		spaceBetween: 10,
+		// init: false,
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+		breakpoints: {
+			640: {
+			slidesPerView: 1,
+			spaceBetween: 10,
 			},
+			768: {
+			slidesPerView: 3,
+			spaceBetween: 10,
+			},
+			1024: {
+			slidesPerView: 4,
+			spaceBetween: 10,
+			},
+			1366: {
+			slidesPerView: 5,
+			spaceBetween: 10,
+			},
+      },
 		});
 		$('.js-add-favorite').click(function(e){
 			let $this = $(this);
@@ -734,6 +743,11 @@ img {
 				$('#qty').html(data.size);
 			}	
 		});
+
+		//remove swiper-slide__id
+		let url = window.location.pathname;
+		let id = url.substring(url.lastIndexOf('/') + 1);
+		$('#swiper-slide__'+id).remove();
 		
 	});
 </script>

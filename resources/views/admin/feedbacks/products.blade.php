@@ -14,12 +14,21 @@
 	</div>
 </div>
 
-<!-- <div class="row">
+<div class="row">
 	<div class="col-md-12">
-		<a href="{{ route('admin.addSizes') }}" class="btn btn-primary"> Add sizes + </a>
-		<a href="#" class="btn btn-primary">View all</a>
+		<form action="" method="get">
+			<div class="input-group">
+				<select class="custom-select" id="inputGroupSelect04">
+					<option value="1">Products</option>
+					<option value="2">Blogs</option>
+				</select>
+				<!-- <div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button">Search</button>
+				</div> -->
+			</div>
+		</form>
 	</div>
-</div> -->
+</div>
 <div class="row mt-3">
 	<div class="col-md-12">
 		<table class="table">
