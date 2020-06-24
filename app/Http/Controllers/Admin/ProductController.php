@@ -210,7 +210,8 @@ class ProductController extends Controller
             // dung la ajax gui len thi moi xu ly
             $id = $request->id;
             $del = $pd->deleteProductById($id);
-            if($del){
+            $del2 = ProductDetails::where('pd_product_id', $id)->delete();
+            if($del && $del2){
                echo "OK"; 
             } else {
                 echo "FAIL";

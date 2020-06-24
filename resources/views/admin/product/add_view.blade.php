@@ -19,6 +19,9 @@
 	<div class="col-md-12">
 		<h3 class="text-center"> Add product !</h3>
 	</div>
+	<div class="col-md-12">
+			<a href="{{ route('admin.products') }}" class="btn btn-primary">Back</a>
+		</div>
 </div>
 
 @if ($errors->any())

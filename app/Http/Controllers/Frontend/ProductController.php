@@ -143,6 +143,8 @@ class ProductController extends BaseController
 	}
 	public function postComments(Request $request, $id)
 	{
+		$url = $request->segment('4');
+		$id = preg_split('/(-)/i', $url)[0];
 		$comments = new Comments;
 		$comments->co_name = $request->co_name;
 		$comments->co_email = $request->co_email;

@@ -116,6 +116,7 @@ function(){
 	});
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('/','AdminUserController@index')->name('users');
+		Route::post('/delete-user','AdminUserController@deleteUser')->name('deleteUser');
 	});
 	Route::group(['prefix' => 'transactions'], function(){
 		Route::get('/','AdminTransactionController@index')->name('transactions');
@@ -135,8 +136,8 @@ function(){
 		->where(['id'=>'[0-9]+']);
 	});
 	Route::group(['prefix' => 'feedbacks'], function(){
-		Route::get('/products','AdminFeedbackController@getFeedbackProducts')->name('getFeedbackProducts');
-		Route::post('delete-feedbacks','AdminBlogController@deleteFeedback')->name('deleteFeedback');
+		Route::get('','AdminFeedbackController@getFeedbackProducts')->name('getFeedbackProducts');
+		Route::post('delete-feedback','AdminFeedbackController@deleteFeedback')->name('deleteFeedback');
 	});
 });
 

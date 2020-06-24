@@ -67,6 +67,6 @@ class SizesController extends Controller
             } else {
                 echo "FAIL";
             }
-        }
+         }
     }
 }

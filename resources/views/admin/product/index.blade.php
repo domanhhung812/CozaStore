@@ -1,6 +1,21 @@
 @extends('admin.base')
 
 @section('content')
+<style>
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('{{asset('/upload/images/loading2.gif')}}') 
+                50% 50% 
+                no-repeat;
+}
+</style>
 <div class="row">
 	<div class="col-md-12">
 		<h3 class="text-center">Product !</h3>
@@ -13,6 +28,7 @@
 		<a href="{{ route('admin.products') }}" class="btn btn-primary">View all</a>
 	</div>
 </div>
+<div class="modal"></div>
 <div class="row mt-3">
 	<div class="col-md-12">
 		<table class="table">
@@ -102,17 +118,16 @@
 						type: "POST",
 						data: {id: idPd},
 						beforeSend: function(){
-							self.text('Loading ...');
+							$('.modal').css('display','block');
 						},
 						success: function(result){
 							self.text('Delete');
 							result = $.trim(result);
 							if(result === 'OK'){
-								alert('Delete successful');
-								//window.location.reload(true);
+								window.location.reload(true);
 								$('#row_'+idPd).hide();
 							} else {
-								alert('Delete fail');
+								console.log('Delete fail');
 							}
 							return false; 
 						}

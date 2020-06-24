@@ -5,6 +5,9 @@
 	<div class="col-md-12">
 		<h3 class="text-center"> Add Sizes !</h3>
 	</div>
+	<div class="col-md-12">
+			<a href="{{ route('admin.sizes') }}" class="btn btn-primary">Back</a>
+		</div>
 </div>
 @if(count($errors) > 0)
 	<div class="alert alert-danger">

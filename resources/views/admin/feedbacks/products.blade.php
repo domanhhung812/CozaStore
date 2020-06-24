@@ -1,10 +1,29 @@
 @extends('admin.base')
 
 @section('content')
+<style>
+#loading-image{
+margin: 0 auto;
+}
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('{{asset('/upload/images/loading2.gif')}}') 
+                50% 50% 
+                no-repeat;
+}
+
+</style>
 <div class="row">
 	<div class="col-md-12">
 		<h3 class="text-center">Feedbacks</h3>
-        <img id="loading-image" src="ajax-loader.gif" style="display:none;"/>
+        
 		<br>
 		<!-- @if($message = Session::get('success'))
 			<div class="alert alert-success">
@@ -13,10 +32,11 @@
 		@endif -->
 	</div>
 </div>
-
+<div class="modal"></div>
 <div class="row">
 	<div class="col-md-12">
-		<form action="" method="get">
+		<form action="" method="post">
+		@csrf
 			<div class="input-group">
 				<select class="custom-select" id="inputGroupSelect04">
 					<option value="1">Products</option>
@@ -67,17 +87,40 @@
 @endsection
 @push('js')
 <script type="text/javascript">
-    $('.delete-feedback').on('click', function(e){
-        e.preventDefault();
-        let id = $(this).attr('id');
-        $.ajax({
-            url: '{{ route('admin.deleteFeedback') }}',
-            type: "POST",
-            data: { id: id },
-            beforeSend: function(){
+    $(function(){
+			$('.delete-feedback').click(function() {
+				let self = $(this);
+				const idFb = self.attr('id');
+				$row = $(".row");
+				if($.isNumeric(idFb)){
+					$.ajax({
+						url: "{{ route('admin.deleteFeedback') }}",
+						type: "POST",
+						data:{ id: idFb },
+						beforeSend: function(){
+							$('.modal').css('display','block');
+						},
+						success: function(result){
+							self.text('Delete');
+							result = $.trim(result);
+							if(result === 'OK'){
+								window.location.reload(true);
+								$('#row_'+idFb).hide();
+							} else {
+								console.log('failed');
+							}
+							return false; 
+						},
+						error: function (result) {
+							console.log(result+" Error!");
+						},
+					});
+				}
+				
 
-            }
-        })
-    })
+				
+			});
+			
+		})
 </script>
 @endpush

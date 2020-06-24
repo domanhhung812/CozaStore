@@ -501,7 +501,12 @@ img {
 										<div class="flex-w flex-t p-b-68 py-0 comments">
 											<div class="size-207" style="">
 												<span>
-													<img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		">
+													<!-- <img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		"> -->
+													@if(Auth::user()->user_image)
+														<img src="{{ URL::to('/') }}/upload/images/{{ Auth::user()->user_image }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
+													@else
+														<img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
+													@endif
 													<div class="flex-w flex-sb-m p-b-17">
 														<span class="mtext-107 cl2 p-r-20" style="color:#385898; font-family: Arial;">
 															{{ $comment->co_name }}
