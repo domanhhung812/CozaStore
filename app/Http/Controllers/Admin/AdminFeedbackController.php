@@ -10,7 +10,7 @@ use App\Models\Comments;
 class AdminFeedbackController extends Controller
 {
     
-    public function getFeedbackProducts(){
+    public function getFeedbackProducts(Request $request){
         $data = Comments::join('products','products.id', '=', 'comments.co_product_id')
                         ->select('comments.*', 'products.name_product')
                         ->orderBy('comments.id')
@@ -28,6 +28,20 @@ class AdminFeedbackController extends Controller
             } else {
                 echo "FAIL";
             }
+        }
+    }
+    public function getFeedbackBlogs(Request $request){
+        if($request->ajax()){
+            // $id = $request->id;
+            // if($id === 1){
+            //     $data = Comments::join('products','products.id', '=', 'comments.co_product_id')
+            //             ->select('comments.*', 'products.name_product')
+            //             ->orderBy('comments.id')
+            //             ->paginate(10);
+
+            //     return view('admin.feedbacks.products', compact('data'));
+            // }
+            dd($request->all());
         }
     }
 }

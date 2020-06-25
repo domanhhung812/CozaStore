@@ -49,10 +49,10 @@ class LoginController extends Controller
 
     public function postLogin(Request $request){
         $credentials = $request->only('email', 'password');
-        
-        if(\Auth::attempt($credentials)){
+        //dd($request->all());
+        if(\Auth::attempt($credentials, $request->remember_me == 'on' ? true : false)){
             \Cart::destroy();
-            \Toastr::success('Login successfully', '', ["positionClass" => "toast-top-right"]);
+            \Toastr::success('Welcome '.\Auth::user()->username, '', ["positionClass" => "toast-top-right"]);
             return redirect()->route('home');
         }
         \Toastr::error('Login failed', '', ["positionClass" => "toast-top-right"]);

@@ -137,6 +137,7 @@ function(){
 	});
 	Route::group(['prefix' => 'feedbacks'], function(){
 		Route::get('','AdminFeedbackController@getFeedbackProducts')->name('getFeedbackProducts');
+		Route::get('/blogs','AdminFeedbackController@getFeedbackBlogs')->name('getFeedbackBlogs');
 		Route::post('delete-feedback','AdminFeedbackController@deleteFeedback')->name('deleteFeedback');
 	});
 });
@@ -185,6 +186,8 @@ Route::group([
 	// Blog
 	Route::get('blog','BlogController@getBlog')->name('getBlog');
 	Route::get('detail-blog/{slug}/{id}', 'BlogController@getDetailBlogs')->name('getDetailBlogs');
+	Route::post('/detail-blog/{slug}/{id}','BlogController@postComments')
+	->name('postCommentBlogs');
 
 	//Order tracking
 	Route::get('track-order','OrderController@index')->name('getOrderTracking');

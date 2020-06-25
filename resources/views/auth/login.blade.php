@@ -180,17 +180,17 @@ session_destroy();
             <form class="form-signin" action="" method="POST">
             @csrf
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
                 <label for="inputEmail">Email address</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
                 <label for="inputPassword">Password</label>
               </div>
 
               <div class="custom-control custom-checkbox mb-3">
-                <input style="" class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} >
+                <input style="" class="form-check-input" type="checkbox" name="remember_me" id="remember" {{ old('remember') ? 'checked' : '' }} >
                 <label class="custom-control-label" for="customCheck1">Remember password</label>
                 <a href="{{ route('getFormResetPassword') }}">Forgot your password?</a>
               </div>

@@ -20,4 +20,7 @@ class BlogController extends Controller
         $blog = Blogs::find($id);
         return view('frontend.blog.detail', compact('blog'));
     }
+    public function postComments(){
+        return redirect()->back();
+    }
 }

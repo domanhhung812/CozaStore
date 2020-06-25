@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +53,7 @@ class RegisterController extends Controller
 
     public function postRegister(Request $request){
         //dd($request->all());
-        $user = new User();
+        $user = new Users();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);

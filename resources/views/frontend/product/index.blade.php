@@ -1,4 +1,5 @@
 @extends('frontend.base-layout')
+@section('title','Coza Store')
 @section('content')
 <style>
 .img-product{

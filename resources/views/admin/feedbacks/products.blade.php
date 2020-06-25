@@ -116,11 +116,24 @@ margin: 0 auto;
 						},
 					});
 				}
-				
-
-				
 			});
-			
+			$('.custom-select').change(function(){
+				let id = $(this).val();
+					$.ajax({
+						url: "{{ route('admin.getFeedbackBlogs') }}",
+						type: "GET",
+						data: {id:id},
+						beforeSend: function(){
+							$('.modal').css('display','block');
+						},
+						success: function(data){
+							console.log(data);
+						},
+						error: function(data){
+							console.log(data);
+						}
+					});
+			})
 		})
 </script>
 @endpush
