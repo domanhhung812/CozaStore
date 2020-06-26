@@ -27,14 +27,6 @@ class AdminTransactionController extends Controller
     public function viewOrder(Request $request, $id){
         if($request->ajax()){
             $orders = Order::with('product')->where('or_transaction_id', $id)->get();
-            // $image = DB::table('products')
-            //         ->join('orders','products.id', '=', 'orders.or_product_id')
-            //         ->select('products.image_product','orders.or_product_id','orders.or_transaction_id')
-            //         ->where('orders.or_transaction_id', $id)
-            //         ->get();
-            // $viewData = [
-            //     'image' => json_decode($image,true)[0]
-            // ];
             $html = view('admin.component.order', compact('orders'))->render();
             return response()->json($html);
         }

@@ -112,8 +112,11 @@
     </div> -->
 
     <!--  -->
-    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+    <div class="col-lg-6 col-md-10 col-sm-10 col-xs-10">
       <div class="p-t-40">
+      <form action="" method="post">
+      @csrf
+          @if(Auth::check())
           <h5 class="mtext-113 cl2 p-b-12">
             Leave a Comment
           </h5>
@@ -121,31 +124,32 @@
           <p class="stext-107 cl6 p-b-40">
             Your email address will not be published. Required fields are marked *
           </p>
-
+          
           <form>
             <div class="bor19 m-b-20">
-              <textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="comment" placeholder="Comment..."></textarea>
+              <textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="co_content" placeholder="Comment..."></textarea>
             </div>
 
             <div class="bor19 size-218 m-b-20">
-              <input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="name" placeholder="Name *" value="{{\Auth::user()->username}}" readonly>
+              <input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="co_name" placeholder="Name *" value="{{Auth::user()->username}}" readonly>
             </div>
 
             <div class="bor19 size-218 m-b-20">
-              <input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="email" placeholder="Email *" value="{{\Auth::user()->email}}" readonly>
+              <input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="co_email" placeholder="Email *" value="{{Auth::user()->email}}" readonly>
             </div>
-            @if(Auth::check())
+            
             <button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
               Post Comment
             </button>
             @else
             <a href="{{ route('get.login') }}" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-              Post Comment
+              Login Now
             </a>
             @endif
           </form>
         </div>
       </div>
+      </form>
     </div>
   </div>
 </div>

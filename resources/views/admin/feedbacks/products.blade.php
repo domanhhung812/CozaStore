@@ -89,9 +89,7 @@ margin: 0 auto;
 <script type="text/javascript">
     $(function(){
 			$('.delete-feedback').click(function() {
-				let self = $(this);
-				const idFb = self.attr('id');
-				$row = $(".row");
+				const idFb = $(this).attr('id');
 				if($.isNumeric(idFb)){
 					$.ajax({
 						url: "{{ route('admin.deleteFeedback') }}",
@@ -101,7 +99,6 @@ margin: 0 auto;
 							$('.modal').css('display','block');
 						},
 						success: function(result){
-							self.text('Delete');
 							result = $.trim(result);
 							if(result === 'OK'){
 								window.location.reload(true);
@@ -119,21 +116,39 @@ margin: 0 auto;
 			});
 			$('.custom-select').change(function(){
 				let id = $(this).val();
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				if(id == 2){
 					$.ajax({
 						url: "{{ route('admin.getFeedbackBlogs') }}",
-						type: "GET",
+						type: "POST",
 						data: {id:id},
 						beforeSend: function(){
 							$('.modal').css('display','block');
 						},
-						success: function(data){
-							console.log(data);
-						},
-						error: function(data){
-							console.log(data);
-						}
+						
+					}).done(function(res){
+						$('.table').html('').append(res);
+						$('.modal').css('display','none');
 					});
-			})
-		})
+				}else if(id == 1){
+					$.ajax({
+						url: "{{ route('admin.postFeedbackProducts') }}",
+						type: "POST",
+						data: {id:id},
+						beforeSend: function(){
+							$('.modal').css('display','block');
+						},
+						
+					}).done(function(res){
+						$('body').html('').append(res);
+						$('.modal').css('display','none');
+					});
+				}
+			});		
+		});
 </script>
 @endpush

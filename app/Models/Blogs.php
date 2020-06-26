@@ -17,4 +17,12 @@ class Blogs extends Model
                    ->delete();
         return $del;
     }
+    public function getFeedbackBlogs($id){
+        $data = DB::table('comments')
+                    ->join('blogs','blogs.id', '=', 'comments.co_blog_id')
+                    ->select('comments.*', 'blogs.b_name')
+                    ->orderBy('comments.id')
+                    ->paginate(10);
+        return $data;
+    }
 }

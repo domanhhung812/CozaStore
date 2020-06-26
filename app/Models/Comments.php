@@ -17,4 +17,20 @@ class Comments extends Model
                    ->delete();
         return $del;
     }
+    public function getFeedbackBlogs(){
+        $data = DB::table('comments')
+                    ->join('blogs','blogs.id', '=', 'comments.co_blog_id')
+                    ->select('comments.*', 'blogs.b_name')
+                    ->orderBy('comments.id')
+                    ->paginate(10);
+        return $data;
+    }
+    public function postFeedbackProducts(){
+        $data =DB::table('comments')->join('products','products.id', '=', 'comments.co_product_id')
+                        ->select('comments.*', 'products.name_product')
+                        ->orderBy('comments.id')
+                        ->paginate(10);
+
+        return $data;
+    }
 }
