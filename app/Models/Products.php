@@ -53,7 +53,7 @@ class Products extends Model
                 ->where('products.name_product','LIKE','%'.$keyword.'%')
                 ->orWhere('products.price', 'LIKE' , '%'.$keyword.'%')
                 ->orderBy('products.id')
-                ->paginate(2);
+                ->paginate(100);
         // if($data){
         //     $data = $data->toArray();
         // }

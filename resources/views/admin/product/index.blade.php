@@ -15,17 +15,32 @@
                 50% 50% 
                 no-repeat;
 }
+.selection{
+	display: flex;
+}
+.has-search{
+	flex-grow: 2;
+	margin-left: 10px;
+}
 </style>
 <div class="row">
 	<div class="col-md-12">
 		<h3 class="text-center">Product !</h3>
-		<h3 class="text-center">{{ $mess  }}</h3>
+		<!--  -->
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-12">
-		<a href="{{ route('admin.addProduct') }}" class="btn btn-primary"> Add product + </a>
-		<a href="{{ route('admin.products') }}" class="btn btn-primary">View all</a>
+	<div class="col-md-12 selection">
+		<div class="action">
+			<a href="{{ route('admin.addProduct') }}" class="btn btn-primary"> Add product + </a>
+			<a href="{{ route('admin.products') }}" class="btn btn-primary">View all</a>
+		</div>
+		<form action="" method="post" style="width: 80%;">
+			<div class="form-group has-search">
+				<span class="fa fa-search form-control-feedback"></span>
+				<input type="search" class="form-control" placeholder="Search" id="search">
+			</div>
+		</form>
 	</div>
 </div>
 <div class="modal"></div>
@@ -99,9 +114,6 @@
 				@endforeach
 			</tbody>
 		</table>
-		{{-- {{ $link->links() }} --}}
-		{{-- phan trang va tim kiem --}}
-		{{ $link->appends(request()->query())->links() }}
 	</div>
 </div>
 @endsection
@@ -134,7 +146,20 @@
 					});
 				}
 			});
-		})
+			$('#search').keyup(function(){
+				let value = $(this).val();
+				$.ajax({
+					url: "{{ route('admin.searchProducts') }}",
+					type: "post",
+					data: { value: value },
+					success: function(res){
+						$('.content').html('');
+						$('.content').append(res);
+						console.log(res);
+					}
+				})
+			});
+		});
 	</script>
 @endpush
 

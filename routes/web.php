@@ -65,6 +65,9 @@ function(){
 	Route::get('dashboard','DashboardController@index')->name('dashboard');
 	Route::group(['prefix' => 'products'], function(){
 		Route::get('/','ProductController@index')->name('products');
+		// search products
+		Route::post('/','ProductController@searchProducts')->name('searchProducts');
+
 		Route::get('add-product','ProductController@addProduct')->name('addProduct');
 		Route::post('handle-add-product','ProductController@handleAddProduct')->name('handleAddProduct');
 		Route::post('delete-product','ProductController@deleteProduct')->name('deleteProduct');

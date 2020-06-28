@@ -25,8 +25,9 @@
 
           @foreach($categories as $cate)
           <?php $name = json_decode($cate)->name;
-                $id = json_decode($cate)->id ?>
-          <a href="{{ route('fr.getCategories', $id) }}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                $id = json_decode($cate)->id;
+                $slug = json_decode($cate)->cate_slug; ?>
+          <a href="{{ route('fr.getCategories', [$slug,$id]) }}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
             {{ $name }}
           </a>
           @endforeach
@@ -162,23 +163,25 @@
 
       <div class="row isotope-grid">
         @foreach($items as $key => $item)
+        @if($item->sale_off)
         <?php $link = json_decode($item->image_product)[0] ?>
         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
           <!-- Block2 -->
           <div class="block2">
             <div class="block2-pic hov-img0">
-              <img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" style="height:372px;width: 300px;">
-              <a href="{{ route('fr.detailPd', $item->id) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+              <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
+              <a href="{{ route('fr.detailPd', ['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                 Quick View
               </a>
+              <div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$item->sale_off}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
             </div>
             <div class="block2-txt flex-w flex-t p-t-14">
               <div class="block2-txt-child1 flex-col-l ">
-                <a href="{{ route('fr.detailPd', $item->id) }}" class="stext-104 cl4 hov-cl1 trans-04 p-b-6">
+                <a href="{{ route('fr.detailPd', ['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                   {{ $item->name_product }}
                 </a>
-                <span class="stext-105 cl3">
-                 {{ $item->price }}$
+                <span class="stext-105 cl3 sale_price">
+                <strike>{{$item->price}}$</strike>&nbsp;&nbsp;<h4 style="color: red;">{{$item->price - $item->price * $item->sale_off/100}}$</h4>
                 </span>
               </div>
               <div class="block2-txt-child2 flex-r p-t-3">
@@ -190,6 +193,36 @@
             </div>
           </div>
         </div>
+        @else
+        <?php $link = json_decode($item->image_product)[0] ?>
+        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
+          <!-- Block2 -->
+          <div class="block2">
+            <div class="block2-pic hov-img0">
+              <img class="img-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
+              <a href="{{ route('fr.detailPd', ['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                Quick View
+              </a>
+            </div>
+            <div class="block2-txt flex-w flex-t p-t-14">
+              <div class="block2-txt-child1 flex-col-l ">
+                <a href="{{ route('fr.detailPd', ['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                  {{ $item->name_product }}
+                </a>
+                <span class="stext-105 cl3">
+                {{$item->price}}$
+                </span>
+              </div>
+              <div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png')}}" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png')}}" alt="ICON">
+								</a>
+							</div>
+            </div>
+          </div>
+        </div>
+        @endif
         @endforeach
       </div>
 

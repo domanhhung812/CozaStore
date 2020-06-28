@@ -10,6 +10,7 @@ use App\Models\Sizes;
 use App\Models\Colors;
 use App\Models\Users;
 use App\Models\Comments;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ProcessViewService;
@@ -143,6 +144,8 @@ class ProductController extends BaseController
 	}
 	public function postComments(Request $request, $id)
 	{
+		$idUser = \Auth::id();
+		$userImg = DB::table('users')->select('user_image')->where('id', $idUser)->first();
 		$url = $request->segment('4');
 		$id = preg_split('/(-)/i', $url)[0];
 		$comments = new Comments;
@@ -152,6 +155,7 @@ class ProductController extends BaseController
 		$comments->co_product_id = $id;
 		$comments->co_blog_id = 0;
 		$comments->co_rating = $request->rating;
+		$comments->user_image = $userImg->user_image;
 		$comments->save();
 		\Toastr::success('Add comment successfully', '', ["positionClass" => "toast-top-right"]);
 		return redirect()->back();

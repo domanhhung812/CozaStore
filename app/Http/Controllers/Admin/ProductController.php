@@ -12,6 +12,7 @@ use App\Models\Brands;
 use App\Models\Products;
 use App\Models\Comments;
 use App\Models\ProductDetails;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreProductsPost;
 
 class ProductController extends Controller
@@ -44,15 +45,18 @@ class ProductController extends Controller
             // xu ly images product
             $data['lstPd'][$key]['image_product'] = json_decode($item['image_product'],true);
             $product_id = $data['lstPd'][$key]['id'];
+            
             $rating = Products::join('comments', 'products.id', '=', 'comments.co_product_id')
-                        ->select('co_rating')
+                        ->select('co_rating', 'name_product')
                         ->where('comments.co_product_id',$product_id)
                         ->get();
-            // $count = count(json_decode($rating));
+            //dd($rating);
+            //$count = count(json_decode($rating));
             $arr = json_decode($rating);
             $rate += $arr;
-            // dd($avg_rating);
+            
         }
+        //dd($rate);
         for($i = 0; $i < count($rate); $i++){
             $arr_rate = $rate[$i]->co_rating + $arr_rate;
             
@@ -63,7 +67,7 @@ class ProductController extends Controller
         }else{
             $avg_rate = ceil($arr_rate/$count);
         }
-        //dd(count($rate));
+        //dd($avg_rate);
         $data['avg_rating'] = $avg_rate;
         foreach($data['lstPd'] as $key => $item){
            foreach($data['cat'] as $k => $val){
@@ -351,6 +355,86 @@ class ProductController extends Controller
             }
         } else {
             abort(404);
+        }
+    }
+
+    public function searchProducts(Request $request, Products $pd, Categories $cat, Colors $color, Sizes $size){
+        if($request->ajax()){
+            $keyword = trim($request->value);
+
+            $data = [];
+            $data['mess'] = $request->session()->get('addPd');
+            $data['cat'] = $cat->getAllDataCategories();
+            $data['sizes'] = $size->getAllDataSizes();
+            $data['colors'] = $color->getAllDataColors();
+
+            $lstPd = $pd->getAllDataProduct($keyword);
+            $arrPd = ($lstPd) ? $lstPd->toArray() : [];
+            $data['lstPd'] = $arrPd['data'];
+            $data['link']  = $lstPd;
+
+            $arr_rate = 0;
+            $count = 1;
+            $rate = [];
+            foreach($data['lstPd'] as $key => $item) {
+                // xu ly cat
+                $data['lstPd'][$key]['categories_id'] = json_decode($item['categories_id'],true);
+                // xu ly color
+                $data['lstPd'][$key]['colors_id'] = json_decode($item['colors_id'],true);
+                // xu ly size
+                $data['lstPd'][$key]['sizes_id'] = json_decode($item['sizes_id'],true);
+                // xu ly images product
+                $data['lstPd'][$key]['image_product'] = json_decode($item['image_product'],true);
+                $product_id = $data['lstPd'][$key]['id'];
+                $rating = Products::join('comments', 'products.id', '=', 'comments.co_product_id')
+                            ->select('co_rating')
+                            ->where('comments.co_product_id',$product_id)
+                            ->get();
+                // $count = count(json_decode($rating));
+                $arr = json_decode($rating);
+                $rate += $arr;
+                // dd($avg_rating);
+            }
+            for($i = 0; $i < count($rate); $i++){
+                $arr_rate = $rate[$i]->co_rating + $arr_rate;
+                
+            }
+            $count = count($rate);
+            if($count === 0 || $count === null || $rate === []) {
+                $avg_rate = 0;
+            }else{
+                $avg_rate = ceil($arr_rate/$count);
+            }
+            //dd(count($rate));
+            $data['avg_rating'] = $avg_rate;
+            foreach($data['lstPd'] as $key => $item){
+            foreach($data['cat'] as $k => $val){
+                    if(in_array($val['id'], $item['categories_id'])){
+                        $data['lstPd'][$key]['categories_id']['name_cat'][] = $val['name'];
+                    }
+            }  
+            }
+
+            foreach($data['lstPd'] as $key => $item){
+            foreach($data['colors'] as $k => $val){
+                    if(in_array($val['id'], $item['colors_id'])){
+                        $data['lstPd'][$key]['colors_id']['name_color'][] = $val['name_color'];
+                    }
+            }
+            }
+            
+            foreach($data['lstPd'] as $key => $item){
+                // dd($item['sizes_id']);
+            
+                foreach($data['sizes'] as $k => $val){
+                    // dd($item['sizes_id']);
+                    
+                        $data['lstPd'][$key]['sizes_id']['letter_size'][] = $val['letter_size'];
+                    
+            }
+            }
+            $html = view('admin.product.search',$data)->render();
+            return response()->json($html);
         }
     }
 }

@@ -502,8 +502,8 @@ img {
 											<div class="size-207" style="">
 												<span>
 													<!-- <img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		"> -->
-													@if(Auth::user()->user_image)
-														<img src="{{ URL::to('/') }}/upload/images/{{ Auth::user()->user_image }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
+													@if($comment->user_image)
+														<img src="{{ URL::to('/') }}/upload/images/{{ $comment->user_image }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
 													@else
 														<img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
 													@endif
