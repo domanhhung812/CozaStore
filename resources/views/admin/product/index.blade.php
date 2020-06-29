@@ -80,10 +80,24 @@
 								<p> + {{ $name }}</p>
 							@endforeach
 						</td>
+						
+						
 						<td>
-							@foreach($item["sizes_id"]["letter_size"] as $key => $value)
-								<p> * {{ $value }}</p>
+						@foreach($arrS as $values)
+							<?php 
+								$idP = $item['id'];
+								$sizes = [];
+								foreach($values as $k => $v){
+									$sizes[$v->id] = array();
+									array_push($sizes[$v->id],$v);
+								}
+							?>
+							@foreach($sizes as $i => $e)
+								@if($idP === $e[0]->pd_product_id)
+								<p>{{$e[0]->letter_size}} - ({{$e[0]->pd_qty}})</p>
+								@endif
 							@endforeach
+						@endforeach
 						</td>
 						<td>{{ $item['brand_name'] }}</td>
 						<td>{{ number_format($item['price']) }}</td>
