@@ -27,15 +27,32 @@
                     <td>{{ $item['qty'] }}</td>
                     <td>
                     <?php
+                        $id = $item['id'];
                         $star = $avg_rating;
+                        $sum  = 0;
+                        $avg = 0;
+                        foreach($star as $k => $v){
+                            if($id == $k){
+                                foreach($v[0] as $i => $e){
+                                    $sum+=$e->co_rating;
+                                }	
+                                $count = count($v[0]);
+                                if($count === 0 || $v[0] === []){
+                                    $avg = 0;
+                                }else{
+                                    $avg = ceil($sum/$count);
+                                }	
+                            }
+                            
+                        }
                     ?>
                             <span class="fs-18 cl11">
-                                @for($i = 0; $i < $star ; $i++)
+                                @for($i = 0; $i < $avg ; $i++)
                                 <i class="fas fa-star" style="color:orange"></i>
                                 @endfor
                             </span>
                             <span class="fs-18 cl11">
-                                @for($i = 5; $i > $star ; $i--)
+                                @for($i = 5; $i > $avg ; $i--)
                                 <i class="fas fa-star"></i>
                                 @endfor
                             </span>
