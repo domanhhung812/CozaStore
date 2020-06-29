@@ -18,9 +18,26 @@
                         @endforeach
                     </td>
                     <td>
-                        @foreach($item["sizes_id"]["letter_size"] as $key => $value)
-                            <p> * {{ $value }}</p>
-                        @endforeach
+                    @foreach($arrS as $values)
+							<?php 
+								$idP = $item['id'];
+								$sizes = [];
+								foreach($values as $k => $v){
+									$sizes[$v->id] = array();
+									array_push($sizes[$v->id],$v);
+								}
+								$idCate = $item['categories_id'][0];
+							?>
+							@foreach($sizes as $i => $e)
+								@if($idP === $e[0]->pd_product_id)
+									@if($idCate == 5)
+										<p>{{$e[0]->number_size}} - ({{$e[0]->pd_qty}})</p>
+									@else
+										<p>{{$e[0]->letter_size}} - ({{$e[0]->pd_qty}})</p>
+									@endif
+								@endif
+							@endforeach
+						@endforeach
                     </td>
                     <td>{{ $item['brand_name'] }}</td>
                     <td>{{ number_format($item['price']) }}</td>

@@ -91,10 +91,15 @@
 									$sizes[$v->id] = array();
 									array_push($sizes[$v->id],$v);
 								}
+								$idCate = $item['categories_id'][0];
 							?>
 							@foreach($sizes as $i => $e)
 								@if($idP === $e[0]->pd_product_id)
-								<p>{{$e[0]->letter_size}} - ({{$e[0]->pd_qty}})</p>
+									@if($idCate == 5)
+										<p>{{$e[0]->number_size}} - ({{$e[0]->pd_qty}})</p>
+									@else
+										<p>{{$e[0]->letter_size}} - ({{$e[0]->pd_qty}})</p>
+									@endif
 								@endif
 							@endforeach
 						@endforeach
@@ -120,7 +125,6 @@
 										$avg = ceil($sum/$count);
 									}	
 								}
-								
 							}
 						?>
 							<span class="fs-18 cl11">
@@ -185,7 +189,7 @@
 					success: function(res){
 						$('.content').html('');
 						$('.content').append(res);
-						console.log(res);
+						//console.log(res);
 					}
 				})
 			});

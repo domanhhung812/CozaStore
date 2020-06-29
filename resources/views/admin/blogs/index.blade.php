@@ -17,7 +17,7 @@
           <th>Mô tả</th>
           <th>Trạng thái</th>
           <th>Ngày tạo</th>
-					<th colspan="2" width="3%" class="text-center">Action</th>
+					<th colspan="2" width="10%" class="text-center">Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,7 +45,7 @@
             <td>
               {{ $date }}
             </td>
-						<td>
+						<td style="display: flex; justify-content: space-between;">
               <a href="{{ route('admin.editBlogs', $blog->id) }}" class="btn btn-info">Edit</a>
 							<button class="btn btn-danger btnDelete" id="{{ $blog->id }}">Delete</button>
 						</td>

@@ -41,15 +41,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if(isset($users))
-          @foreach($users as $key => $user)
+			@if(isset($users))
+          	@foreach($users as $key => $user)
           <tr>
 						<td>
 							{{  $key }}
 						</td>
 						<td>{{ $user->username }}</td>
 						<td>{{ $user->email }}</td> 
-						<td></td>
+						<td>
+						@if($user->user_image == '')
+							<img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 40px; height: 40px; border-radius: 50%;" alt="">
+						@else
+							<img src="{{ URL::to('/') }}/upload/images/{{ $user->user_image }}" style="width: 40px; height: 40px; border-radius: 50%;" alt="">
+						@endif
+						</td>
 						<!-- <td>
 							<a href="#" class="btn btn-info">Edit</a>
 						</td> -->
@@ -57,8 +63,8 @@
 							<button class="btn btn-danger btnDelete" id="{{ $user->id }}">Delete</button>
 						</td>
 					</tr>
-          @endforeach
-        @endif
+          	@endforeach
+        	@endif
 			</tbody>
 		</table>
 		{{-- {{ $link->links() }} --}}

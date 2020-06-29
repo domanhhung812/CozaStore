@@ -60,7 +60,8 @@ class ProductController extends Controller
             $rate[$id] = array();
             array_push($rate[$id], $arr); 
 
-            $dataS = Sizes::join('products_detail','sizes.id','=','products_detail.pd_size_id')->select('sizes.id','sizes.letter_size','sizes.number_size','products_detail.pd_qty','products_detail.pd_product_id')
+            $dataS = Sizes::join('products_detail','sizes.id','=','products_detail.pd_size_id')
+                        ->select('sizes.id','sizes.letter_size','sizes.number_size','products_detail.pd_qty','products_detail.pd_product_id')
                         ->where('products_detail.pd_product_id', $id)->get();
             
             array_push($arrS, json_decode($dataS));
@@ -82,16 +83,6 @@ class ProductController extends Controller
                 }
            }
         }
-        
-        // foreach($data['lstPd'] as $key => $item){
-        //     // dd($item['sizes_id']);
-        //     $data['lstPd'][$key]['sizes_id'] = array();
-        //     foreach($data['sizes'] as $k => $val){
-        //         // dd($item['sizes_id']);
-        //         dd($val);
-        //         //array_push
-        //    }
-        // }
         
     	return view('admin.product.index',$data)->render();
     }
@@ -374,6 +365,7 @@ class ProductController extends Controller
             $arr_rate = 0;
             $count = 1;
             $rate = [];
+            $arrS = [];
             foreach($data['lstPd'] as $key => $item) {
                 // xu ly cat
                 $data['lstPd'][$key]['categories_id'] = json_decode($item['categories_id'],true);
@@ -396,35 +388,29 @@ class ProductController extends Controller
                 // $rate += $arr;
                 $rate[$id] = array();
                 array_push($rate[$id], $arr); 
-                
-            }
-            $data['avg_rating'] = $rate;
-            foreach($data['lstPd'] as $key => $item){
-            foreach($data['cat'] as $k => $val){
-                    if(in_array($val['id'], $item['categories_id'])){
-                        $data['lstPd'][$key]['categories_id']['name_cat'][] = $val['name'];
-                    }
-            }  
-            }
 
-            foreach($data['lstPd'] as $key => $item){
-            foreach($data['colors'] as $k => $val){
-                    if(in_array($val['id'], $item['colors_id'])){
-                        $data['lstPd'][$key]['colors_id']['name_color'][] = $val['name_color'];
-                    }
-            }
-            }
+             $dataS = Sizes::join('products_detail','sizes.id','=','products_detail.pd_size_id')->select('sizes.id','sizes.letter_size','sizes.number_size','products_detail.pd_qty','products_detail.pd_product_id')
+                        ->where('products_detail.pd_product_id', $id)->get();
             
-            foreach($data['lstPd'] as $key => $item){
-                // dd($item['sizes_id']);
-            
-                foreach($data['sizes'] as $k => $val){
-                    // dd($item['sizes_id']);
-                    
-                        $data['lstPd'][$key]['sizes_id']['letter_size'][] = $val['letter_size'];
-                    
-            }
-            }
+            array_push($arrS, json_decode($dataS));
+        }
+        $data['arrS'] = $arrS;
+        $data['avg_rating'] = $rate;
+        foreach($data['lstPd'] as $key => $item){
+           foreach($data['cat'] as $k => $val){
+                if(in_array($val['id'], $item['categories_id'])){
+                    $data['lstPd'][$key]['categories_id']['name_cat'][] = $val['name'];
+                }
+           }  
+        }
+
+        foreach($data['lstPd'] as $key => $item){
+           foreach($data['colors'] as $k => $val){
+                if(in_array($val['id'], $item['colors_id'])){
+                    $data['lstPd'][$key]['colors_id']['name_color'][] = $val['name_color'];
+                }
+           }
+        }
             $html = view('admin.product.search',$data)->render();
             return response()->json($html);
         }
