@@ -42,7 +42,7 @@
 		<div class="col-lg-12 col-xl-12 m-lr-auto">
 			<div class="m-lr-0-xl">
 			@if(json_decode($products) === [])
-				<div class="CzsW3c _1wkChM"><div class="_38f5r7"></div><div class="UM4yVY">Giỏ hàng của bạn còn trống</div><a class="_1Fz64J" href="/"><button class="btn btn-primary"><span class="_3KnH_F">MUA NGAY</span></button></a></div>
+				<div class="CzsW3c _1wkChM"><div class="_38f5r7"></div><div class="UM4yVY">Your cart is empty</div><a class="_1Fz64J" href="/"><button class="btn btn-primary" style="background-color: #ff9f1a;border-color: #ff9f1a;"><span class="_3KnH_F">BUY NOW</span></button></a></div>
 			@else
 				<div class="wrap-table-shopping-cart">
 					<table class="table m-b-0">

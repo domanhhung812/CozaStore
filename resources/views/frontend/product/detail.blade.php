@@ -400,9 +400,9 @@ img {
 								</div>
 								<div class="details col-md-6">
 									<h3 class="product-title">{{ $info[0]['name_product'] }}</h3>
-									<div class="rating">
+									<!-- <div class="rating">
 										<span class="review-no">{{$info[0]['view_product']}} views</span>
-									</div>
+									</div> -->
 									
 									@if($info[0]['sale_off'])
 										<div class="flex items-center">
