@@ -10,6 +10,7 @@ use App\Models\Sizes;
 use App\Models\Colors;
 use App\Models\Users;
 use App\Models\Comments;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ProcessViewService;
@@ -45,6 +46,11 @@ class ProductController extends BaseController
 			$url = $request->segment('4');
 			$id = preg_split('/(-)/i', $url);
 			$infoPd = $pd->getInfoDataProductById($id);
+			$sizes = Sizes::join('products_detail', 'sizes.id','=','products_detail.pd_size_id')
+							->where('pd_product_id', $id)
+							->select('sizes.*','products_detail.pd_qty')
+							->get();
+			$arrSizes = json_decode($sizes);
 			$items = Products::all();
 			if(Auth::id()){
 				$userId = Auth::id();
@@ -54,27 +60,29 @@ class ProductController extends BaseController
 					$userEmail = json_decode($infoUser)[0]->email;
 					if($infoPd){
 					$arrColor = json_decode($infoPd[0]['colors_id'], true);
-					$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					// $arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					//dd($arrSize);
 					$arrImage = json_decode($infoPd[0]['image_product'],true);
-						$arrProducts = json_decode($items);
+					$arrProducts = json_decode($items);
 					$infoColor = $color->getInfoColorByArrId($arrColor);
-					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					// $infoSize  = $size->getInfoSizeByArrid($arrSize);
 					$cateId = Products::select('categories_id')->where('id', $id)->first();
 					$countStr = strlen($cateId->categories_id);
 					$cateId1 = substr($cateId->categories_id,-($countStr-2));
 					$idCate = substr($cateId1,0,($countStr-4));
 					$data = [];
-						$data['info'] = $infoPd;
-						$data['items'] = $arrProducts;
+					$data['info'] = $infoPd;
+					$data['items'] = $arrProducts;
 					$data['images'] = $arrImage;
 					$data['colors'] = $infoColor;
-					$data['sizes'] = $infoSize;
-						$data['cate'] = $this->getAllDataCategoriesForUser($cate);
-						$data['comments'] = Comments::where('co_product_id', $id)->get();
-						$data['userName'] = $userName;
-						$data['userEmail'] = $userEmail;
-						$data['relativeProducts'] = $this->getRalativeProducts($idCate);
-						ProcessViewService::view('products','view_product','$product', $id);
+					$data['sizes'] = $arrSizes;
+					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
+					$data['comments'] = Comments::where('co_product_id', $id)->get();
+					$data['userName'] = $userName;
+					$data['userEmail'] = $userEmail;
+					$data['idCate'] = $idCate;
+					$data['relativeProducts'] = $this->getRalativeProducts($idCate);
+					//dd($data['sizes']);
 					return view('frontend.product.detail',$data);
 
 				} else {
@@ -84,11 +92,11 @@ class ProductController extends BaseController
 				$product = Products::find($id);
 				if($infoPd){
 					$arrColor = json_decode($infoPd[0]['colors_id'], true);
-					$arrSize = json_decode($infoPd[0]['sizes_id'], true);
+					// $arrSize = json_decode($infoPd[0]['sizes_id'], true);
 					$arrImage = json_decode($infoPd[0]['image_product'],true);
 					$arrProducts = json_decode($items);
 					$infoColor = $color->getInfoColorByArrId($arrColor);
-					$infoSize  = $size->getInfoSizeByArrid($arrSize);
+					// $infoSize  = $size->getInfoSizeByArrid($arrSize);
 					$cateId = Products::select('categories_id')->where('id', $id)->first();
 					$countStr = strlen($cateId->categories_id);
 					$cateId1 = substr($cateId->categories_id,-($countStr-2));
@@ -100,9 +108,9 @@ class ProductController extends BaseController
 					$data['items'] = $arrProducts;
 					$data['images'] = $arrImage;
 					$data['colors'] = $infoColor;
-					$data['sizes'] = $infoSize;
+					$data['sizes'] = $arrSizes;
 					$data['cate'] = $this->getAllDataCategoriesForUser($cate);
-					
+					$data['idCate'] = $idCate;
 					$data['relativeProducts'] = $this->getRalativeProducts($idCate);
 					
 					return view('frontend.product.detail',$data);
@@ -136,14 +144,20 @@ class ProductController extends BaseController
 	}
 	public function postComments(Request $request, $id)
 	{
+		$idUser = \Auth::id();
+		$userImg = DB::table('users')->select('user_image')->where('id', $idUser)->first();
+		$url = $request->segment('4');
+		$id = preg_split('/(-)/i', $url)[0];
 		$comments = new Comments;
 		$comments->co_name = $request->co_name;
 		$comments->co_email = $request->co_email;
 		$comments->co_content = $request->co_content;
 		$comments->co_product_id = $id;
+		$comments->co_blog_id = 0;
 		$comments->co_rating = $request->rating;
+		$comments->user_image = $userImg->user_image;
 		$comments->save();
-		\Toastr::success('Thêm comment thành công', 'Thành công', ["positionClass" => "toast-top-right"]);
+		\Toastr::success('Add comment successfully', '', ["positionClass" => "toast-top-right"]);
 		return redirect()->back();
 	}
 	public function searchProducts(Request $request){
@@ -153,5 +167,8 @@ class ProductController extends BaseController
 			return view('frontend.search.index',compact('items'));
 		}
 	}
-
+	public function topsale(Request $request){
+		$items = DB::table('products')->select('id','name_product','price','image_product', 'sale_off', 'pro_slug','qty')->get();
+		return view('frontend.sale.index',compact('items'));
+	}
 }

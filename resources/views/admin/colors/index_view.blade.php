@@ -40,7 +40,7 @@
 							<a href="{{ route('admin.editColors',['id'=> $item['id']]) }}" class="btn btn-info">Edit</a>
 						</td>
 						<td>
-							<button class="btn btn-danger btnDelete" id="{{ $item['id'] }} ">Delete</button>
+							<button class="btn btn-danger btnDelete" id="{{ $item['id'] }} " disabled>Delete</button>
 						</td>
 					</tr>
 				@endforeach
@@ -72,7 +72,7 @@
 							if(result === 'OK'){
 								alert('Delete successful');
 								window.location.reload(true);
-								$('#row_'+idColors).hide();
+								$('#row_'+id).hide();
 							} else {
 								alert('Delete fail');
 							}

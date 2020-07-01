@@ -30,6 +30,10 @@ class Products extends Model
     {
     	return $this->belongsToMany('App\Models\Colors');
     }
+    public function products_detail()
+    {
+    	return $this->belongsToMany('App\Models\ProductDetails');
+    }
     public function favorite()
     {
         return $this->belongsToMany(Users::class,'user_favorite','uf_product_id','uf_user_id');
@@ -48,7 +52,8 @@ class Products extends Model
                 ->join('brands','brands.id','=','products.brands_id')
                 ->where('products.name_product','LIKE','%'.$keyword.'%')
                 ->orWhere('products.price', 'LIKE' , '%'.$keyword.'%')
-                ->paginate(2);
+                ->orderBy('products.id')
+                ->paginate(100);
         // if($data){
         //     $data = $data->toArray();
         // }
@@ -59,6 +64,7 @@ class Products extends Model
     {
         $del = DB::table('products')
                    ->where('id',$id)
+                   
                    ->delete();
         return $del;
     }
@@ -83,6 +89,7 @@ class Products extends Model
     public function getDataProductForUser()
     {
         $data = Products::select('*')
+        ->orderBy('id')
                 ->paginate(12);
         return $data;
     }

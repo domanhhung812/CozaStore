@@ -23,7 +23,6 @@ class SizesController extends Controller
     public function handleAddSizes(Sizes $sizes, Request $request)
     {
         $this->validate($request,[
-            'letter_size' => 'required',
             'number_size' => 'required',
             'status' => 'required',
             'description' => 'required'
@@ -45,7 +44,6 @@ class SizesController extends Controller
     public function handleEditSizes($id, Request $request, Sizes $sizes)
     {
         $this->validate($request,[
-            'letter_size' => 'required',
             'number_size' => 'required',
             'status' => 'required',
             'description' => 'required'
@@ -69,6 +67,6 @@ class SizesController extends Controller
             } else {
                 echo "FAIL";
             }
-        }
+         }
     }
 }

@@ -103,6 +103,14 @@
   font-size: 12px;
   color: #777;
 }
+.form-signup .btn {
+    font-size: 60%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+}
 @media only screen and (min-width: 1024px){
     .container-register{
         margin-top: 50px;
@@ -118,17 +126,17 @@
             <form class="form-signup" method="POST">
             @csrf
               <div class="form-label-group">
-                <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+                <input type="text" id="inputName" class="form-control" placeholder="Name" name="username" required autofocus>
                 <label for="inputName">Name</label>
               </div> 
 
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required>
                 <label for="inputEmail">Email</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
                 <label for="inputPassword">Password</label>
               </div>
 

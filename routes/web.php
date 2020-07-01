@@ -65,6 +65,9 @@ function(){
 	Route::get('dashboard','DashboardController@index')->name('dashboard');
 	Route::group(['prefix' => 'products'], function(){
 		Route::get('/','ProductController@index')->name('products');
+		// search products
+		Route::post('/','ProductController@searchProducts')->name('searchProducts');
+
 		Route::get('add-product','ProductController@addProduct')->name('addProduct');
 		Route::post('handle-add-product','ProductController@handleAddProduct')->name('handleAddProduct');
 		Route::post('delete-product','ProductController@deleteProduct')->name('deleteProduct');
@@ -116,6 +119,7 @@ function(){
 	});
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('/','AdminUserController@index')->name('users');
+		Route::post('/delete-user','AdminUserController@deleteUser')->name('deleteUser');
 	});
 	Route::group(['prefix' => 'transactions'], function(){
 		Route::get('/','AdminTransactionController@index')->name('transactions');
@@ -135,8 +139,10 @@ function(){
 		->where(['id'=>'[0-9]+']);
 	});
 	Route::group(['prefix' => 'feedbacks'], function(){
-		Route::get('/products','AdminFeedbackController@getFeedbackProducts')->name('getFeedbackProducts');
-		Route::post('delete-feedbacks','AdminBlogController@deleteFeedback')->name('deleteFeedback');
+		Route::get('','AdminFeedbackController@getFeedbackProducts')->name('getFeedbackProducts');
+		Route::post('','AdminFeedbackController@postFeedbackProducts')->name('postFeedbackProducts');
+		Route::post('/blogs','AdminFeedbackController@getFeedbackBlogs')->name('getFeedbackBlogs');
+		Route::post('delete-feedback','AdminFeedbackController@deleteFeedback')->name('deleteFeedback');
 	});
 });
 
@@ -184,6 +190,8 @@ Route::group([
 	// Blog
 	Route::get('blog','BlogController@getBlog')->name('getBlog');
 	Route::get('detail-blog/{slug}/{id}', 'BlogController@getDetailBlogs')->name('getDetailBlogs');
+	Route::post('/detail-blog/{slug}/{id}','BlogController@postComments')
+	->name('postCommentBlogs');
 
 	//Order tracking
 	Route::get('track-order','OrderController@index')->name('getOrderTracking');
@@ -194,7 +202,8 @@ Route::group([
 	//Profile user
 	Route::get('/profile','UserProfileController@index')->name('getUserProfile');
 	Route::post('/profile','UserProfileController@editProfile')->name('postUserProfile');
-
+	//Top Sale
+	Route::get('/top-sale','ProductController@topsale')->name('topsale');
 });
 Auth::routes();
 Route::group(['namespace' => 'Auth','middleware' => 'web'], function(){

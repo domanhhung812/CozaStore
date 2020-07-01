@@ -42,7 +42,7 @@
 							<a href="{{ route('admin.editBrands',['id'=> $item['id']]) }}" class="btn btn-info">Edit</a>
 						</td>
 						<td>
-							<button class="btn btn-danger btnDelete" id="{{ $item['id'] }} ">Delete</button>
+							<button class="btn btn-danger btnDelete" id="{{ $item['id'] }}" disabled>Delete</button>
 						</td>
 					</tr>
 				@endforeach

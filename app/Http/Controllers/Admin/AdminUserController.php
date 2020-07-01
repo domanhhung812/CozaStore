@@ -18,4 +18,16 @@ class AdminUserController extends Controller
 
         return view('admin.users.index', $viewData);
     }
+    public function deleteUser(Request $request, Users $users)
+    {
+        if($request->ajax()){
+            $id = $request->id;
+            $del = $users->deleteUsersById($id);
+            if($del){
+                echo "OK"; 
+            } else {
+                echo "FAIL";
+            }
+        }
+    }
 }

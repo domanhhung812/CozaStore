@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Users extends Model
 {
@@ -39,5 +40,11 @@ class Users extends Model
         }
         return $data2;
     }
-
+    public function deleteUsersById($id)
+    {
+        $del = DB::table('users')
+                   ->where('id',$id)
+                   ->delete();
+        return $del;
+    }
 }

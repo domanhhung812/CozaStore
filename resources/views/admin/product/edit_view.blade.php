@@ -1,10 +1,25 @@
 @extends('admin.base')
 
 @section('content')
+<style>
+
+.active{
+	width: 100%;
+	height: auto;
+	display: flex; 
+	flex-direction: column;
+}
+.btn-add-size{
+	margin-top: 10px;
+}
+</style>
 <div class="row">
 	<div class="col-md-12">
 		<h3 class="text-center"> Update product !</h3>
 	</div>
+	<div class="col-md-12">
+			<a href="{{ route('admin.products') }}" class="btn btn-primary">Back</a>
+		</div>
 </div>
 
 @if ($errors->any())
@@ -34,11 +49,10 @@
 				@foreach($cat as $key => $item)
 					<label for="cat_{{ $item['id'] }}"> {{ $item['name'] }} </label>
 					<input 
-						type="checkbox"
+						type="radio"
 						name="cat[]" 
 						id="cat_{{ $item['id'] }}"
 						value="{{ $item['id'] }}"
-						multiple
 						{{ in_array($item['id'], $infoCat) ? 'checked' : '' }}
 					>
 				@endforeach
@@ -47,29 +61,35 @@
 				<p> Colors : </p>
 				@foreach($colors as $key => $item)
 					<label for="color_{{ $item['id'] }}"> {{ $item['name_color'] }} </label>
-					<input 
-						type="checkbox"
-						name="color[]"
-						id="color_{{ $item['id'] }}"
-						value="{{ $item['id'] }}"
-						multiple
-						{{ in_array($item['id'], $infoColor) ? 'checked' : '' }}
-					>
+					<input type="radio" name="color" id="{{ $item['id'] }}" value="{{ $item['id'] }}" class="color" {{ in_array($item['id'], $infoColor) ? 'checked' : '' }}>
 				@endforeach
 			</div>
-			<div class="form-group border-top">
-				<p> Sizes : </p>
-				@foreach($sizes as $key => $item)
-					<label for="size_{{ $item['id'] }}"> {{ $item['letter_size'] }} </label>
-					<input
-						type="checkbox"
-						name="size[]"
-						id="size_{{ $item['id'] }}"
-						value="{{ $item['id'] }}"
-						multiple
-						{{ in_array($item['id'], $infoSize) ? 'checked' : '' }}
-					>
-				@endforeach
+			
+			<div class="sub-info">
+				<table style="width: 100%;">
+					<thead>
+						<tr>
+							<th>Select size:</th>
+							<th>Type quantity:</th>
+						</tr>
+					</thead>
+					<tbody id="content-size">
+					@foreach($sizes as $key => $item2)
+						<tr>
+							<td>
+								<select name="size_detail_{{ $item2->id }}" id="" style="width: 200px;">
+								
+									<option value="{{ $item2->id }}">{{ $item2->letter_size }} ({{ $item2->number_size }})</option>
+								
+								</select>
+							</td>
+							<td>
+								<input type="number" name="size_qty_{{ $item2->id }}" id="size_qty" class="form-control" value="{{$item2->pd_qty}}">
+							</td>
+						</tr>
+					@endforeach
+					</tbody>
+				</table>
 			</div>
 			<div class="form-group border-top">
 				<label for="brands"> Brands </label>	
@@ -92,7 +112,7 @@
 			</div>
 			<div class="form-group border-top">
 				<label for="qty">QTY</label>
-				<input value="{{ $info['qty'] }}" type="number" name="qty" id="qty" class="form-control">
+				<input value="{{ $info['qty'] }}" type="number" name="qty" id="qty" class="form-control" readonly>
 			</div>
 
 			<div class="form-group border-top">
@@ -126,5 +146,22 @@
 <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript">
 	CKEDITOR.replace('description');
+	$(".select-all").change(function () {
+		$(this).siblings().prop('checked', $(this).prop("checked"));
+	});
+
+	$(".checkboxlistitem").change(function() {
+		var checkboxes = $(this).parent().find('.checkboxlistitem');
+		var checkedboxes = checkboxes.filter(':checked');
+
+		if(checkboxes.length === checkedboxes.length) {
+		$(this).parent().find('.select-all').prop('checked', true);
+		} else {
+		$(this).parent().find('.select-all').prop('checked', false);
+		}
+	});
+	$(".color").click(function(){
+		$('.sub-info').addClass('active');
+	});
 </script>
 @endpush

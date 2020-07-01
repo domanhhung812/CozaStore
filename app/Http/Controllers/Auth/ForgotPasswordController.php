@@ -23,7 +23,7 @@ class ForgotPasswordController extends Controller
 
         if(!$checkUsers)
         {
-            \Toastr::error('Email không tồn tại', 'Lỗi', ["positionClass" => "toast-top-right"]);
+            \Toastr::error('Email is not existed', '', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
         $code = md5(time().$email);
@@ -35,10 +35,10 @@ class ForgotPasswordController extends Controller
             'route' => $url
         ];
         Mail::send('frontend.email.reset-pass', $data, function($message) use ($email){
-	        $message->to($email, 'Reset Password')->subject('Lấy lại mật khẩu');
+	        $message->to($email, 'Reset Password')->subject('Reset password');
 	    });
 
-        \Toastr::success('Link lấy lại mật khẩu đã được gửi vào email của bạn', 'Thành công', ["positionClass" => "toast-top-right"]);
+        \Toastr::success('Reseting password link is sent to your email. Please check it!', '', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function resetPassword(Request $request)
@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
         ])->first();
         if(!$checkUser)
         {
-            \Toastr::error('Đường dẫn của bạn không chính xác. Vui lòng thử lại', 'Lỗi', ["positionClass" => "toast-top-right"]);
+            \Toastr::error('Link is not invalid. Please try again!', '', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
         return view('auth.passwords.reset');
@@ -72,12 +72,12 @@ class ForgotPasswordController extends Controller
             ])->first();
             if(!$checkUser)
             {
-                \Toastr::error('Đường dẫn của bạn không chính xác. Vui lòng thử lại', 'Lỗi', ["positionClass" => "toast-top-right"]);
+                \Toastr::error('Link is not invalid. Please try again!', '', ["positionClass" => "toast-top-right"]);
                 return redirect()->back();
             }
             $checkUser->password = bcrypt($request->password);
             $checkUser->save();
-            \Toastr::success('Bạn đã đổi lại mật khẩu thành công. Vui lòng đăng nhập', 'Thành công', ["positionClass" => "toast-top-right"]);
+            \Toastr::success('You have reseted your password. Please login again!', '', ["positionClass" => "toast-top-right"]);
             return redirect()->route('get.login');
         }
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -53,17 +53,17 @@ class RegisterController extends Controller
 
     public function postRegister(Request $request){
         //dd($request->all());
-        $user = new User();
+        $user = new Users();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
 
         if($user->id){
-            \Toastr::success('Đăng ký thành công. Mời bạn đăng nhập', 'Thành công', ["positionClass" => "toast-top-right"]);
+            \Toastr::success('Register successfully', '', ["positionClass" => "toast-top-right"]);
             return redirect()->route('get.login');
         }
-        \Toastr::error('Đăng ký thất bại vui lòng thử lại', 'Lỗi', ["positionClass" => "toast-top-right"]);
+        \Toastr::error('Register failed', 'Lỗi', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     protected function validator(array $data)

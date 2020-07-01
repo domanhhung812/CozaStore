@@ -35,13 +35,16 @@ class CartController extends BaseController
 
     public function addCart(Request $request, $id)
     {
-        $product = Products::select('name_product', 'id', 'price','colors_id','sizes_id', 'qty', 'image_product','sale_off')->find($id);
+        $product = Products::select('name_product', 'id', 'price','colors_id','sizes_id', 'qty', 'image_product','sale_off','categories_id')->find($id);
         if(!$product) return redirect('/');
-        if($product->qty == 0){
+        
+        if($product->qty == 0 || $request->qty2 == 0){
             \Toastr::warning('This product is out of stock. Please choose anothers', '', ["positionClass" => "toast-top-right"]);
             return redirect()->back();
         }
-
+        $countStr = strlen($product->categories_id);
+        $idCate2 = substr($product->categories_id,-($countStr-2));
+        $idCate = substr($idCate2,0,($countStr-4));
         Cart::add([
             			'id' => $id,
             			'name' => $product->name_product,
@@ -50,7 +53,8 @@ class CartController extends BaseController
             			'options' => [
                             'images' => json_decode($product->image_product,true)[0],
                             'size' => $request->inlineRadioOptions,
-                            'color' => $request->inlineRadioOptionsColor
+                            'color' => $request->inlineRadioOptionsColor,
+                            'cate' => $idCate,
             			]
                     ]);
         \Toastr::success('Add to cart successfully', '', ["positionClass" => "toast-top-right"]);

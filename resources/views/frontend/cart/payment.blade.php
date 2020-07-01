@@ -149,10 +149,10 @@
 				</h4>
 				<div class="flex-w flex-t bor12 p-t-15 p-b-30" style="display: flex;
 flex-direction: column;">
-						<input type="radio" id="payment1" name="payment" value="COD">
+						<input type="radio" id="payment1" name="payment" value="COD" required>
 						<label for="payment1" style="margin-top: -18px;
 padding-left: 20px;">Cash on delivery (COD)</label>
-						<input type="radio" id="payment2" name="payment" value="Stripe">
+						<input type="radio" id="payment2" name="payment" value="Stripe" required>
 						<label for="payment2" style="margin-top: -18px;
 padding-left: 20px;">Stripe</label>
 				</div>

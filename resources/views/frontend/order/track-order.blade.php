@@ -86,7 +86,6 @@ section .section-title {
 	}
 	.card-price{
 		top: 80%;
-		right: 30%;
 		font-size: 1.5rem;
 	}
 }
@@ -158,12 +157,12 @@ section .section-title {
 										<p class="card-text">Color: {{$color->name_color}}</p>
 										@endif
 										@endforeach
-										<p class="card-text card-price"><small class="text-muted">{{$item->or_price}}$</small></p>
+										<p class="card-text">Price: {{$item->or_price}}$</p>
 									</div>
 								</div>
 								@endforeach
 							</div>
-							<h2 style="float:right; color: red;margin: 50px 0px;">Total: {{$item->tr_total}}$</h2>
+							<h2 class="card-title" style="float:right; color: red;margin: 50px 0px;">Total: {{$item->tr_total}}$</h2>
 							@endif
 							@endforeach
 							@else
@@ -211,7 +210,7 @@ section .section-title {
 										<p class="card-text">Color: {{$color->name_color}}</p>
 										@endif
 										@endforeach
-										<p class="card-text card-price"><small class="text-muted">{{$item->or_price}}$</small></p>
+										<p class="card-text">Price: {{$item->or_price}}$</p>
 									</div>
 								</div>
 								@endforeach
@@ -294,11 +293,11 @@ section .section-title {
 										<p class="card-text">Color: {{$color->name_color}}</p>
 										@endif
 										@endforeach
-										<p class="card-text card-price"><small class="text-muted">{{$item->or_price}}$</small></p>
+										<p class="card-text">Price: {{$item->or_price}}$</p>
 									</div>
 								</div>
 								@endforeach
-								<h2 style="float:right; color: red;margin: 50px 0px;">Total: {{$item->tr_total}}$</h2>
+								<h2 class="card-title" style="float:right; color: red;margin: 50px 0px;">Total: {{$item->tr_total}}$</h2>
 							</div>
 							@endif
 							@endforeach

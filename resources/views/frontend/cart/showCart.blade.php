@@ -12,6 +12,14 @@
 	border: 1px solid #b2a47f;
 	text-align: center;
 }
+._38f5r7 {
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 12.5rem;
+  height: 11.1875rem;
+  background-image: url('{{asset('/upload/images/empty-cart.png')}}');
+}
 @media only screen and (max-width: 1024px){
   .count{
 		width:50%;
@@ -29,10 +37,13 @@
 		);
 	}
 </script>
-<div class="container-fluid">
+<div class="container-fluid px-0">
 	<div class="row m-lr-0" style="margin-top:100px;width:100%;">
 		<div class="col-lg-12 col-xl-12 m-lr-auto">
 			<div class="m-lr-0-xl">
+			@if(json_decode($products) === [])
+				<div class="CzsW3c _1wkChM"><div class="_38f5r7"></div><div class="UM4yVY">Your cart is empty</div><a class="_1Fz64J" href="/"><button class="btn btn-primary" style="background-color: #ff9f1a;border-color: #ff9f1a;"><span class="_3KnH_F">BUY NOW</span></button></a></div>
+			@else
 				<div class="wrap-table-shopping-cart">
 					<table class="table m-b-0">
 						<tbody><tr class="">
@@ -65,7 +76,11 @@
 									$arrSz = json_decode($sizes)
 								?>
 								@foreach( $arrSz as $size)
-									@if($size->id == $product->options->size)
+									@if($size->id == $product->options->size && $product->options->cate == 5)
+										{{ $size->number_size }}
+									@elseif($size->id == $product->options->size && $product->options->cate == 3)
+										{{ $size->letter_size }}
+									@elseif($size->id == $product->options->size && $product->options->cate == 1)
 										{{ $size->letter_size }}
 									@endif
 								@endforeach
@@ -115,6 +130,7 @@
 				</div>
 				@endif
 			</div>
+			@endif
 		</div>
 	</div>
 </div>

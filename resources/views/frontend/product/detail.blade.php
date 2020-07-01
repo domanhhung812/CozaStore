@@ -2,6 +2,13 @@
 @section('title','My product details')
 @section('content')
 <style>
+.colors{
+	max-height: 90px;
+}
+.size-items{
+	display: flex;
+	flex-wrap: wrap;
+}
 .section-slide{
 	display:none !important;
 }
@@ -46,7 +53,7 @@
 .image-product{
 	height:333px;
 	border-radius:15px;
-	width:250px;
+	width:100%;
 }
 .sec-product-detail{
 	margin-top: 100px;
@@ -109,6 +116,45 @@
 	display: flex;
 	flex-direction: column;
 }
+.radbox {
+  position: relative;
+  cursor: pointer;
+  border: none;
+  outline :none;
+
+}
+
+.radbox input[type='radio'] {
+  display:none;
+}
+
+.radbox .rad-text {
+  content: '';
+  display: inline-flex;
+  width: 100px;
+  margin-right: 5px;
+  height: 40px;
+  background-color : fff;
+  border: 2px solid #f2f2f2;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid #666666;
+}
+
+input[type="radio"]:checked + .rad-text
+{
+  content: '';
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  background-color: #ff9f1a;
+}
+
+
 @media only screen and (max-width: 568px){
   .respon6 {
     width: 25px;
@@ -284,31 +330,6 @@ img {
 .product-title {
   margin-top: 0; }
 
-.sizes{
-  margin-right: 10px; 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  }
-.size:first-of-type {
-    margin-left: 40px; 
-}
-.size{
-	position: relative;
-	top: -1.2rem;
-}
-.color {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-  height: 2em;
-  width: 10em;
-  border-radius: 2px;
-  position: relative;
-  top: -0.8rem; }
-  .color:first-of-type {
-    margin-left: 30px; }
-
 .add-to-cart, .like {
   background: #ff9f1a;
   padding: 1.2em 1.5em;
@@ -379,9 +400,9 @@ img {
 								</div>
 								<div class="details col-md-6">
 									<h3 class="product-title">{{ $info[0]['name_product'] }}</h3>
-									<div class="rating">
+									<!-- <div class="rating">
 										<span class="review-no">{{$info[0]['view_product']}} views</span>
-									</div>
+									</div> -->
 									
 									@if($info[0]['sale_off'])
 										<div class="flex items-center">
@@ -397,37 +418,47 @@ img {
 									@else
 										<h4 class="price"><span style="font-size: 1.875rem !important;">{{ number_format($info[0]['price']) }}$</span></h4>
 									@endif
-									<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-									<h5 class="sizes">sizes:
-										
-										@foreach($sizes as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
-											<input class="" type="radio" name="inlineRadioOptions" id="size_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
-											<span class="size" data-toggle="tooltip" title="{{ $item['letter_size'] }}" style="font-size: 14px;">{{ $item['letter_size'] }} ({{$item['number_size']}})</span>
-										</label>
-										@endforeach
-									</h5>
-									<h5 class="colors">colors:
+									<!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
+									<div class="colors">colors:
+										<div>
 										@foreach($colors as $key => $item)
-											<label class="form-check" style="padding-top: 10px;">
-												<input class= "px-10" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" required>
-												<span class="color" style="padding-left: 10px;font-size: 14px;"
+											<label class="form-check radbox" style="padding-top: 10px;">
+												<input class= "color-rd" type="radio" name="inlineRadioOptionsColor" id="color_{{ $item['id'] }}" value="{{ $item['id'] }}" class="checked-button" required>
+												<span class="color rad-text" style="font-size: 12px;"
 												>{{ $item['name_color'] }}</span>
 											</label>
 										@endforeach
-									</h5>
+										</div>
+									</div>
+									<div class="sizes">sizes:
+										<div class="size-items">
+											@foreach($sizes as $key => $item)
+											<label class="form-check radbox" style="">
+												<input class="size-rd" type="radio" name="inlineRadioOptions" id="size_{{ $item->id }}" value="{{ $item->id }}" required>
+												@if($idCate == 5)
+												<span class="size rad-text" data-toggle="tooltip" title="" style="font-size: 12px;">{{$item->number_size}}</span>
+												@else
+												<span class="size rad-text" data-toggle="tooltip" title="" style="font-size: 12px;">{{$item->letter_size}}</span>
+												@endif
+												<input id="amount_in_stock_{{ $item->id }}" type="number" value="{{$item->pd_qty}}" hidden>
+											</label>
+											@endforeach
+										</div>
+									</div>
+									
 									<div class="flex-w p-b-10">
 										<div class="size-204 flex-w flex-m respon6-next quantity">
 											<div class="wrap-num-product flex-w m-r-20 m-tb-10">
 												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num_product" value="1" style="width:100%" min="1">
 											</div>
 											<div class="my-10">
-												<p>(Left in stock: {{ $info[0]['qty'] }}.)</p>
+												<p>(Left in stock: <span id="qty" value="">{{ $info[0]['qty'] }}</span>)</p>
+												<input name="qty2" id="qty2" type="number" value="" hidden>
 											</div>
 										</div>
 									</div>
 									<div class="action">
-										<button class="add-to-cart btn btn-default" type="submit">add to cart</button>
+										<button class="add-to-cart btn btn-default" type="submit" id="btn-add-cart">add to cart</button>
 										<a class="like btn btn-default js-add-favorite" href="{{ route('fr.postAddFavorite', ['id' => $info[0]['id']]) }}"><span class="fa fa-heart"></span></a>
 									</div>
 								</div>
@@ -470,7 +501,12 @@ img {
 										<div class="flex-w flex-t p-b-68 py-0 comments">
 											<div class="size-207" style="">
 												<span>
-													<img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		">
+													<!-- <img src="{{ asset('frontend/images/icons/user-image.png') }}" alt="" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		"> -->
+													@if($comment->user_image)
+														<img src="{{ URL::to('/') }}/upload/images/{{ $comment->user_image }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
+													@else
+														<img src="{{ asset('frontend/images/icons/user-image.png') }}" style="width: 60px; transform:translateY(105%); margin-left: -70px;border-radius:50%;		" alt="">
+													@endif
 													<div class="flex-w flex-sb-m p-b-17">
 														<span class="mtext-107 cl2 p-r-20" style="color:#385898; font-family: Arial;">
 															{{ $comment->co_name }}
@@ -566,63 +602,53 @@ img {
 					</h3>
 			</div>
 		<!-- Slide2 -->
-        <div class="swiper-container">
+        <div class="swiper-container related-products">
 				<div class="swiper-wrapper">
 					
 					@foreach($relativeProducts as $item)
 					
 					<?php $link = json_decode($item->image_product)[0] ?>
-					@if($item->id == $info[0]['id'])
-					<div class="swiper-slide" style="display:none;">
+					<div class="swiper-slide" style="" data-id="{{$item->id}}" id="swiper-slide__{{$item->id}}">
 						<div class="">
+						@if($item->sale_off)
 							<span>
-								<img src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT" styLe="height:333px;" class="image-product">	
+								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
+								<div class="_2N1Tif"><div class="coza-badge coza-badge--fixed-width coza-badge--promotion"><div class="coza-badge--promotion__label-wrapper coza-badge--promotion__label-wrapper--vi"><span class="percent">{{$item->sale_off}}%</span><span class="coza-badge--promotion__label-wrapper__off-label coza-badge--promotion__label-wrapper__off-label--vi">sale</span></div></div></div>
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
 										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
 										{{$item->name_product}}
 										</a>
-										<span class="stext-105 cl3">
-										{{$item->price}}$
+										<span class="stext-105 cl3 sale_price">
+											<strike>{{$item->price}}$</strike>&nbsp;&nbsp;<p style="color: red;">{{$item->price - $item->price * $item->sale_off/100}}$</p>
+										
 										</span>
 									</div>
-									<!-- <div class="block2-txt-child2 flex-r p-t-3 heart" style="position: absolute;right: 100px;bottom: 25px;">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
-										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
-										</a>
-									</div> -->
 								</div>
 							</span>
-						</div>
-					</div>
-					@else
-					<div class="swiper-slide" style="">
-						<div class="">
+							@else
 							<span>
-								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">	
+								<img class="image-product" src="{{ URL::to('/') }}/upload/images/{{ $link }}" alt="IMG-PRODUCT">
 								<div class="inline-text">
 									<div class="block2-txt-child1 flex-col-l ">
 										<a href="{{ route('fr.detailPd',['slug' => $item->pro_slug, 'id' => $item->id]) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" tabindex="0">
 										{{$item->name_product}}
 										</a>
-										<span class="stext-105 cl3">
-										{{$item->price}}$
+										<span class="stext-105 cl3 sale_price">
+											{{$item->price}}$
 										</span>
 									</div>
-									<!-- <div class="block2-txt-child2 flex-r p-t-3" style="position: absolute;right: 120px;bottom: 25px;">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" tabindex="0">
-										<img class="icon-heart1 dis-block trans-04" src="{{ asset('frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{ asset('frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
-										</a>
-									</div> -->
 								</div>
 							</span>
+							@endif
 						</div>
 					</div>
-					@endif
 					@endforeach
 				</div>
+				<div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
 			</div>
     </div>
 </section>
@@ -637,6 +663,8 @@ img {
 			4 : 'Very good',
 			5 : 'Awesome',
 		};
+
+		
 		//console.log($this.attr('data-key'));
 		$('.star-icon').mouseover(function(){
 			let $this = $(this);
@@ -648,14 +676,32 @@ img {
 				let id = $this.attr('data-key');
 				$('.dis-none').attr('value',id);
 		});
-		var swiper = new Swiper('.swiper-container', {
-			slidesPerView: 3,
-			spaceBetween: 30,
-			freeMode: true,
-			pagination: {
-				el: '.swiper-pagination',
-				clickable: true,
+		var swiper = new Swiper('.related-products', {
+		slidesPerView: 1,
+		spaceBetween: 10,
+		// init: false,
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+		breakpoints: {
+			640: {
+			slidesPerView: 1,
+			spaceBetween: 10,
 			},
+			768: {
+			slidesPerView: 3,
+			spaceBetween: 10,
+			},
+			1024: {
+			slidesPerView: 4,
+			spaceBetween: 10,
+			},
+			1366: {
+			slidesPerView: 5,
+			spaceBetween: 10,
+			},
+      },
 		});
 		$('.js-add-favorite').click(function(e){
 			let $this = $(this);
@@ -682,6 +728,32 @@ img {
 				})
 			}
 		});
+
+
+
+		//  action change the number remain of product
+		let data = {};
+		$('.size-rd, .color-rd').on('change',function(){
+			if($(this).is(':checked')){
+				const thisClass = $(this).attr('class');
+				if(thisClass.indexOf('size') > -1){
+					data.size = $('#amount_in_stock_'+ $(this).val()).val();
+					$('#qty2').attr('value',$('#amount_in_stock_'+ $(this).val()).val());
+				}else{
+					data.color = $(this).val();
+				}
+			}
+
+			if(Object.keys(data).length === 2){
+				$('#qty').html(data.size);
+			}	
+		});
+
+		//remove swiper-slide__id
+		let url = window.location.pathname;
+		let id = url.substring(url.lastIndexOf('/') + 1);
+		$('#swiper-slide__'+id).remove();
+		
 	});
 </script>
 @endpush

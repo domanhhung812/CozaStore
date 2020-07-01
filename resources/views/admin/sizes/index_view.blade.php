@@ -44,7 +44,7 @@
 							<a href="{{ route('admin.editSizes',['id'=> $item['id']]) }}" class="btn btn-info">Edit</a>
 						</td>
 						<td>
-							<button class="btn btn-danger btnDelete" id="{{ $item['id'] }}">Delete</button>
+							<button class="btn btn-danger btnDelete" id="{{ $item['id'] }}" disabled>Delete</button>
 						</td>
 					</tr>
 				@endforeach
@@ -73,6 +73,7 @@
 						success: function(result){
 							self.text('Delete');
 							result = $.trim(result);
+							console.log(result);
 							if(result === 'OK'){
 								alert('Delete successful');
 								window.location.reload(true);

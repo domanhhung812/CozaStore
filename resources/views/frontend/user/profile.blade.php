@@ -8,7 +8,7 @@
 .sec-banner{
 	display:none !important;
 }
-#section-favorite{
+#section-profile{
 	margin-top: 100px;
 }
 .btn-file {
@@ -48,8 +48,13 @@
     background-repeat: no-repeat;
     cursor: pointer;
 }
+@media only screen and (max-width: 1024px){
+    #section-profile{
+	margin-top: 0px;
+    }
+}
 </style>
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" id="section-favorite"style="background-image: url('{{asset('frontend/images/bg-02.jpg')}}');">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" id="section-profile"style="background-image: url('{{asset('frontend/images/bg-02.jpg')}}');">
 	<h2 class="ltext-105 cl0 txt-center">
 		My profile
 	</h2>
@@ -57,7 +62,7 @@
 <?php $item = json_decode($data)[0] ?>
 <div class="row justify-content-center mx-0">
     <div class="col-lg-8 col-md-10 col-sm-10-col-xs-10">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('fr.postUserProfile') }}" method="POST" enctype="multipart/form-data">
     @csrf
         <div class="card">
         <div class="card-body">
@@ -79,13 +84,13 @@
                         <button class="btn btn-primary upload-button" type="button">
                             <i class="fa fa-fw fa-camera"></i>
                             <span class="btn btn-file">
-                                Change photo <input type="file" class="file-upload" name="user_image">
+                                Change photo <input type="file" class="file-upload" name="user_image" required>
                             </span>
                         </button>
                     </div>
                 </div>
                 <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary">administrator</span>
+                    <span class="badge badge-secondary">#customer</span>
                     <div class="text-muted"><small>Joined {{ $item->created_at }}</small></div>
                 </div>
                 </div>
@@ -132,34 +137,6 @@
                         </div>
                     </div>
                     </div>
-                    <!-- <div class="row">
-                    <div class="col">
-                        <div class="mb-2"><b>Change Password</b></div>
-                        <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                            <label>Current Password</label>
-                            <input class="form-control" type="password" placeholder="••••••" name="password">
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                            <label>New Password</label>
-                            <input class="form-control" type="password" placeholder="••••••" name="-password">
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                            <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                            <input class="form-control" type="password" placeholder="••••••"></div>
-                        </div>
-                        </div>
-                    </div>
-                    </div> -->
                     <div class="row">
                     <div class="col d-flex justify-content-end">
                         <button class="btn btn-primary" type="submit">Save Changes</button>
